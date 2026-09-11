@@ -75,12 +75,39 @@
     'powder-green': 'bg-powder-green.jpg'
   };
 
+  // Один пересчёт движка на кадр, сколько бы фактур ни появилось.
+  var пересчётЗапрошен = false;
+  function обновитьДвижок() {
+    if (пересчётЗапрошен) return;
+    пересчётЗапрошен = true;
+    requestAnimationFrame(function () {
+      пересчётЗапрошен = false;
+      if (window.HairIDMotion && window.HairIDMotion.refresh) window.HairIDMotion.refresh();
+    });
+  }
+
   function initTextures() {
+    // Фактуры создаются НЕ разом при загрузке, а по мере подхода раздела
+    // к экрану. Замер на главной (1440×900, 15 фактур): при создании всех
+    // сразу средний кадр при прокрутке был 56 мс — это 18 кадров в секунду
+    // вместо 60, и прокрутка ощутимо дёргалась. Причина не в параллаксе
+    // (его снятие давало 2 мс), а в самих картинках: пятнадцать снимков
+    // во весь экран декодируются и держатся в памяти одновременно.
+    var ждущие = [];
+
     document.querySelectorAll('[data-tex]').forEach(function (section) {
       var key = section.getAttribute('data-tex');
-      var file = FILES[key];
-      if (!file) return;
+      if (!FILES[key]) return;
+      ждущие.push(section);
+    });
 
+    if (!ждущие.length) return;
+
+    var создать = function (section) {
+      if (section.querySelector(':scope > .tex')) return;
+
+      var key = section.getAttribute('data-tex');
+      var file = FILES[key];
       var size = SIZES[key] || [1400, 933];
 
       var layer = document.createElement('div');
@@ -88,7 +115,17 @@
       layer.setAttribute('aria-hidden', 'true');
 
       var img = document.createElement('img');
-      img.src = ПАПКА_ФАКТУР + file;
+      // Ширина копии выбирается по фактическому размеру раздела, а не по
+      // «телефон или нет»: фактура лежит под текстом с прозрачностью 0,34,
+      // и на ней растяжение узкой копии не читается, а вес отличается вдвое.
+      // Узкая копия (700 px) берётся почти всегда, а не только на телефоне.
+      // Фактура лежит под текстом с прозрачностью 0,34 и ещё под вуалью —
+      // растяжение вдвое на ней не читается, а декодировать вдвое меньше.
+      // На широком экране (больше 1600 px) берём полную: там разница
+      // уже может стать заметной на однотонных участках.
+      var ширина = section.getBoundingClientRect().width || window.innerWidth;
+      var узкий = ширина <= 1600;
+      img.src = ПАПКА_ФАКТУР + (узкий ? file.replace(/\.jpg$/, '-700.jpg') : file);
       img.alt = '';
       img.loading = 'lazy';
       img.decoding = 'async';
@@ -113,7 +150,31 @@
       layer.appendChild(img);
       layer.appendChild(veil);
       section.insertBefore(layer, section.firstChild);
-    });
+
+      // Вставленный слой меняет раскладку, поэтому движку надо пересчитать
+      // места элементов. Но звать полный пересчёт на каждую фактуру нельзя:
+      // на главной их пятнадцать, и они появляются пачкой при подходе
+      // к секции — получалось пятнадцать полных пересчётов подряд,
+      // каждый с обходом всех параллаксов, залипаний и логотипа.
+      // Копим вызовы и делаем один на ближайшем кадре.
+      обновитьДвижок();
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      // Старый браузер: делаем как раньше, всё сразу. Лучше медленно, чем никак.
+      ждущие.forEach(создать);
+      return;
+    }
+
+    var наблюдатель = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        наблюдатель.unobserve(e.target);
+        создать(e.target);
+      });
+    }, { rootMargin: '400px 0px' });
+
+    ждущие.forEach(function (s) { наблюдатель.observe(s); });
   }
 
   // ---------------------------------------------------------------------------
