@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Каталог ухода за волосами — Hair ID Shop</title>
+<meta name="description" content="36 средств для волос от мастера Hair ID: шампуни, маски, масла, сыворотки, термозащита. Подбор по задаче волос, а не по бренду. СПб и Ленобласть.">
+<meta name="keywords" content="маска для волос, шампунь после кератина, термозащита, уход за кожей головы, масло для волос, купить уход для волос">
+<meta name="format-detection" content="telephone=no">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Каталог ухода за волосами — Hair ID Shop">
+<meta property="og:description" content="36 средств для волос от мастера Hair ID: шампуни, маски, масла, сыворотки, термозащита. Подбор по задаче волос, а не по бренду. СПб и Ленобласть.">
+<meta property="og:image" content="https://nickpolo-cmd.github.io/hair-id/assets/logo/hair-id-badge-ru.jpg">
+<meta property="og:url" content="https://nickpolo-cmd.github.io/hair-id/shop/katalog.html">
+<meta property="og:site_name" content="Hair ID Shop">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://nickpolo-cmd.github.io/hair-id/shop/katalog.html">
+
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/logo/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/logo/apple-touch-icon-180.png">
+
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('has-motion');
+  window.setTimeout(function () {
+    if (!root.classList.contains('motion-ready')) root.classList.remove('has-motion');
+  }, 3000);
+})();
+</script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/motion.css">
+<link rel="stylesheet" href="css/shop.css">
+<link rel="stylesheet" href="css/texture.css">
+<link rel="stylesheet" href="css/shape.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<div class="page-veil" aria-hidden="true"></div>
+<div class="scroll-progress-bar" aria-hidden="true"></div>
+
+<a href="#main" class="skip-link">Перейти к содержанию</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+
+    <a href="index.html" class="header-logo" data-logo-header aria-label="Hair ID Shop, на главную">
+      <img width="320" height="232" src="../assets/logo/hair-id-monogram.png" alt="Hair ID Shop">
+      <span class="header-logo__sub">Shop</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Основная навигация">
+      <ul data-fade-siblings>
+        <li><a href="index.html" class="link-underline">Главная</a></li>
+        <li><a href="katalog.html" class="link-underline" aria-current="page">Каталог</a></li>
+        <li><a href="nabory.html" class="link-underline">Наборы</a></li>
+        <li><a href="kak-vybrat.html" class="link-underline">Как подбираю</a></li>
+        <li><a href="o-mastere.html" class="link-underline">Кто собирает</a></li>
+        <li><a href="https://nickpolo-cmd.github.io/hair-id/" class="link-underline" data-studio-link>Студия</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-contact">
+      <a href="tel:+79944269944" class="header-phone">8 994 426-99-44</a>
+      <button type="button" class="cart-toggle" id="cart-toggle">
+        Заказ <span class="cart-toggle__count" id="cart-count">0</span>
+      </button>
+    </div>
+
+    <button class="burger" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+
+  </div>
+</header>
+
+<main class="page-main" id="main">
+<div id="top"></div>
+
+  <section class="page-hero" data-theme="dark" data-tex="hair-dark" data-tex-strong data-powder data-sparkle>
+    <div class="container page-hero__inner">
+      <p class="t-eyebrow" data-reveal="fade">Каталог</p>
+      <h1 data-split="words" data-reveal="fade">Уход домой: начните с задачи</h1>
+      <p class="t-lead" data-reveal="up">Люди редко знают, какой именно шампунь или маска им нужны. Зато точно знают, что корни жирнятся за день, а концы сухие. Начните отсюда.</p>
+    </div>
+  </section>
+
+  <section class="section catalog" id="catalog">
+    <div class="container">
+      <h2 class="sr-only">Каталог средств</h2>
+      <div class="task-chips" id="shop-tasks" data-reveal="up"></div>
+      <p class="catalog__count" role="status"><span id="shop-count"></span></p>
+      <!-- Карточки собраны из js/products.data.js: без них в исходнике страницы
+           не было ни одного названия товара — поисковику и читалке видеть нечего.
+           js/catalog.js при загрузке перезаписывает содержимое #shop-grid теми же
+           товарами, поэтому дублей на экране не появляется.
+           Пересобирать вместе с products.data.js. -->
+      <div class="shop-grid" id="shop-grid" data-reveal-group>
+        <article class="product" id="t001" data-product="t001" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t001.webp" alt="Коктейль масел: жожоба и макадамия" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Коктейль масел: жожоба и макадамия</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, масло</p>
+            <p class="product__for"><b>Кому:</b> Неповторимый и дорогой аромат</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Идеален для секущихся кончиков. Защищает от ультрафиолета. Придаёт блеск.</p>
+              <p><b>Как пользоваться.</b> Две-три капли на сухие или влажные концы, распределить руками. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>45 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t002" data-product="t002" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t002.webp" alt="Гель-шампунь для глубокой очистки кожи головы" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Гель-шампунь для глубокой очистки кожи головы</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, шампунь</p>
+            <p class="product__for"><b>Кому:</b> Тщательно очищает кожу головы, проникая глубоко в луковицы</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Избавляет от перхоти и зуда. Стимулирует рост волос. Нормализует деятельность сальных желез.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>318 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t003" data-product="t003" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t003.webp" alt="Масло-стайлинг для прикорневого объёма" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Масло-стайлинг для прикорневого объёма</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, стайлинг</p>
+            <p class="product__for"><b>Кому:</b> Ухаживает за секущимися кончиками</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Восстанавливает поврежденные кончики. Защищает при горячей укладке. Придает блеск и легкий прикорневой объём.</p>
+              <p><b>Как пользоваться.</b> Распылить у корней на влажные волосы, уложить феном.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>100 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t004" data-product="t004" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t004.webp" alt="Кератиновая маска Golden Series с аминокислотами и камелией" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Кератиновая маска Golden Series с аминокислотами и камелией</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, маска</p>
+            <p class="product__for"><b>Кому:</b> Повышает эластичность и упругость волос</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Химического — профессиональная кератиновая маска для восстановления повреждённых и пористых волос, потерявших эластичность, плотность и блеск после окрашивания или химического воздействия. Формула работает мягко и дозировано, укрепляя структуру волос и улучшая их внешний вид без эффекта жёсткости и утяжеления при правильном применении Эффект маски: Как работает формула? Маска сочетает несколько уровней ухода: способствуют удержанию влаги в поверхностных слоях волоса, уменьшая сухость Способы применения Для окрашенных волос: окрашенные (в один тон, без осветления) сухие, пористые натуральные, но повреждённые (высокие температуры, УФ-излучение) средняя и высокая плотность волоса Важно: Для осветлённых волос (блонд): в домашнем уходе используйте маску строго дозировано — короткая выдержка (3-5 минут), без тепла и не при каждом мытье Интенсивные реконструкции выполняются только в профессиональных условиях по протоколу! Как использовать: Наносить тольĸо по длине, в небольшом количестве. снижает ломкость и сухость. выравнивает поверхность волос по длине. придаёт ухоженный вид и блеск.</p>
+              <p><b>Как пользоваться.</b> На чистые влажные волосы по длине, отступив от корней. Выдержка 3–5 минут, затем смыть тёплой водой.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>480 г</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t005" data-product="t005" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t005.webp" alt="Крем-шампунь с кератином и маслом жожоба для чувствительной кожи головы" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Крем-шампунь с кератином и маслом жожоба для чувствительной кожи головы</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, шампунь</p>
+            <p class="product__for"><b>Кому:</b> Мягко и тщательно промывает волосы</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>­— Придает блеск. Устраняет зуд и перхоть. Подходит для окрашенных волос. Делает волосы послушными и упругими.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>318 / 518 / 738 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t006" data-product="t006" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t006.webp" alt="Концентрированный крем-шампунь с экстрактом имбиря" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Концентрированный крем-шампунь с экстрактом имбиря</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, шампунь</p>
+            <p class="product__for"><b>Кому:</b> Стимулирует рост волос</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Придает упругость и блеск. Идеален для кудрявых волос. Восстанавливает пористые волосы.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>318 / 518 / 738 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t007" data-product="t007" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t007.webp" alt="Крем-шампунь с маслом чайного дерева для жирных корней" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Крем-шампунь с маслом чайного дерева для жирных корней</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, шампунь</p>
+            <p class="product__for"><b>Кому:</b> Нормализует деятельность сальных желез</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Не пересушивает кончики. Тщательно очищает кожу головы. Защищает при горячей укладке.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>318 / 518 / 738 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t008" data-product="t008" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t008.webp" alt="Шампунь с маслом ши и кератином для сухих и окрашенных волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шампунь с маслом ши и кератином для сухих и окрашенных волос</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, шампунь</p>
+            <p class="product__for"><b>Кому:</b> Восстанавливает сильно поврежденные волосы</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Заполняет пористую структуру. Защищает при горячей укладке. Разглаживает кератиновые чешуйки.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>318 / 518 / 738 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t009" data-product="t009" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t009.webp" alt="Шампунь с экстрактом ментола для нормальных волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шампунь с экстрактом ментола для нормальных волос</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, шампунь</p>
+            <p class="product__for"><b>Кому:</b> Бережно и тщательно очищает волосы и кожу головы</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Стимулирует рост волос. Придает блеск. Охлаждающий эффект способствует снятию головного напряжения после трудового дня.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>318 / 518 / 738 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t010" data-product="t010" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t010.webp" alt="Питательный кондиционер с коллагеном и экстрактом зародышей риса" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Питательный кондиционер с коллагеном и экстрактом зародышей риса</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, кондиционер</p>
+            <p class="product__for"><b>Кому:</b> Питает без утяжеления</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Обладает мощным кондиционирующим эффектом. Создаёт на поверхности волоса защитную плёнку, что способствует предохранению волос при укладке и от действий ультрафиолета. Рекомендован к использованию после ботокса и кератина и других уходовых процедур.</p>
+              <p><b>Как пользоваться.</b> После шампуня отжать воду, нанести по длине, отступив от корней. Оставить на 1–2 минуты, смыть.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>318 / 518 / 738 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t011" data-product="t011" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t011.webp" alt="Несмываемая увлажняющая маска с коллагеном и маслом макадамии" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Несмываемая увлажняющая маска с коллагеном и маслом макадамии</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, маска</p>
+            <p class="product__for"><b>Кому:</b> Интенсивно увлажняет волосы за счет присутствия таких компонентов как гиалуроновая кислота, гидролизованный коллаген и глицерин</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Эффективно питает волосы благодаря маслу семян макадамии трёхлистной. Восстанавливает повреждённые волосы от корней до кончиков. Несмываемая формула делает уход за волосами легким и удобным.</p>
+              <p><b>Как пользоваться.</b> На чистые влажные волосы по длине, отступив от корней. Выдержка 3–5 минут, затем смыть тёплой водой.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>250 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t012" data-product="t012" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t012.webp" alt="Шёлковый формирующий крем для кудрявых волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шёлковый формирующий крем для кудрявых волос</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, несмываемый уход</p>
+            <p class="product__for"><b>Кому:</b> Превращает сухие, ломкие и непослушные волосы в мягкие, гладкие и четко очерчённые локоны</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Придаёт волосам естественный объём, текстуру и блеск. Гидролизованный шёлк, благодаря способности проникать в глубокие слои, улучшает структуру волоса как снаружи, так и изнутри. Глицерин в составе крема увлажняет волосы и, благодаря гигроскопическим свойствам, удерживает влагу.</p>
+              <p><b>Как пользоваться.</b> Небольшое количество на влажные волосы по длине. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>280 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t013" data-product="t013" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t013.webp" alt="Реконструирующий шампунь с маслом арганы" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Реконструирующий шампунь с маслом арганы</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, шампунь</p>
+            <p class="product__for"><b>Кому:</b> Аргановое масло способствует наполнению волос влагой, дарит им плотность без утяжеления</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>1 500 р. 318 мл 518 мл 738 мл. Восстанавливает эластичность волос. Уменьшает зуд кожи головы. Благодаря мягкой кремовой моющей основе бережно очищает кожу головы и волосы.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">1 500 ₽<i>318 / 518 / 738 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t015" data-product="t015" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t015.webp" alt="Реконструирующий кондиционер с маслом арганы" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Реконструирующий кондиционер с маслом арганы</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, кондиционер</p>
+            <p class="product__for"><b>Кому:</b> Масло Арганы в сочетании с экстрактом коры Магнолии обеспечивают глубокое питание волос</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Восстанавливает волосы после химической завивки. Делает волосы мягкими и блестящими после процедуры окрашивания. Обеспечивает защиту и стойкость цвета.</p>
+              <p><b>Как пользоваться.</b> После шампуня отжать воду, нанести по длине, отступив от корней. Оставить на 1–2 минуты, смыть.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>318 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t016" data-product="t016" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t016.webp" alt="Кондиционер-маска с экстрактом авокадо для сильно повреждённых волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Кондиционер-маска с экстрактом авокадо для сильно повреждённых волос</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, кондиционер</p>
+            <p class="product__for"><b>Кому:</b> Благодаря уникальной форме проникает глубоко в кутикулу волоса</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Питает, увлажняет и восстанавливает поврежденные волосы. Имеет накопительный эффект. Защищает при горячей укладке и от ультрафиолета.</p>
+              <p><b>Как пользоваться.</b> После шампуня отжать воду, нанести по длине, отступив от корней. Оставить на 1–2 минуты, смыть.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>518 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t017" data-product="t017" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t017.webp" alt="Восстанавливающая протеиновая маска с пантенолом" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Восстанавливающая протеиновая маска с пантенолом</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, маска</p>
+            <p class="product__for"><b>Кому:</b> Восстанавливает окрашенные, поврежденные волосы</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Разглаживает кератиновые чешуйки. Обладает мощным кондиционирующим эффектом. Идеально подходит для вьющихся волос.</p>
+              <p><b>Как пользоваться.</b> На чистые влажные волосы по длине, отступив от корней. Выдержка 3–5 минут, затем смыть тёплой водой.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>500 / 1000 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t018" data-product="t018" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t018.webp" alt="Шёлковая SPA-маска с маслом семян жожоба" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шёлковая SPA-маска с маслом семян жожоба</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, маска</p>
+            <p class="product__for"><b>Кому:</b> Делает волосы блестящими, послушными, объёмными благодаря входящим в состав гидролизованным протеинам шёлка, образующим легкую пленку</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Проникает в кортекс волоса, возвращая естественное здоровое состояние и устраняя пористость. Увлажняет поврежденные и окрашенные волосы, не утяжеляя их за счет высокого содержания витамина Е. Питает витаминами и аминокислотами, придает антистатический эффект под действием масла жожоба, содержащего Омегу-9, коллаген и восковые эфиры.</p>
+              <p><b>Как пользоваться.</b> На чистые влажные волосы по длине, отступив от корней. Выдержка 3–5 минут, затем смыть тёплой водой.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>500 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t019" data-product="t019" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t019.webp" alt="Восстанавливающая сыворотка-спрей для выпрямления волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Восстанавливающая сыворотка-спрей для выпрямления волос</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, сыворотка</p>
+            <p class="product__for"><b>Кому:</b> Мгновенно разглаживает «непослушные» кудрявые локоны</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Масло семян моркови способствует более эффективному выпрямлению волос, предотвращает повреждение от солнечных лучей. Экстракт листьев алоэ вера делает волосы послушными и эластичными. Экстракт семян грейпфрута, содержащий витамины A, E, реставрирует поврежденные и пористые волосы.</p>
+              <p><b>Как пользоваться.</b> Распылить на подсушенные полотенцем волосы перед укладкой. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>150 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t020" data-product="t020" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t020.webp" alt="Масло макадамии для волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Масло макадамии для волос</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, масло</p>
+            <p class="product__for"><b>Кому:</b> Ухаживает за секущимися кончиками</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Восстанавливает поврежденные волосы. Утолщает и укрепляет структуру волос изнутри. Не жирнит и не утяжеляет волосы.</p>
+              <p><b>Как пользоваться.</b> Две-три капли на сухие или влажные концы, распределить руками. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>60 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t021" data-product="t021" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t021.webp" alt="Концентрированная разглаживающая сыворотка-спрей" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Концентрированная разглаживающая сыворотка-спрей</h3>
+            <p class="product__subtitle">MOCHEQI MUSK, сыворотка</p>
+            <p class="product__for"><b>Кому:</b> Защищает при горячей укладке и от ультрафиолета</p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Проникает глубоко в кутикулу волоса, питая и увлажняя изнутри. Эффективно разглаживает волос. Сохраняет укладку в течение 24 часов.</p>
+              <p><b>Как пользоваться.</b> Распылить на подсушенные полотенцем волосы перед укладкой. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>150 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t023" data-product="t023" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t023.webp" alt="Шампунь Volume Boost с биотином и коллагеном" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шампунь Volume Boost с биотином и коллагеном</h3>
+            <p class="product__subtitle">CHINCHY, шампунь</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>ОПИСАНИЕ ПРОДУКТА: Мягкая формула для очищения и придания плотности и мягкости, которая восстанавливает здоровье волос с помощью биотина, гидролизованного рисового белка, коллагена и витаминов. Придает силу и блеск.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>430 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t024" data-product="t024" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t024.webp" alt="Кондиционер Volume Boost с биотином и коллагеном" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Кондиционер Volume Boost с биотином и коллагеном</h3>
+            <p class="product__subtitle">CHINCHY, кондиционер</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Мягкая формула для очищения и придания плотности и мягкости, которая восстанавливает здоровье волос с помощью биотина, гидролизованного рисового белка, коллагена и витаминов. Придает силу и блеск.</p>
+              <p><b>Как пользоваться.</b> После шампуня отжать воду, нанести по длине, отступив от корней. Оставить на 1–2 минуты, смыть.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>430 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t025" data-product="t025" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t025.webp" alt="Маска Volume Boost с биотином и коллагеном" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Маска Volume Boost с биотином и коллагеном</h3>
+            <p class="product__subtitle">CHINCHY, маска</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Мягкая формула для очищения и придания плотности и мягкости, которая восстанавливает здоровье волос с помощью биотина, гидролизованного рисового белка, коллагена и витаминов. Придает силу и блеск.</p>
+              <p><b>Как пользоваться.</b> На чистые влажные волосы по длине, отступив от корней. Выдержка 3–5 минут, затем смыть тёплой водой.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>250 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t026" data-product="t026" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t026.webp" alt="Органическое масло арганы 10 в 1" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Органическое масло арганы 10 в 1</h3>
+            <p class="product__subtitle">CHINCHY, масло</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>повреждённых волос и облегчает укладку. СПОСОБ ПРИМЕНЕНИЯ: Для волос: нанести 2–3 капли на сухие или влажные волосы, равномерно распределить массажными движениями.</p>
+              <p><b>Как пользоваться.</b> Две-три капли на сухие или влажные концы, распределить руками. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>100 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t028" data-product="t028" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t028.webp" alt="Шампунь с маслом карите для повреждённых волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шампунь с маслом карите для повреждённых волос</h3>
+            <p class="product__subtitle">OLORCHEE, шампунь</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Шампунь с маслом Карите для повреждённых волос. Масло Карите совместно с гидролизованным белком укрепляют волосы изнутри и снаружи, удерживают влагу, сглаживают кератиновые чешуйки, делают волос прочным и эластичным.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>300 / 800 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t029" data-product="t029" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t029.webp" alt="Шампунь с пантенолом и жожоба для чувствительной кожи головы" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шампунь с пантенолом и жожоба для чувствительной кожи головы</h3>
+            <p class="product__subtitle">OLORCHEE, шампунь</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Шампунь от перхоти с Пантенолом и маслом Жожоба для чувствительной кожи головы. Вы почувствуете разницу с первого применения! Уникальная формула шампуня, в составе которого пантенол, гидролизованный кератин и масло жожоба, разработана специально для очень чувствительной кожи головы.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>300 / 800 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t030" data-product="t030" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t030.webp" alt="Шампунь с витамином Е и маслом чайного дерева для жирных волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шампунь с витамином Е и маслом чайного дерева для жирных волос</h3>
+            <p class="product__subtitle">OLORCHEE, шампунь</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Шампунь с Витамином Е и маслом Чайного дерева для жирной кожи головы. Витамин Е и масло чайного дерева нормализуют работу сальных желез кожи головы, имеют антибактериальные свойства.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>300 / 800 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t031" data-product="t031" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t031.webp" alt="Шампунь от перхоти с ментолом" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шампунь от перхоти с ментолом</h3>
+            <p class="product__subtitle">OLORCHEE, шампунь</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Шампунь для всех типов волос с экстрактом Ментола в составе освежает кожу головы, стимулирует рост волос, останавливает выпадение, придаёт дополнительный блеск, избавляет от перхоти. Эффективно с первого применения устраняет зуд,покраснения и шелушение.</p>
+              <p><b>Как пользоваться.</b> Нанести на влажные волосы, вспенить, тщательно смыть. При необходимости повторить.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>300 / 800 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t032" data-product="t032" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t032.webp" alt="Кондиционер с коллагеном для всех типов волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Кондиционер с коллагеном для всех типов волос</h3>
+            <p class="product__subtitle">OLORCHEE, кондиционер</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Кондиционер с коллагеном идеально подходит для комплексного ухода и защиты волос всех типов. Разглаживает кератиновые чешуйки, делая волосы послушными и мягкими, удерживает влагу.</p>
+              <p><b>Как пользоваться.</b> После шампуня отжать воду, нанести по длине, отступив от корней. Оставить на 1–2 минуты, смыть.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>300 / 800 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t033" data-product="t033" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t033.webp" alt="Маска «Глубокое восстановление» с маслом арганы и жожоба" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Маска «Глубокое восстановление» с маслом арганы и жожоба</h3>
+            <p class="product__subtitle">OLORCHEE, маска</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Маска для волос &quot;Глубокое восстановление&quot; с маслом Арганы и Жожоба. Благодаря уникальной формуле проникает глубоко в кутикулу.</p>
+              <p><b>Как пользоваться.</b> На чистые влажные волосы по длине, отступив от корней. Выдержка 3–5 минут, затем смыть тёплой водой.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>500 / 1000 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t034" data-product="t034" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t034.webp" alt="Маска «Гидро-SPA» с гидролизованным шёлком и экстрактом подсолнуха" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Маска «Гидро-SPA» с гидролизованным шёлком и экстрактом подсолнуха</h3>
+            <p class="product__subtitle">OLORCHEE, маска</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Маска для волос &quot;Гидро-SPA комплекс&quot; с гидролизованным Шёлком и Экстрактом Подсолнуха для нормальных и повреждённых волос. Уже после первого применения вы почувствуете разницу - ваши волосы станут более упругими, блестящими и послушными.</p>
+              <p><b>Как пользоваться.</b> На чистые влажные волосы по длине, отступив от корней. Выдержка 3–5 минут, затем смыть тёплой водой.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>500 / 1000 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t035" data-product="t035" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t035.webp" alt="Несмываемая маска «Интенсивное увлажнение» с гиалуроновой кислотой" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Несмываемая маска «Интенсивное увлажнение» с гиалуроновой кислотой</h3>
+            <p class="product__subtitle">OLORCHEE, маска</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>несмываемая маска для волос &quot;Интенсивное увлажнение&quot;. Это натуральное средство и косметика для ухода за волосами.</p>
+              <p><b>Как пользоваться.</b> На чистые влажные волосы по длине, отступив от корней. Выдержка 3–5 минут, затем смыть тёплой водой.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>250 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t036" data-product="t036" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t036.webp" alt="Шёлковый крем для кудрявых волос с термозащитой" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Шёлковый крем для кудрявых волос с термозащитой</h3>
+            <p class="product__subtitle">OLORCHEE, несмываемый уход</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>крем &quot;Шёлковый&quot; несмываемый для кудрявых волос. Крем с гидролизованным Шёлком и глицерином превращает сухие, ломкие и непослушные волосы в мягкие, гладкие и четко очерчённые локоны.</p>
+              <p><b>Как пользоваться.</b> Небольшое количество на влажные волосы по длине. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>280 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t037" data-product="t037" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t037.webp" alt="Спрей-сыворотка с арганой и маслом семян моркови, термозащита" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Спрей-сыворотка с арганой и маслом семян моркови, термозащита</h3>
+            <p class="product__subtitle">OLORCHEE, сыворотка</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>сыворотка спрей увлажняющая для укладки с маслами арганы и семян моркови. Если вы регулярно используете утюжки, фены, плойки и другие термические инструменты для укладки, то этот спрей необходим для сохранения здоровья и красоты ваших волос.</p>
+              <p><b>Как пользоваться.</b> Распылить на подсушенные полотенцем волосы перед укладкой. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>220 мл</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t038" data-product="t038" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t038.webp" alt="Лосьон «Экстра-увлажнение» для повреждённых волос" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Лосьон «Экстра-увлажнение» для повреждённых волос</h3>
+            <p class="product__subtitle">OLORCHEE, сыворотка</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>комплекс &quot;Экстра-увлажнение&quot; лосьон для поврежденных волос 30 ml 2 шт. Уникальная формула лосьона, содержащая глицерин, воздействует на сильно-повреждённые (в том числе после химической завивки) волосы, обеспечивая их эффективное восстановление.</p>
+              <p><b>Как пользоваться.</b> Распылить на подсушенные полотенцем волосы перед укладкой. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>30 мл × 2</i></span>
+            </div>
+          </div>
+        </article>
+        <article class="product" id="t039" data-product="t039" data-card-link>
+          <div class="product__media"><img src="assets/photo/tovary/t039.webp" alt="Масло макадамии OLORCHEE" width="800" height="600" loading="lazy"></div>
+          <div class="product__body">
+            <h3>Масло макадамии OLORCHEE</h3>
+            <p class="product__subtitle">OLORCHEE, масло</p>
+            <p class="product__for"><b>Кому:</b> </p>
+            <details class="product__more"><summary>Почему это работает</summary>
+              <p>Масло для волос от итальянского бренда косметики OLORCHEE PROFESSIONAL - это незаменимое средство в вашем арсенале для ухода за волосами. Содержит натуральное масло макадамии и жожоба.</p>
+              <p><b>Как пользоваться.</b> Две-три капли на сухие или влажные концы, распределить руками. Не смывать.</p>
+            </details>
+            <div class="product__foot">
+              <span class="product__price">Цена по запросу<i>50 мл</i></span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <p class="pricing-note" data-reveal="up">Не уверены, что подойдёт именно вам —
+        не берите наугад. Пришлите фото волос при дневном свете, подберу бесплатно.</p>
+      <p class="page-cta" data-reveal="up"><a class="btn btn-primary" href="kak-vybrat.html#pick">Бесплатный подбор</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" data-theme="dark">
+  <div class="container site-footer__inner">
+
+    <div class="site-footer__brand">
+      <img width="192" height="192" loading="lazy" decoding="async" src="../assets/logo/hair-id-mark.png" alt="Hair ID Shop">
+      <p class="t-muted">Средства для волос, отобранные мастером.<br>У каждых волос свой ID.</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Разделы">
+      <h3 class="t-eyebrow">Магазин</h3>
+      <ul>
+        <li><a href="katalog.html" class="link-underline">Каталог</a></li>
+        <li><a href="nabory.html" class="link-underline">Наборы</a></li>
+        <li><a href="kak-vybrat.html#pick" class="link-underline">Бесплатный подбор</a></li>
+        <li><a href="kak-vybrat.html" class="link-underline">Как подбираю</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-footer__contacts">
+      <h3 class="t-eyebrow">Связь</h3>
+      <ul>
+        <li><a href="tel:+79944269944" class="footer-phone">8 994 426-99-44</a></li>
+        <li><a href="https://wa.me/79944269944" class="link-underline" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href="https://t.me/+79944269944" class="link-underline" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="https://max.ru" class="link-underline" target="_blank" rel="noopener">MAX — по тому же номеру</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__legal">
+      <h3 class="t-eyebrow">Студия</h3>
+      <ul>
+        <li><a href="https://nickpolo-cmd.github.io/hair-id/" class="link-underline" data-studio-link>Услуги и запись</a></li>
+        <li><a href="https://nickpolo-cmd.github.io/hair-id/#services" class="link-underline" data-studio-link>Цены на процедуры</a></li>
+        <li class="t-muted">д. Нижние Осельки,<br>Всеволожский район,<br>Ленинградская область</li>
+      </ul>
+    </div>
+
+    <div class="site-footer__legal">
+      <h3 class="t-eyebrow">Документы</h3>
+      <ul>
+        <li><a href="terms.html" class="link-underline">Заказ, оплата, доставка и возврат</a></li>
+        <li><a href="privacy.html" class="link-underline">Политика конфиденциальности</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="site-footer__bottom container">
+    <span class="t-muted">© 2026 Hair ID Shop</span>
+    <span class="t-muted">Не является публичной офертой. Наличие и цену подтверждаю в переписке</span>
+  </div>
+</footer>
+
+<aside class="cart-panel" id="cart-panel" data-theme="dark" aria-label="Ваш заказ">
+  <div class="cart-panel__head">
+    <p>Ваш заказ</p>
+    <button type="button" class="cart-panel__close" id="cart-toggle-close" aria-label="Свернуть">×</button>
+  </div>
+  <ul class="cart-panel__list" id="cart-list"></ul>
+  <div class="cart-panel__foot">
+    <p class="cart-panel__total">Итого <b id="cart-total">—</b></p>
+    <p class="cart-panel__note">Отправлю подтверждение наличия и способ оплаты в ответном сообщении</p>
+    <div class="cart-panel__buttons">
+      <a class="btn btn-primary" id="cart-wa" href="#" target="_blank" rel="noopener">Заказать в WhatsApp</a>
+      <a class="btn btn-ghost" id="cart-tg" href="#" target="_blank" rel="noopener">Telegram</a>
+    </div>
+  </div>
+</aside>
+
+<!-- Счётчик пока не подключён: номер Яндекс.Метрики не вписан (js/analytics.js, YM_ID = 0).
+     Пока номера нет, файл незачем скачивать на каждой странице.
+     Как только номер появится, вернуть сюда подключение js/analytics.js. -->
+<script src="js/motion.js"></script>
+<script src="js/products.data.js" onerror="/* товаров ещё нет — работает список-образец */"></script>
+<script src="js/catalog.js"></script>
+<script src="js/shop-ui.js"></script>
+<script src="js/vendor/sparticles.min.js"></script>
+<script src="js/texture.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "Hair ID Shop",
+  "description": "Средства для волос, отобранные практикующим мастером: шампуни, кондиционеры, маски, масла, сыворотки и несмываемый уход. Подбор под состояние волос, бесплатная консультация по фото.",
+  "url": "https://nickpolo-cmd.github.io/hair-id/shop/",
+  "telephone": "+7 994 426-99-44",
+  "image": "https://nickpolo-cmd.github.io/hair-id/assets/photo/care-3.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "деревня Нижние Осельки",
+    "addressRegion": "Ленинградская область",
+    "addressCountry": "RU"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Санкт-Петербург" },
+    { "@type": "AdministrativeArea", "name": "Ленинградская область" },
+    { "@type": "AdministrativeArea", "name": "Всеволожский район" }
+  ],
+  "currenciesAccepted": "RUB",
+  "paymentAccepted": "Наличные, перевод",
+  "parentOrganization": {
+    "@type": "HairSalon",
+    "name": "Hair ID",
+    "url": "https://nickpolo-cmd.github.io/hair-id/"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Каталог средств Hair ID Shop",
+  "url": "https://nickpolo-cmd.github.io/hair-id/shop/katalog.html",
+  "numberOfItems": 36,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Product",
+        "name": "Коктейль масел: жожоба и макадамия",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t001.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Product",
+        "name": "Гель-шампунь для глубокой очистки кожи головы",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t002.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Product",
+        "name": "Масло-стайлинг для прикорневого объёма",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t003.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Product",
+        "name": "Кератиновая маска Golden Series с аминокислотами и камелией",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t004.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "Product",
+        "name": "Крем-шампунь с кератином и маслом жожоба для чувствительной кожи головы",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t005.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "Product",
+        "name": "Концентрированный крем-шампунь с экстрактом имбиря",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t006.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "Product",
+        "name": "Крем-шампунь с маслом чайного дерева для жирных корней",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t007.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+        "@type": "Product",
+        "name": "Шампунь с маслом ши и кератином для сухих и окрашенных волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t008.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "item": {
+        "@type": "Product",
+        "name": "Шампунь с экстрактом ментола для нормальных волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t009.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "item": {
+        "@type": "Product",
+        "name": "Питательный кондиционер с коллагеном и экстрактом зародышей риса",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t010.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "item": {
+        "@type": "Product",
+        "name": "Несмываемая увлажняющая маска с коллагеном и маслом макадамии",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t011.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "item": {
+        "@type": "Product",
+        "name": "Шёлковый формирующий крем для кудрявых волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t012.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "item": {
+        "@type": "Product",
+        "name": "Реконструирующий шампунь с маслом арганы",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t013.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "item": {
+        "@type": "Product",
+        "name": "Реконструирующий кондиционер с маслом арганы",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t015.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "item": {
+        "@type": "Product",
+        "name": "Кондиционер-маска с экстрактом авокадо для сильно повреждённых волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t016.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 16,
+      "item": {
+        "@type": "Product",
+        "name": "Восстанавливающая протеиновая маска с пантенолом",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t017.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 17,
+      "item": {
+        "@type": "Product",
+        "name": "Шёлковая SPA-маска с маслом семян жожоба",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t018.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 18,
+      "item": {
+        "@type": "Product",
+        "name": "Восстанавливающая сыворотка-спрей для выпрямления волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t019.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 19,
+      "item": {
+        "@type": "Product",
+        "name": "Масло макадамии для волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t020.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 20,
+      "item": {
+        "@type": "Product",
+        "name": "Концентрированная разглаживающая сыворотка-спрей",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t021.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "MOCHEQI MUSK"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 21,
+      "item": {
+        "@type": "Product",
+        "name": "Шампунь Volume Boost с биотином и коллагеном",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t023.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "CHINCHY"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 22,
+      "item": {
+        "@type": "Product",
+        "name": "Кондиционер Volume Boost с биотином и коллагеном",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t024.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "CHINCHY"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 23,
+      "item": {
+        "@type": "Product",
+        "name": "Маска Volume Boost с биотином и коллагеном",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t025.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "CHINCHY"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 24,
+      "item": {
+        "@type": "Product",
+        "name": "Органическое масло арганы 10 в 1",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t026.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "CHINCHY"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 25,
+      "item": {
+        "@type": "Product",
+        "name": "Шампунь с маслом карите для повреждённых волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t028.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 26,
+      "item": {
+        "@type": "Product",
+        "name": "Шампунь с пантенолом и жожоба для чувствительной кожи головы",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t029.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 27,
+      "item": {
+        "@type": "Product",
+        "name": "Шампунь с витамином Е и маслом чайного дерева для жирных волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t030.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 28,
+      "item": {
+        "@type": "Product",
+        "name": "Шампунь от перхоти с ментолом",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t031.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 29,
+      "item": {
+        "@type": "Product",
+        "name": "Кондиционер с коллагеном для всех типов волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t032.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 30,
+      "item": {
+        "@type": "Product",
+        "name": "Маска «Глубокое восстановление» с маслом арганы и жожоба",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t033.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 31,
+      "item": {
+        "@type": "Product",
+        "name": "Маска «Гидро-SPA» с гидролизованным шёлком и экстрактом подсолнуха",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t034.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 32,
+      "item": {
+        "@type": "Product",
+        "name": "Несмываемая маска «Интенсивное увлажнение» с гиалуроновой кислотой",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t035.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 33,
+      "item": {
+        "@type": "Product",
+        "name": "Шёлковый крем для кудрявых волос с термозащитой",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t036.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 34,
+      "item": {
+        "@type": "Product",
+        "name": "Спрей-сыворотка с арганой и маслом семян моркови, термозащита",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t037.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 35,
+      "item": {
+        "@type": "Product",
+        "name": "Лосьон «Экстра-увлажнение» для повреждённых волос",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t038.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 36,
+      "item": {
+        "@type": "Product",
+        "name": "Масло макадамии OLORCHEE",
+        "image": "https://nickpolo-cmd.github.io/hair-id/shop/assets/photo/tovary/t039.webp",
+        "brand": {
+          "@type": "Brand",
+          "name": "OLORCHEE"
+        }
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

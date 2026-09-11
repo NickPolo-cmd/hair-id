@@ -1,0 +1,262 @@
+// Готовит папку docs/ для GitHub Pages: студия в корне, магазин в /shop/.
+// Запуск:  node tools/сборка-для-github.mjs https://ИМЯ.github.io/ИМЯ-РЕПО
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const КОРЕНЬ = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+let база = (process.argv[2] || '').trim().replace(/\/+$/, '');
+
+if (!база) {
+  console.log('Укажите адрес будущего сайта. Пример:');
+  console.log('  node tools/сборка-для-github.mjs https://nick.github.io/hair-id');
+  console.log('Если репозиторий будет называться ИМЯ.github.io — адрес просто https://ИМЯ.github.io');
+  process.exit(1);
+}
+
+// Chrome прячет «https://» в адресной строке, и скопированный оттуда адрес
+// приходит сюда голым. Без протокола подставленные ссылки становятся
+// относительными: браузер читает href="nekitshit.github.io/hair-id/shop"
+// от текущей страницы и уходит в несуществующий адрес, а canonical и og:url
+// перестают быть адресами вообще. Проверяем здесь, потому что итоговый
+// контроль ниже ищет только старые адреса и такую сборку пропустит как удачную.
+if (!/^https?:\/\//.test(база)) {
+  console.log('Адрес должен начинаться с https:// — например https://nekitshit.github.io/hair-id');
+  console.log('Получено: ' + база);
+  process.exit(1);
+}
+
+const СТАРЫЙ_САЙТ = 'https://hairid.netlify.app';
+const СТАРЫЙ_МАГАЗИН = 'https://hairid-shop.netlify.app';
+const НОВЫЙ_МАГАЗИН = база + '/shop';
+
+const ТЕКСТОВЫЕ = new Set(['.html', '.css', '.js', '.xml', '.txt', '.json', '.webmanifest', '.svg']);
+
+// Записки для себя (ИСТОЧНИКИ.md — «фото стоковые, лицо мастера чужое»,
+// ФАКТУРЫ-И-КОД.md) лежат рядом с фотографиями, и на живом сайте их читал бы
+// любой желающий по прямой ссылке. В сборку они не идут.
+const НЕ_КОПИРОВАТЬ = new Set(['.md']);
+
+// адрес без протокола встречается в комментариях-инструкциях
+const ГОЛЫЙ_САЙТ = СТАРЫЙ_САЙТ.replace(/^https?:\/\//, '');
+const ГОЛЫЙ_МАГАЗИН = СТАРЫЙ_МАГАЗИН.replace(/^https?:\/\//, '');
+const ГОЛЫЙ_НОВЫЙ = база.replace(/^https?:\/\//, '');
+
+function экранировать(строка) {
+  return строка.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Слэш на конце дописываем сами. В исходниках ссылка на соседний сайт — голый
+// домен «https://hairid-shop.netlify.app», и браузер молча достраивает корневой
+// слэш. После переезда в подпапку тот же адрес становится путём «…/hair-id/shop»,
+// а на путь каталога без слэша GitHub Pages отвечает переадресацией 301: лишний
+// переход на каждой ссылке и расхождение с картой сайта, где адрес со слэшем.
+// Если слэш уже есть — забираем его в совпадение и возвращаем на место, чтобы
+// «…/uslugi.html» не превратилось в «…//uslugi.html».
+function правилоАдреса(старый, новый) {
+  return [new RegExp(экранировать(старый) + '\\/?', 'g'), () => новый + '/'];
+}
+
+// Здесь слэш не нужен: голый адрес встречается только в прозе комментариев
+// («адрес hairid.netlify.app»), а не в ссылке.
+function правилоИмени(старое, новое) {
+  return [new RegExp(экранировать(старое), 'g'), () => новое];
+}
+
+const ЗАМЕНЫ = [
+  правилоАдреса(СТАРЫЙ_МАГАЗИН, НОВЫЙ_МАГАЗИН),
+  правилоАдреса(СТАРЫЙ_САЙТ, база),
+  правилоИмени(ГОЛЫЙ_МАГАЗИН, ГОЛЫЙ_НОВЫЙ + '/shop'),
+  правилоИмени(ГОЛЫЙ_САЙТ, ГОЛЫЙ_НОВЫЙ),
+];
+
+function скопировать(откуда, куда) {
+  fs.mkdirSync(куда, { recursive: true });
+  let файлов = 0, правок = 0, записок = 0;
+  for (const запись of fs.readdirSync(откуда, { withFileTypes: true })) {
+    const и = path.join(откуда, запись.name);
+    const о = path.join(куда, запись.name);
+    if (запись.isDirectory()) {
+      const r = скопировать(и, о);
+      файлов += r.файлов; правок += r.правок; записок += r.записок;
+      continue;
+    }
+    const рас = path.extname(запись.name).toLowerCase();
+    if (НЕ_КОПИРОВАТЬ.has(рас)) { записок++; continue; }
+    if (ТЕКСТОВЫЕ.has(рас)) {
+      let т = fs.readFileSync(и, 'utf8');
+      for (const [что, чем] of ЗАМЕНЫ) {
+        const найдено = т.match(что);
+        if (найдено) { т = т.replace(что, чем); правок += найдено.length; }
+      }
+      fs.writeFileSync(о, т);
+    } else {
+      fs.copyFileSync(и, о);
+    }
+    файлов++;
+  }
+  return { файлов, правок, записок };
+}
+
+const docs = path.join(КОРЕНЬ, 'docs');
+
+// Свой домен GitHub хранит файлом CNAME в корне папки публикации и коммитит его
+// туда сам. Пересборка сносит docs/ целиком — вместе с CNAME; коммит фиксирует
+// удаление, и после push GitHub снимает домен, сайт по нему перестаёт
+// открываться. Поэтому файл запоминаем до удаления и возвращаем после.
+const путьCNAME = path.join(docs, 'CNAME');
+const cname = fs.existsSync(путьCNAME) ? fs.readFileSync(путьCNAME) : null;
+
+fs.rmSync(docs, { recursive: true, force: true });
+
+// студия — в корень docs
+const с = скопировать(path.join(КОРЕНЬ, 'site'), docs);
+
+// магазин — в docs/shop
+const м = скопировать(path.join(КОРЕНЬ, 'site-shop'), path.join(docs, 'shop'));
+
+// GitHub Pages иначе выкинет папки, начинающиеся с подчёркивания, и не отдаст часть файлов
+fs.writeFileSync(path.join(docs, '.nojekyll'), '');
+
+if (cname) fs.writeFileSync(путьCNAME, cname);
+
+// Карту магазина иначе не найдёт ни один робот: robots.txt читают только из
+// корня домена (nekitshit.github.io/robots.txt), а наши лежат в подпапке
+// /hair-id/ и не запрашиваются вовсе. На GitHub Pages студия и магазин — один
+// домен, поэтому адреса магазина законно свести в общую карту. В исходниках так
+// делать нельзя: на Netlify это два разных домена, и карта с чужими адресами
+// поисковиком отвергается.
+function свестиКарты() {
+  const корневая = path.join(docs, 'sitemap.xml');
+  const магазинная = path.join(docs, 'shop', 'sitemap.xml');
+  if (!fs.existsSync(корневая) || !fs.existsSync(магазинная)) return 0;
+  const адреса = fs.readFileSync(магазинная, 'utf8').match(/<url>[\s\S]*?<\/url>/g) || [];
+  const т = fs.readFileSync(корневая, 'utf8');
+  if (!адреса.length || !т.includes('</urlset>')) return 0;
+  const вставка = адреса.map((у) => '  ' + у).join('\n') + '\n</urlset>';
+  fs.writeFileSync(корневая, т.replace('</urlset>', вставка));
+  return адреса.length;
+}
+
+const сведено = свестиКарты();
+
+// Логотипы и фотографии у студии и магазина одни и те же — 39 файлов больше чем
+// на 4 МБ. На Netlify это два разных домена, и дубль неизбежен, а на GitHub
+// Pages домен один: браузер качает те же байты второй раз только потому, что
+// адрес другой (/assets/… у студии и /shop/assets/… у магазина). Оставляем одну
+// копию в корне. Страницы магазина лежат прямо в /shop/, поэтому «../assets/»
+// ведёт к ней при любом домене и любом имени репозитория.
+function собратьОбщие() {
+  const общие = [];
+  const корень = path.join(docs, 'shop', 'assets');
+  if (!fs.existsSync(корень)) return общие;
+  (function обход(отн) {
+    for (const з of fs.readdirSync(path.join(корень, отн), { withFileTypes: true })) {
+      const о = отн ? отн + '/' + з.name : з.name;
+      if (з.isDirectory()) { обход(о); continue; }
+      const уСтудии = path.join(docs, 'assets', о);
+      if (!fs.existsSync(уСтудии)) continue;
+      if (!fs.readFileSync(уСтудии).equals(fs.readFileSync(path.join(корень, о)))) continue;
+      общие.push(о);
+    }
+  })('');
+  return общие;
+}
+
+// Папки, которые скрипты магазина держат отдельной строкой-константой и
+// достраивают до полного пути уже в браузере. Их надо переписать целиком.
+const ПАПКИ_КОНСТАНТЫ = ['assets/photo/'];
+
+function отправитьВКорень(общие) {
+  let правок = 0;
+  const заменить = (т, было, стало) => {
+    const части = т.split(было);
+    правок += части.length - 1;
+    return части.join(стало);
+  };
+  (function обход(п) {
+    for (const з of fs.readdirSync(п, { withFileTypes: true })) {
+      const ф = path.join(п, з.name);
+      if (з.isDirectory()) { обход(ф); continue; }
+      if (!ТЕКСТОВЫЕ.has(path.extname(з.name).toLowerCase())) continue;
+      let т = fs.readFileSync(ф, 'utf8');
+      const было = т;
+      for (const отн of общие) {
+        // Сначала полный адрес (og:image и разметка для соцсетей — там ссылка
+        // обязана быть абсолютной), потом относительная.
+        т = заменить(т, НОВЫЙ_МАГАЗИН + '/assets/' + отн, база + '/assets/' + отн);
+        // Кавычка в начале обязательна: без неё правило зацепило бы хвост
+        // только что переписанного полного адреса, где перед «assets/» слэш.
+        for (const кавычка of ['"', "'"]) {
+          т = заменить(т, кавычка + 'assets/' + отн, кавычка + '../assets/' + отн);
+        }
+      }
+      // Отдельно — папки, заданные в скриптах одной строкой-константой
+      // (`var ПАПКА_ФАКТУР = 'assets/photo/'`). Путь, который скрипт собирает
+      // из кусков во время работы, обычной заменой по полному имени файла
+      // не ловится: файл при склейке удаляется, а ссылка остаётся прежней,
+      // и на живом сайте картинка отдаёт 404. Заменяем только строку,
+      // которая целиком равна папке, — полные пути к товарам не задеваются.
+      for (const папка of ПАПКИ_КОНСТАНТЫ) {
+        for (const кавычка of ['"', "'"]) {
+          т = заменить(т, кавычка + папка + кавычка, кавычка + '../' + папка + кавычка);
+        }
+      }
+      if (т !== было) fs.writeFileSync(ф, т);
+    }
+  })(path.join(docs, 'shop'));
+  return правок;
+}
+
+const общие = собратьОбщие();
+const ссылокНаОбщие = отправитьВКорень(общие);
+for (const отн of общие) fs.rmSync(path.join(docs, 'shop', 'assets', отн));
+
+// Папки, опустевшие после отсева записок и склейки общих файлов, в сборке не
+// нужны: git пустые папки всё равно не хранит, а на диске они только путают.
+function убратьПустые(п) {
+  let пусто = true;
+  for (const з of fs.readdirSync(п, { withFileTypes: true })) {
+    if (!з.isDirectory()) { пусто = false; continue; }
+    if (!убратьПустые(path.join(п, з.name))) пусто = false;
+  }
+  if (пусто) fs.rmdirSync(п);
+  return пусто;
+}
+for (const з of fs.readdirSync(docs, { withFileTypes: true })) {
+  if (з.isDirectory()) убратьПустые(path.join(docs, з.name));
+}
+
+// проверка: не осталось ли старых адресов и внутренних записок
+let остатки = 0, записки = 0;
+(function обход(п) {
+  for (const з of fs.readdirSync(п, { withFileTypes: true })) {
+    const ф = path.join(п, з.name);
+    if (з.isDirectory()) { обход(ф); continue; }
+    const рас = path.extname(з.name).toLowerCase();
+    if (НЕ_КОПИРОВАТЬ.has(рас)) {
+      записки++;
+      console.log('  осталась внутренняя записка:', path.relative(docs, ф));
+      continue;
+    }
+    if (!ТЕКСТОВЫЕ.has(рас)) continue;
+    const т = fs.readFileSync(ф, 'utf8');
+    if (т.includes('netlify.app')) {
+      остатки++;
+      console.log('  осталась старая ссылка:', path.relative(docs, ф));
+    }
+  }
+})(docs);
+
+console.log('студия:', с.файлов, 'файлов,', с.правок, 'ссылок переписано');
+console.log('магазин:', м.файлов, 'файлов,', м.правок, 'ссылок переписано');
+console.log('внутренних записок не выложено:', с.записок + м.записок);
+console.log('общих файлов оставлено в одной копии:', общие.length, '(ссылок переписано:', ссылокНаОбщие + ')');
+console.log('адресов магазина добавлено в общую карту сайта:', сведено);
+if (cname) console.log('файл CNAME (свой домен) сохранён');
+console.log('старых адресов осталось:', остатки);
+console.log('внутренних записок в сборке:', записки);
+
+console.log('\nготово: docs/');
+console.log('адрес студии:  ' + база + '/');
+console.log('адрес магазина: ' + НОВЫЙ_МАГАЗИН + '/');

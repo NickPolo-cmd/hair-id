@@ -1,0 +1,139 @@
+/**
+ * HAIR ID — doc.css
+ *
+ * Оформление документных страниц: политика конфиденциальности, согласия.
+ * Задача одна — чтобы текст читался. Никакого движения и украшений.
+ */
+
+.doc-header {
+  position: static;
+  color: var(--c-text);
+  background: var(--c-bg);
+  border-bottom: 1px solid var(--c-border);
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.doc-back {
+  margin-left: auto;
+  font-size: var(--fs-small);
+}
+
+.doc {
+  padding-block: var(--space-8) var(--space-10);
+}
+
+.doc__inner {
+  max-width: 78ch;
+}
+
+.doc h1 {
+  font-size: var(--fs-h2);
+  margin-block: var(--space-3) var(--space-5);
+}
+
+.doc h2 {
+  font-size: var(--fs-h4);
+  font-family: var(--font-text);
+  font-weight: var(--fw-semibold);
+  margin-block: var(--space-7) var(--space-3);
+  color: var(--c-accent);
+}
+
+.doc p {
+  max-width: none;
+  line-height: var(--lh-loose);
+}
+
+.doc ul {
+  margin: 0 0 var(--space-4);
+  padding-left: var(--space-5);
+  line-height: var(--lh-loose);
+}
+
+.doc li { margin-bottom: var(--space-2); }
+
+.doc__date {
+  font-size: var(--fs-small);
+  margin-bottom: var(--space-7);
+}
+
+.doc .rule-gold {
+  margin-block: var(--space-9);
+}
+
+/* Блок, который распечатывают и дают на подпись */
+.doc__form {
+  margin-block: var(--space-6);
+  padding: var(--space-6);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-strong);
+}
+
+.doc__checkboxes {
+  list-style: none;
+  padding-left: 0;
+}
+
+.doc__sign {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px dashed var(--c-border);
+}
+
+/* Предупреждение автора шаблона — на печать не идёт */
+.doc__note {
+  margin-top: var(--space-8);
+  padding: var(--space-5);
+  background: var(--c-accent-soft);
+  border-left: 2px solid var(--c-accent);
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+.doc .site-footer {
+  padding-block: var(--space-6);
+}
+
+@media print {
+  .doc-header,
+  .site-footer,
+  .doc__note { display: none !important; }
+
+  .doc__form {
+    border: 1px solid #000;
+    background: #fff;
+  }
+
+  body { background: #fff; color: #000; }
+}
+
+/* Зона нажатия на юридических страницах.
+   Ссылки «← В каталог» и «К услугам» набирались мелким кеглем и давали
+   высоту 21–22 px: пальцем на телефоне в такую не попасть. Рекомендация
+   для пальца — не меньше 44 px, поэтому высота задаётся не размером шрифта,
+   а самой ссылкой. Внешний вид не меняется: растёт только область касания. */
+.doc-back,
+.site-footer__bottom a {
+  /* Высота набирается вертикальными полями, а не inline-flex: у строчного
+     элемента поля увеличивают область касания, но не занимают место
+     в потоке. С inline-flex ссылка переставала переноситься и на 390 px
+     вылезала за край экрана на 30 px. */
+  padding-block: 12px;
+}
+
+.site-header .header-logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Логотип в шапке юридической страницы.
+   Здесь у картинки нет класса .header-logo__sign, которым на остальных
+   страницах задаётся ширина, и на телефоне она разворачивалась на свои
+   320 px: вместе со ссылкой «← На главную» строка не помещалась в 390 px
+   и страница ехала вбок на 30 px. */
+.doc-header .header-logo img {
+  width: clamp(96px, 30vw, 140px);
+  height: auto;
+}

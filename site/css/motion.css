@@ -1,0 +1,322 @@
+/**
+ * HAIR ID — motion.css
+ *
+ * Только движение: начальные и конечные состояния, тайминги, кривые.
+ * Цвет и типографика — в tokens.css, раскладка — в main.css.
+ *
+ * ДВА ПРАВИЛА, КОТОРЫЕ ЗДЕСЬ СОБЛЮДАЮТСЯ ВЕЗДЕ.
+ *
+ * 1. Всё, что прячет контент до анимации, живёт внутри
+ *    @media (prefers-reduced-motion: no-preference) и под классом .has-motion.
+ *    Класс ставит скрипт до первой отрисовки. Значит: нет скрипта или человек
+ *    отключил анимации — страница просто показана целиком, без мигания
+ *    и без пустых экранов.
+ *
+ * 2. Анимируются только transform и opacity. Всё остальное заставляет
+ *    браузер пересчитывать раскладку и роняет плавность.
+ */
+
+/* ===========================================================================
+   Кривые и длительности
+   =========================================================================== */
+
+:root {
+  /* Основная кривая бренда: быстрый старт, долгое затухание.
+     Читается как «дорого», потому что не дёргается. */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --dur-fast: 0.25s;
+  --dur-base: 0.5s;
+  --dur-slow: 0.9s;
+  --dur-reveal: 1s;
+
+  /* Заполняется скриптом: 0 в начале страницы, 1 в конце. */
+  --scroll-progress: 0;
+}
+
+/* ===========================================================================
+   Базовое: работает всегда, в том числе при отключённых анимациях
+   =========================================================================== */
+
+/* Полоса прочитанного */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(var(--scroll-progress));
+  transform-origin: left center;
+  background: var(--c-accent);
+  z-index: 150;
+  pointer-events: none;
+}
+
+/* Бегущая строка */
+.marquee {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  user-select: none;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.marquee-track > * { flex: 0 0 auto; }
+
+/* Sticky-секции — нативные. Работают, потому что прокрутка настоящая:
+   движок анимирует позицию страницы, а не сдвигает контейнер трансформом. */
+[data-sticky] {
+  position: sticky;
+  align-self: start;
+}
+
+/* Подчёркивание, растущее от левого края */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s var(--ease-out-soft);
+}
+
+.link-underline:hover::after { transform: scaleX(1); }
+
+/* Приглушение соседей в меню: взгляд фиксируется на выбранном пункте */
+[data-fade-siblings] > * { transition: opacity 0.3s var(--ease-out-soft); }
+[data-fade-siblings] > .is-faded { opacity: 0.4; }
+
+/* Карточка услуги при наведении */
+.card-hover img { transition: transform 0.9s var(--ease-out-soft); }
+.card-hover:hover img { transform: scale(1.04); }
+
+/* ===========================================================================
+   ДВИЖЕНИЕ
+   Всё, что ниже, включается только если человек не просил его отключить.
+   =========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* -------------------------------------------------------------------------
+     1. Стадии загрузки
+     ------------------------------------------------------------------------- */
+
+  .has-motion .site-header {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity var(--dur-slow) var(--ease-out-soft),
+                transform var(--dur-slow) var(--ease-out-soft);
+  }
+
+  .has-motion body.has-loaded .site-header {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Шторка на время загрузки: страница проявляется, а не мигает */
+  .has-motion .page-veil {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--c-bg);
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.8s var(--ease-out-soft);
+    /* Страховка на медленном интернете: шторку снимает motion.js, а до его
+       выполнения экран однотонный. Анимация убирает её сама через 1,2 с,
+       поэтому текст виден даже если скрипт не дошёл */
+    animation: page-veil-out 0.8s var(--ease-out-soft) 1.2s forwards;
+  }
+
+  @keyframes page-veil-out { to { opacity: 0; } }
+
+  /* animation: none обязателен: без него отложенная страховка вернула бы
+     шторку обратно уже после того, как скрипт её снял */
+  .has-motion body.has-landed .page-veil { animation: none; opacity: 0; }
+  .has-motion body.has-displayed .page-veil { display: none; }
+
+  /* -------------------------------------------------------------------------
+     2. Появление блоков
+     ------------------------------------------------------------------------- */
+
+  [data-reveal] {
+    transition-duration: var(--dur-reveal);
+    transition-timing-function: var(--ease-out-soft);
+    transition-property: opacity, transform, clip-path;
+  }
+
+  .has-motion [data-reveal="up"] {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  .has-motion [data-reveal="fade"] { opacity: 0; }
+
+  .has-motion [data-reveal="scale"] {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+
+  /* Раскрытие шторкой — для фотографий работ */
+  .has-motion [data-reveal="clip"] { clip-path: inset(0 0 100% 0); }
+  .has-motion [data-reveal="clip-left"] { clip-path: inset(0 100% 0 0); }
+
+  [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0);
+  }
+
+  /* Изображение внутри слегка «оседает» — даёт глубину */
+  .has-motion [data-reveal="clip"] img,
+  .has-motion [data-reveal="scale"] img {
+    transform: scale(1.1);
+    transition: transform 1.3s var(--ease-out-soft);
+  }
+
+  [data-reveal].is-revealed img { transform: scale(1); }
+
+  /* -------------------------------------------------------------------------
+     3. Раскрытие заголовков по словам
+
+     Строка выезжает из-под маски. Разбиение — по словам, не по буквам:
+     побуквенное ломает скринридеры, копирование и поиск по странице.
+     ------------------------------------------------------------------------- */
+
+  [data-split].is-split-ready .split-item {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    /* Запас под свисающие элементы букв: р, у, д — иначе маска их срежет */
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+  }
+
+  .has-motion [data-split].is-split-ready .split-inner {
+    display: inline-block;
+    transform: translateY(105%);
+    opacity: 0;
+    transition: transform 0.85s var(--ease-out-soft),
+                opacity 0.6s var(--ease-out-soft);
+    transition-delay: calc(var(--split-index) * 50ms);
+  }
+
+  [data-split].is-split-ready.is-revealed .split-inner {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* -------------------------------------------------------------------------
+     4. Параллакс
+     ------------------------------------------------------------------------- */
+
+  [data-parallax] { will-change: transform; }
+
+  /* -------------------------------------------------------------------------
+     5. Морфинг логотипа
+     ------------------------------------------------------------------------- */
+
+  /* Монограмма — один элемент, который физически переезжает из первого экрана
+     в шапку. Прежде тут был другой приём: логотип в первом экране уменьшался
+     и гас, а в шапке одновременно проявлялся второй. Подмена прозрачностью
+     видна как мигание, поэтому оставлен один летящий знак. */
+
+  /* Мелкая подпись остаётся в первом экране и гаснет: в шапке она была бы
+     нечитаемой, а лететь туда ей незачем. */
+  .hero__logo-tagline {
+    transition: opacity 0.4s var(--ease-out-soft), translate 0.4s var(--ease-out-soft);
+  }
+
+  body.is-logo-docked .hero__logo-tagline {
+    opacity: 0;
+    translate: 0 -10px;
+  }
+
+
+
+  /* -------------------------------------------------------------------------
+     6. Подсказка «листайте»
+     ------------------------------------------------------------------------- */
+
+  .has-motion .hero__scroll {
+    opacity: 0;
+    transition: opacity 0.7s var(--ease-out-soft);
+  }
+
+  .has-motion body.has-displayed .hero__scroll { opacity: 1; }
+
+  .hero__scroll-line {
+    animation: scroll-hint 2.4s var(--ease-in-out-soft) infinite;
+  }
+
+  @keyframes scroll-hint {
+    0%   { transform: scaleY(0); opacity: 0; }
+    35%  { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(1) translateY(56px); opacity: 0; }
+  }
+}
+
+/* ===========================================================================
+   Параллакс-рамка
+   Работает и без анимаций: просто кадрирует изображение.
+   =========================================================================== */
+
+.parallax-frame {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Картинка выше рамки на 18% — при сдвиге по краям не появятся щели */
+.parallax-frame [data-parallax] {
+  width: 100%;
+  height: 118%;
+  object-fit: cover;
+  position: absolute;
+  inset: -9% 0 auto 0;
+}
+
+/* ===========================================================================
+   Выезжающий футер
+
+   Футер залипает у нижней кромки, контент едет поверх него и открывает
+   его в конце страницы.
+
+   Специально НЕ используется старый приём с z-index: -1 — при нём телефон,
+   ссылка на WhatsApp и адрес в футере перестают нажиматься.
+   =========================================================================== */
+
+/* 769px, а не 768: на ровно 768px срабатывали оба условия сразу — и мобильная
+   раскладка футера в одну колонку, и десктопный «выезжающий футер». Футер
+   становился выше экрана, и его верх не показывался ни при какой прокрутке */
+@media (min-width: 769px) {
+  .page-main {
+    position: relative;
+    z-index: 1;
+    background: var(--c-bg);
+  }
+
+  [data-footer-reveal] {
+    position: sticky;
+    bottom: 0;
+    z-index: 0;
+  }
+}

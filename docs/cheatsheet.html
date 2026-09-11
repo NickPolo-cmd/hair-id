@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hair ID — шпаргалка мастера</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/**
+ * Шпаргалка мастера — печатается на A4 и висит в студии.
+ *
+ * Здесь только то, что нужно вспомнить в момент работы: что говорить,
+ * что после чего делать и когда отказать. Всё остальное — в брендбуке.
+ */
+
+:root{
+  --green-900:#10160f; --green-700:#1c2620; --green-500:#2f3d35;
+  --gold-700:#8a6d3c; --gold-600:#9a7b44; --gold-400:#c0a070; --gold-100:#f0e3cc;
+  --cream:#faf7f1; --cream-2:#f2ede3; --cream-3:#e6dfd1;
+  --danger:#a85c50;
+  --gradient-rule:linear-gradient(90deg,transparent,#9a7b44 18%,#e2c89f 50%,#9a7b44 82%,transparent);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;padding:20px;
+  background:#8d8d8d;
+  font-family:'Manrope',sans-serif;
+  color:var(--green-700);
+  font-size:14px;line-height:1.55;
+}
+
+.page{
+  width:210mm;min-height:297mm;
+  margin:0 auto 20px;padding:14mm 15mm;
+  background:var(--cream);
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+
+.head{
+  display:flex;align-items:center;gap:8mm;
+  padding-bottom:5mm;margin-bottom:6mm;
+  border-bottom:1px solid transparent;
+  border-image:var(--gradient-rule) 1;
+}
+.head img{width:22mm;height:auto;border-radius:1mm;border:.3mm solid rgba(154,123,68,.5)}
+.head h1{margin:0;font-family:'Playfair Display',serif;font-size:19pt;font-weight:500}
+.head p{margin:2px 0 0;font-size:7.5pt;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-600)}
+
+h2{
+  font-family:'Manrope',sans-serif;
+  font-size:8pt;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gold-600);font-weight:600;
+  margin:7mm 0 2.5mm;padding-bottom:1.5mm;
+  border-bottom:.3mm solid var(--cream-3);
+}
+h2:first-of-type{margin-top:0}
+
+.script{
+  background:#fff;border-left:.8mm solid var(--gold-400);
+  padding:3mm 4mm;margin:0 0 3mm;font-size:10pt;line-height:1.65;
+}
+.script b{font-weight:600}
+.script + .script{margin-top:2mm}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin-bottom:2mm}
+th{
+  text-align:left;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold-600);font-weight:600;padding:0 2mm 1.5mm;border-bottom:.3mm solid var(--cream-3);
+}
+td{padding:1.8mm 2mm;border-bottom:.2mm solid var(--cream-3);vertical-align:top}
+td b{font-weight:600}
+
+.stop{
+  background:rgba(168,92,80,.07);
+  border-left:.8mm solid var(--danger);
+  padding:3mm 4mm;
+}
+.stop ul{margin:0;padding-left:5mm;font-size:9.5pt;line-height:1.75}
+.stop li{margin-bottom:.8mm}
+
+.note{
+  margin-top:2mm;font-size:8.5pt;color:#5a6960;
+}
+
+.never{
+  background:var(--green-700);color:var(--cream);
+  padding:4mm 5mm;margin-top:4mm;
+}
+.never h3{
+  margin:0 0 2.5mm;font-family:'Manrope',sans-serif;
+  font-size:8pt;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-400);font-weight:600;
+}
+.never ul{margin:0;padding-left:5mm;font-size:9.5pt;line-height:1.8}
+.never li{margin-bottom:.6mm}
+.never i{font-style:normal;color:var(--gold-100)}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff;padding:0}
+  .page{box-shadow:none;margin:0;width:auto;min-height:auto}
+  .hint{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="head">
+    <img src="assets/logo/hair-id-logo-original.jpg" alt="Hair ID">
+    <div>
+      <h1>Шпаргалка мастера</h1>
+      <p>Hair ID · висит в студии</p>
+    </div>
+  </div>
+
+  <h2>Первый ответ на сообщение</h2>
+
+  <div class="script">
+    Здравствуйте. Пришлите, пожалуйста, 2–3 фото волос при дневном свете без вспышки:
+    распущенные сзади, концы крупно и пробор у корней. И коротко: <b>что делали с волосами
+    за последний год</b>, <b>что не нравится сейчас</b>, <b>какая длина</b>.
+    По фото скажу, что подойдёт именно вам — а если процедура не поможет, скажу и это.
+    Диагностика бесплатная.
+  </div>
+
+  <p class="note"><b>Цену первой репликой не называть.</b> Сначала разбор проблемы.
+  Если назвать цифру сразу, клиентка уходит сравнивать её с соседними объявлениями
+  и не возвращается.</p>
+
+  <h2>Рекомендация домашнего ухода — после процедуры</h2>
+
+  <div class="script">
+    Сначала называете <b>то, что увидели на диагностике</b> — своими словами,
+    без диагнозов. Дальше: «Дома это <b>одно или два средства</b>, вот это на кожу,
+    вот это на длину. Если брать что-то одно — берите то, которое решает
+    <b>главную жалобу</b>».
+  </div>
+
+  <p class="note">Разбор, а не продажа. Всегда оставляем вариант «взять одно» — так нет
+  давления. <b>Если по диагностике рекомендовать нечего — не рекомендуем ничего.</b>
+  Один впаренный ненужный флакон стоит дороже десяти честных отказов.</p>
+
+  <h2>Календарь процедур — что после чего</h2>
+
+  <table>
+    <tr><td style="width:42%"><b>Осветление и кератин</b></td><td>Осветление <b>до</b> кератина, не после</td></tr>
+    <tr><td><b>Кератин и окрашивание</b></td><td>Красить не раньше чем через <b>5 недель</b> после кератина</td></tr>
+    <tr><td><b>Ботокс и цвет</b></td><td>После ботокса плёнка мешает цвету лечь ровно — спросить про планы заранее</td></tr>
+    <tr><td><b>Очищение кожи и окрашивание</b></td><td>Не делать за <b>2–3 дня до</b> и <b>неделю после</b> окрашивания или кератина</td></tr>
+    <tr><td><b>Кератин повторно</b></td><td>Не чаще <b>3 раз в год</b> на одних волосах</td></tr>
+    <tr><td><b>Уход перед событием</b></td><td>За несколько дней, не накануне. Кератин — минимум за 2 недели</td></tr>
+  </table>
+
+  <h2>Сколько держится — говорить честно</h2>
+
+  <div class="two">
+    <table>
+      <tr><td><b>Кератин</b></td><td>3–6 месяцев</td></tr>
+      <tr><td><b>Ботокс</b></td><td>1,5–3 месяца</td></tr>
+    </table>
+    <table>
+      <tr><td><b>Холодное восстановление</b></td><td>около месяца, накопительно</td></tr>
+      <tr><td><b>Счастье для волос</b></td><td>около месяца, курс 5–10 процедур</td></tr>
+    </table>
+  </div>
+
+  <p class="note">Не округлять вверх. Главная причина, по которой эффект уходит раньше
+  срока, — обычный шампунь с сульфатами сразу после процедуры.</p>
+
+  <h2>Кератин или ботокс — как объяснить за десять секунд</h2>
+
+  <div class="script">
+    <b>Кератин</b> — чтобы лежали: убирает пушистость и выпрямляет.<br>
+    <b>Ботокс</b> — чтобы выглядели живыми: не выпрямляет, а заполняет повреждения
+    и возвращает плотность. Ботулотоксина в нём нет, уколов не будет — это только название.
+  </div>
+
+  <h2>Когда отказать</h2>
+
+  <div class="stop">
+    <ul>
+      <li>ранки, воспаления, раздражение на коже головы</li>
+      <li>подозрение на грибковое заболевание — к врачу</li>
+      <li>активное выпадение по неясной причине — к трихологу</li>
+      <li>аллергия на компоненты состава</li>
+      <li>свежая химическая завивка вместе с осветлением</li>
+      <li>беременность и кормление — горячий кератин нет; холодный уход да, после разговора с врачом</li>
+      <li>астма, обострение кожных заболеваний</li>
+      <li>волосы рвутся при расчёсывании — сначала уход, потом выпрямление</li>
+    </ul>
+  </div>
+
+  <p class="note">Я мастер, а не врач: диагнозы не ставлю и лечение не назначаю.
+  Когда вопрос медицинский — говорю прямо и отправляю к врачу.</p>
+
+  <div class="never">
+    <h3>Никогда не говорить клиенту и не писать в рекламе</h3>
+    <ul>
+      <li><i>«Лечение волос», «вылечим»</i> — это язык медуслуг, нужна лицензия</li>
+      <li><i>«Восстановим структуру»</i> — волос вне кожи не живой, говорим о внешнем состоянии</li>
+      <li><i>«Гарантия результата», «100%»</i> — обещание, которое нельзя выполнить</li>
+      <li><i>«Секущиеся кончики запаяем»</i> — их можно только состричь</li>
+      <li><i>«Держится до полугода»</i>, если держится три месяца — завышенный срок возвращается отзывом</li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>

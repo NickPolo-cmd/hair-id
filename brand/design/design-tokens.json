@@ -1,0 +1,184 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "meta": {
+    "brand": "Hair ID",
+    "version": "1.0.0",
+    "updated": "2026-09-04",
+    "source": "Палитра снята пиксельным анализом с assets/logo/hair-id-logo-original.jpg",
+    "note": "Значения дублируются в site/css/tokens.css. При правке менять оба файла."
+  },
+  "color": {
+    "green": {
+      "900": { "value": "#10160f", "comment": "почти чёрный, тени и подложки" },
+      "800": { "value": "#161e18", "comment": "фон логотипа по краям" },
+      "700": { "value": "#1c2620", "comment": "ОСНОВНОЙ фирменный зелёный" },
+      "600": { "value": "#24302a", "comment": "карточки на тёмном фоне" },
+      "500": { "value": "#2f3d35", "comment": "границы и разделители" },
+      "400": { "value": "#47584d", "comment": "приглушённый текст на тёмном" }
+    },
+    "gold": {
+      "700": { "value": "#8a6d3c", "comment": "тень золота" },
+      "600": { "value": "#9a7b44", "comment": "тёмное золото, акцент на светлом фоне" },
+      "500": { "value": "#b09060" },
+      "400": { "value": "#c0a070", "comment": "ОСНОВНОЕ золото бренда" },
+      "300": { "value": "#d0b088", "comment": "блик" },
+      "200": { "value": "#e2c89f" },
+      "100": { "value": "#f0e3cc", "comment": "золотая пыль, фоновые заливки" }
+    },
+    "cream": {
+      "100": { "value": "#faf7f1", "comment": "основной светлый фон" },
+      "200": { "value": "#f2ede3" },
+      "300": { "value": "#e6dfd1", "comment": "границы на светлом" },
+      "400": { "value": "#cfc5b2" }
+    },
+    "semantic": {
+      "success": { "value": "#6f8f6a" },
+      "warning": { "value": "#c9a227" },
+      "danger": { "value": "#a85c50" }
+    }
+  },
+  "gradient": {
+    "gold": {
+      "value": "linear-gradient(135deg, #9a7b44 0%, #d0b088 22%, #b09060 44%, #e2c89f 62%, #9a7b44 82%, #c0a070 100%)",
+      "comment": "Металлическое золото. Ступени неравномерные — иначе выглядит плоской жёлтой заливкой"
+    },
+    "goldSoft": { "value": "linear-gradient(135deg, #b09060, #d0b088)" }
+  },
+  "theme": {
+    "dark": {
+      "comment": "По умолчанию. Главная, услуги, портфолио, о мастере",
+      "bg": "#1c2620",
+      "bgDeep": "#10160f",
+      "surface": "#24302a",
+      "border": "#2f3d35",
+      "text": "#faf7f1",
+      "textMuted": "#a9b3a9",
+      "accent": "#c0a070",
+      "buttonBg": "#c0a070",
+      "buttonText": "#10160f"
+    },
+    "light": {
+      "comment": "Каталог, карточки товара, прайс, печать, маркетплейсы",
+      "bg": "#faf7f1",
+      "bgDeep": "#f2ede3",
+      "surface": "#ffffff",
+      "border": "#e6dfd1",
+      "text": "#1c2620",
+      "textMuted": "#5c6a5f",
+      "accent": "#9a7b44",
+      "buttonBg": "#1c2620",
+      "buttonText": "#faf7f1"
+    }
+  },
+  "typography": {
+    "family": {
+      "display": {
+        "value": "Playfair Display",
+        "fallback": "Times New Roman, serif",
+        "source": "Google Fonts",
+        "weights": [400, 500, 600], "comment": "Высококонтрастная антиква с кириллицей. Выбрана сравнением вживую с Prata, Cormorant, Lora и Spectral: держит золотой градиент, имеет несколько весов и старостильные цифры"
+      },
+      "text": {
+        "value": "Manrope",
+        "fallback": "-apple-system, Segoe UI, Roboto, sans-serif",
+        "source": "Google Fonts",
+        "weights": [300, 400, 500, 600, 700],
+        "comment": "Гуманистический гротеск, читаемый в мелком кегле"
+      }
+    },
+    "size": {
+      "display": { "value": "clamp(2.75rem, 8vw, 7.5rem)" },
+      "h1": { "value": "clamp(2.25rem, 5.5vw, 4.5rem)" },
+      "h2": { "value": "clamp(1.75rem, 3.6vw, 3rem)" },
+      "h3": { "value": "clamp(1.35rem, 2.2vw, 1.875rem)" },
+      "h4": { "value": "clamp(1.15rem, 1.6vw, 1.375rem)" },
+      "lead": { "value": "clamp(1.05rem, 1.5vw, 1.375rem)" },
+      "body": { "value": "1rem" },
+      "small": { "value": "0.875rem" },
+      "caption": { "value": "0.75rem" }
+    },
+    "lineHeight": {
+      "tight": { "value": 1.06 },
+      "snug": { "value": 1.22 },
+      "normal": { "value": 1.6 },
+      "loose": { "value": 1.75 }
+    },
+    "letterSpacing": {
+      "display": { "value": "-0.02em" },
+      "heading": { "value": "-0.01em" },
+      "body": { "value": "0" },
+      "wide": { "value": "0.14em", "comment": "как в подписи HAIR ID под монограммой" },
+      "widest": { "value": "0.3em", "comment": "надписи капителью, главный текстовый приём бренда" }
+    }
+  },
+  "space": {
+    "1": { "value": "4px" },
+    "2": { "value": "8px" },
+    "3": { "value": "12px" },
+    "4": { "value": "16px" },
+    "5": { "value": "24px" },
+    "6": { "value": "32px" },
+    "7": { "value": "48px" },
+    "8": { "value": "64px" },
+    "9": { "value": "96px" },
+    "10": { "value": "128px" },
+    "11": { "value": "192px" },
+    "sectionY": { "value": "clamp(4rem, 10vw, 10rem)" },
+    "pageX": { "value": "clamp(1.25rem, 5vw, 5rem)" }
+  },
+  "radius": {
+    "none": { "value": "0" },
+    "sm": { "value": "2px" },
+    "md": { "value": "4px" },
+    "lg": { "value": "8px" },
+    "pill": { "value": "999px" },
+    "comment": "Радиусы почти нулевые — у бренда острая ювелирная геометрия"
+  },
+  "shadow": {
+    "sm": { "value": "0 1px 2px rgba(16,22,15,0.16)" },
+    "md": { "value": "0 8px 24px rgba(16,22,15,0.22)" },
+    "lg": { "value": "0 24px 64px rgba(16,22,15,0.32)" },
+    "gold": { "value": "0 8px 32px rgba(192,160,112,0.22)" },
+    "comment": "Тени в зелёном, а не в чёрном — иначе тёмная тема выглядит грязной"
+  },
+  "motion": {
+    "easing": {
+      "outSoft": { "value": "cubic-bezier(0.16, 1, 0.3, 1)", "comment": "основная кривая бренда" },
+      "outQuart": { "value": "cubic-bezier(0.25, 1, 0.5, 1)" },
+      "inOutSoft": { "value": "cubic-bezier(0.65, 0, 0.35, 1)" }
+    },
+    "duration": {
+      "fast": { "value": "280ms" },
+      "base": { "value": "600ms" },
+      "slow": { "value": "1000ms" },
+      "reveal": { "value": "1100ms" }
+    },
+    "scrollEase": { "value": 0.09, "comment": "инерция скролла" },
+    "revealStagger": { "value": "60ms" }
+  },
+  "logo": {
+    "file": "assets/logo/hair-id-logo-original.jpg",
+    "format": "JPEG",
+    "size": "304x246",
+    "status": "растр, временный",
+    "pending": [
+      "векторный исходник SVG/AI/EPS",
+      "версия на светлом фоне",
+      "монохромная версия",
+      "только знак без подписи",
+      "горизонтальная компоновка",
+      "квадратная иконка для аватарки"
+    ],
+    "rules": {
+      "clearSpace": "не меньше высоты буквы H вокруг знака",
+      "minWidth": "знак — от 32px, знак с подписью — от 120px",
+      "forbidden": [
+        "менять пропорции",
+        "перекрашивать золото в плоский жёлтый",
+        "ставить на пёстрое фото без подложки",
+        "добавлять тени и обводки",
+        "разворачивать и наклонять"
+      ]
+    }
+  }
+}

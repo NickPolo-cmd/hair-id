@@ -1,0 +1,910 @@
+/**
+ * HAIR ID SHOP — shop.css
+ *
+ * Магазин — отдельный сайт, но того же бренда. Дизайн-система общая
+ * (tokens.css), поэтому здесь только раскладка магазина.
+ *
+ * Главное отличие от сайта студии: светлого больше. Товар на тёмном фоне
+ * продаётся хуже — флакон должен читаться, а не тонуть. Тёмные острова
+ * оставлены для наборов и перехода в студию.
+ */
+
+/* ===========================================================================
+   Служебное
+   =========================================================================== */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 500;
+  padding: var(--space-3) var(--space-5);
+  background: var(--green-700);
+  color: var(--cream-100);
+}
+
+.skip-link:focus { left: var(--space-4); top: var(--space-4); }
+
+.section { background: var(--c-bg); }
+.sets, .studio-cta, [data-theme='dark'].section { background: var(--gradient-dark); }
+.how { background: var(--gradient-cream); }
+
+/* ===========================================================================
+   ПОЛОСА СВЯЗИ СО СТУДИЕЙ
+   =========================================================================== */
+
+.cross-bar {
+  position: relative;
+  z-index: calc(var(--z-header) + 1);
+  background: var(--green-900);
+  color: var(--cream-100);
+  font-size: var(--fs-caption);
+  padding-block: var(--space-2);
+}
+
+.cross-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.cross-bar__link {
+  color: var(--gold-300);
+  border-bottom: 1px solid color-mix(in srgb, var(--gold-400) 45%, transparent);
+  white-space: nowrap;
+}
+
+.cross-bar__link:hover { color: var(--gold-200); }
+
+/* ===========================================================================
+   ШАПКА
+   =========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: var(--z-header);
+  padding-block: var(--space-3);
+}
+
+/* Подложка шапки отдельным слоем под содержимым: ей нужна маска затухания,
+   а маска на самой шапке срезала бы заодно логотип, меню и кнопку заказа.
+   Сверху крем почти плотный, книзу сходит в ноль — границы шапки не видно,
+   она растворяется в странице. Маска гасит и размытие: иначе внизу остаётся
+   ровное ребро там, где размытие обрывается. */
+.site-header::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 -30px 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+      color-mix(in srgb, var(--cream-100) 98%, transparent) 0%,
+      color-mix(in srgb, var(--cream-100) 96%, transparent) 52%,
+      color-mix(in srgb, var(--cream-100) 80%, transparent) 72%,
+      color-mix(in srgb, var(--cream-100) 35%, transparent) 88%,
+      color-mix(in srgb, var(--cream-100) 0%, transparent) 100%);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, rgba(0, 0, 0, 0.42) 87%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 70%, rgba(0, 0, 0, 0.42) 87%, transparent 100%);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--page-x);
+}
+
+.header-logo {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  line-height: 0;
+}
+
+.header-logo img { width: 50px; height: auto; }
+
+.header-logo__sub {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--c-accent-strong);
+  line-height: 1;
+}
+
+.site-nav { margin-left: auto; }
+
+.site-nav ul {
+  display: flex;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-small);
+}
+
+.header-contact { display: flex; align-items: center; gap: var(--space-4); flex: 0 0 auto; }
+
+.header-phone {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.header-phone:hover { color: var(--c-accent); }
+
+.cart-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--green-700);
+  color: var(--cream-100);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.cart-toggle__count {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-gold-soft);
+  color: var(--green-900);
+  font-size: 11px;
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-2);
+  margin-left: auto;
+}
+
+.burger span { display: block; width: 24px; height: 1px; background: currentColor; }
+
+/* ===========================================================================
+   ГЕРОЙ
+   =========================================================================== */
+
+.shop-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-10) var(--space-9);
+  background: var(--gradient-dark);
+}
+
+.shop-hero__bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+
+.shop-hero__bg img {
+  width: 100%;
+  height: 118%;
+  position: absolute;
+  inset: -9% 0 auto 0;
+  object-fit: cover;
+  opacity: 0.42;
+}
+
+.shop-hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right,
+      var(--green-900) 4%, rgba(16, 22, 15, 0.78) 46%, rgba(16, 22, 15, 0.35) 100%),
+    linear-gradient(to bottom, rgba(16, 22, 15, 0.5), var(--green-700) 96%);
+}
+
+.shop-hero__inner { position: relative; max-width: 760px; }
+
+.shop-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5.2vw, 4.25rem);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  margin: var(--space-4) 0 var(--space-5);
+}
+
+.shop-hero__lead { max-width: 60ch; }
+
+.shop-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.shop-hero__proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+  margin: var(--space-7) 0 0;
+  padding: var(--space-5) 0 0;
+  list-style: none;
+  border-top: 1px solid color-mix(in srgb, var(--gold-600) 30%, transparent);
+}
+
+.shop-hero__proof li { display: flex; flex-direction: column; gap: 2px; }
+
+.shop-hero__proof strong {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  color: var(--c-accent);
+}
+
+.shop-hero__proof span {
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+.shop-hero__geo {
+  margin: var(--space-5) 0 0;
+  max-width: 62ch;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--c-border-strong);
+}
+
+/* ===========================================================================
+   ЗАГОЛОВКИ СЕКЦИЙ
+   =========================================================================== */
+
+.section-head {
+  max-width: 62ch;
+  margin-bottom: var(--space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.section-head--center { margin-inline: auto; text-align: center; align-items: center; }
+
+/* ===========================================================================
+   ФИЛЬТР ПО ЗАДАЧЕ
+   =========================================================================== */
+
+.task-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.task-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) var(--space-5);
+  text-align: left;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s var(--ease-out-soft);
+}
+
+.task-chip span {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-regular);
+  color: var(--c-text-muted);
+}
+
+.task-chip:hover { transform: translateY(-2px); border-color: var(--c-border-strong); }
+
+.task-chip.is-active {
+  background: var(--green-700);
+  border-color: var(--green-700);
+  color: var(--cream-100);
+}
+
+.task-chip.is-active span { color: var(--gold-300); }
+
+.catalog__count {
+  margin: 0 0 var(--space-5);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+/* ===========================================================================
+   КАРТОЧКА ТОВАРА
+   =========================================================================== */
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  transition: transform 0.45s var(--ease-out-soft),
+              border-color 0.45s var(--ease-out-soft),
+              box-shadow 0.45s var(--ease-out-soft);
+}
+
+.product:hover { transform: translateY(-4px); border-color: var(--c-border-strong); box-shadow: var(--shadow-md); }
+.product.is-in-cart { border-color: var(--c-accent); }
+
+.product__media { aspect-ratio: 4 / 3; overflow: hidden; background: var(--c-bg-deep); }
+
+.product__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s var(--ease-out-soft);
+}
+
+.product:hover .product__media img { transform: scale(1.05); }
+
+.product__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  flex: 1;
+}
+
+.product h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.product__subtitle {
+  margin: 0;
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--c-accent-strong);
+}
+
+/* Блоки «кому» и «кому не подойдёт» — ядро магазина.
+   Честное «не подойдёт» снижает возвраты и плохие отзывы. */
+.product__for,
+.product__notfor {
+  margin: 0;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--c-text-muted);
+}
+
+.product__for b { color: var(--c-text); font-weight: var(--fw-semibold); }
+
+.product__notfor {
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--cream-300);
+}
+
+.product__notfor b { color: var(--c-text); font-weight: var(--fw-semibold); }
+
+.product__more { margin-top: var(--space-2); }
+
+.product__more summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  color: var(--c-accent-strong);
+  padding-block: var(--space-2);
+}
+
+.product__more summary::-webkit-details-marker { display: none; }
+.product__more summary::after { content: ' →'; }
+.product__more[open] summary::after { content: ' ↑'; }
+
+.product__more p {
+  margin: 0 0 var(--space-3);
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  color: var(--c-text-muted);
+}
+
+.product__foot {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--c-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.product__price {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.product__price i {
+  font-style: normal;
+  font-family: var(--font-text);
+  font-size: var(--fs-caption);
+  color: var(--c-text-muted);
+}
+
+.product__add {
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--c-btn-ghost-border);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.product__add:hover { background: var(--green-700); border-color: var(--green-700); color: var(--cream-100); }
+.product.is-in-cart .product__add { background: var(--gradient-gold-soft); border-color: transparent; color: var(--green-900); }
+
+.shop-empty {
+  padding: var(--space-7);
+  text-align: center;
+  color: var(--c-text-muted);
+  border: 1px dashed var(--c-border);
+}
+
+/* ===========================================================================
+   НАБОРЫ — тёмный
+   =========================================================================== */
+
+.sets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.set {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--green-600) 55%, transparent);
+  border: 1px solid var(--c-border);
+  transition: transform 0.45s var(--ease-out-soft), border-color 0.45s var(--ease-out-soft);
+}
+
+.set:hover { transform: translateY(-4px); border-color: var(--c-border-strong); }
+
+.set__media { aspect-ratio: 3 / 2; overflow: hidden; }
+.set__media img { width: 100%; height: 100%; object-fit: cover; }
+
+.set__body { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6); flex: 1; }
+
+.set h3 { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: var(--fw-regular); margin: 0; }
+.set__why { margin: 0; font-size: var(--fs-small); color: var(--c-text-muted); }
+
+.set__items { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+
+.set__items li {
+  font-size: var(--fs-small);
+  padding-left: var(--space-4);
+  position: relative;
+  color: var(--c-text-muted);
+}
+
+.set__items li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 8px;
+  height: 1px;
+  background: var(--c-accent);
+}
+
+.set__foot {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--c-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.set__price { font-family: var(--font-display); font-size: 1.4rem; display: flex; flex-direction: column; }
+.set__price s { font-family: var(--font-text); font-size: var(--fs-caption); color: var(--c-text-subtle); }
+
+.set__add {
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--gradient-gold);
+  color: var(--green-900);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  transition: transform 0.3s var(--ease-out-soft);
+}
+
+.set__add:hover { transform: translateY(-2px); }
+
+/* ===========================================================================
+   БЕСПЛАТНЫЙ ПОДБОР
+   =========================================================================== */
+
+.pick__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-9);
+  align-items: center;
+}
+
+.pick__photo { margin: 0; aspect-ratio: 4 / 5; border: 1px solid var(--c-border); }
+
+.pick__list {
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.pick__list li {
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--c-border-strong);
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+.pick__list b { display: block; color: var(--c-text); font-weight: var(--fw-semibold); margin-bottom: 2px; }
+
+.pick__actions { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-6); }
+
+/* ===========================================================================
+   КАК ОТБИРАЮ
+   =========================================================================== */
+
+.how-card {
+  padding: var(--space-6);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  transition: transform 0.45s var(--ease-out-soft), box-shadow 0.45s var(--ease-out-soft);
+}
+
+.how-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.how-card--accent { border-color: var(--c-border-strong); background: var(--c-accent-soft); }
+
+.how-card h3 {
+  font-family: var(--font-text);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  margin-bottom: var(--space-3);
+}
+
+.how-card p { margin: 0; font-size: var(--fs-small); color: var(--c-text-muted); }
+
+/* ===========================================================================
+   ПЕРЕХОД В СТУДИЮ — тёмный
+   =========================================================================== */
+
+.studio-cta__grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: var(--space-9);
+  align-items: center;
+}
+
+.studio-cta__photo { margin: 0; aspect-ratio: 4 / 3; border: 1px solid var(--c-border); }
+
+.studio-cta__facts {
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.studio-cta__facts li {
+  padding-left: var(--space-5);
+  position: relative;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+.studio-cta__facts li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 12px;
+  height: 1px;
+  background: var(--c-accent);
+}
+
+.studio-cta__actions { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-6); }
+
+/* ===========================================================================
+   ПАНЕЛЬ ЗАКАЗА
+   =========================================================================== */
+
+.cart-panel {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  width: min(380px, calc(100vw - 2 * var(--space-4)));
+  z-index: var(--z-overlay);
+  background: var(--green-700);
+  color: var(--cream-100);
+  border: 1px solid var(--gold-600);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(140%);
+  /* Один сдвиг за экран прячет панель только на вид: её «Свернуть»,
+     «Заказать в WhatsApp» и «Telegram» остаются в обходе по Tab, и человек
+     с клавиатуры получает три остановки фокуса на том, чего не видит.
+     visibility убирает их из обхода. Длительность нулевая, а задержка равна
+     времени отъезда — панель успевает уехать и только потом гаснет. */
+  visibility: hidden;
+  transition: transform 0.55s var(--ease-out-soft), visibility 0s 0.55s;
+}
+
+.cart-panel.is-visible {
+  transform: translateY(0);
+  visibility: visible;
+  /* Обратно — без задержки, иначе панель выезжала бы невидимой. */
+  transition: transform 0.55s var(--ease-out-soft), visibility 0s 0s;
+}
+
+.cart-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--green-500);
+}
+
+.cart-panel__head p {
+  margin: 0;
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--gold-300);
+}
+
+.cart-panel__close { font-size: 1.4rem; line-height: 1; color: var(--cream-100); opacity: 0.7; }
+.cart-panel__close:hover { opacity: 1; }
+
+.cart-panel__list {
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  list-style: none;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding-block: var(--space-3);
+  border-bottom: 1px dotted var(--green-500);
+  font-size: var(--fs-small);
+}
+
+/* Набор — одна позиция. Под названием мелко перечисляем, что внутри,
+   иначе «Набор „После кератина“» выглядит как кот в мешке. */
+.cart-item__name i {
+  display: block;
+  margin-top: 2px;
+  font-style: normal;
+  font-size: var(--fs-caption);
+  color: var(--c-text-muted);
+}
+
+.cart-item--set .cart-item__name { color: var(--gold-300); }
+
+.cart-item__qty { display: flex; align-items: center; gap: var(--space-2); }
+
+.cart-item__qty button {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--green-500);
+  border-radius: 50%;
+  color: var(--cream-100);
+  line-height: 1;
+}
+
+.cart-item__qty button:hover { border-color: var(--gold-400); color: var(--gold-300); }
+.cart-item__sum { white-space: nowrap; color: var(--gold-300); }
+
+.cart-panel__foot { padding: var(--space-4) var(--space-5) var(--space-5); border-top: 1px solid var(--green-500); }
+
+.cart-panel__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-small);
+}
+
+.cart-panel__total b { font-family: var(--font-display); font-size: 1.4rem; color: var(--gold-300); }
+.cart-panel__note { margin: 0 0 var(--space-4); font-size: var(--fs-caption); color: var(--c-text-muted); }
+.cart-panel__buttons { display: flex; flex-direction: column; gap: var(--space-2); }
+.cart-panel__buttons .btn { width: 100%; }
+
+/* Подтверждение «заказ в буфере»: Telegram не принимает готовый текст
+   по ссылке на номер, поэтому он копируется по нажатию. */
+#cart-tg.is-done {
+  border-color: var(--gold-300);
+  color: var(--gold-300);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+}
+
+/* Набор уже в заказе */
+.set.is-in-cart { border-color: var(--gold-400); }
+
+/* ===========================================================================
+   ЛИПКАЯ ПАНЕЛЬ НА ТЕЛЕФОНЕ
+   =========================================================================== */
+
+.mobile-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--z-header);
+  gap: var(--space-2);
+  /* Нижний запас в 42px: Netlify рисует свой бейдж поверх всего
+     в правом нижнем углу, и без запаса он накрывает кнопку записи */
+  padding: var(--space-3) var(--space-4) calc(var(--space-3) + 42px + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--green-900) 94%, transparent);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid color-mix(in srgb, var(--gold-600) 30%, transparent);
+}
+
+.mobile-bar__btn {
+  flex: 1;
+  padding: var(--space-4);
+  text-align: center;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.mobile-bar__btn--primary { background: var(--gradient-gold); color: var(--green-900); }
+.mobile-bar__btn--ghost { border: 1px solid var(--gold-600); color: var(--cream-100); }
+
+/* ===========================================================================
+   ФУТЕР
+   =========================================================================== */
+
+.site-footer {
+  background: var(--green-900);
+  padding-block: var(--space-9) var(--space-6);
+  border-top: 1px solid color-mix(in srgb, var(--gold-600) 26%, transparent);
+}
+
+/* Пять колонок, а не четыре: блоков в подвале магазина пять —
+   бренд, Магазин, Связь, Студия, Документы. На четырёх колонках
+   последний уезжал на вторую строку и висел там одиноко. */
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1.1fr 1fr 0.9fr;
+  gap: var(--space-6) var(--space-7);
+}
+
+.site-footer__brand img { width: 92px; height: auto; margin-bottom: var(--space-4); }
+
+.site-footer ul {
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-size: var(--fs-small);
+}
+
+.footer-phone { font-family: var(--font-display); font-size: 1.3rem; color: var(--c-accent); }
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--green-500);
+  font-size: var(--fs-caption);
+}
+
+/* ===========================================================================
+   АДАПТИВ
+   =========================================================================== */
+
+@media (max-width: 1100px) {
+  .pick__grid,
+  .studio-cta__grid { grid-template-columns: 1fr; gap: var(--space-7); }
+}
+
+@media (max-width: 1024px) {
+  .site-footer__inner { grid-template-columns: 1fr 1fr; }
+  .header-phone { display: none; }
+}
+
+@media (max-width: 768px) {
+  .site-nav { display: none; }
+  .burger { display: flex; }
+  .site-footer__inner { grid-template-columns: 1fr; }
+  body:has(.mobile-bar) .site-footer { padding-bottom: calc(var(--space-9) + 96px); }
+
+  .mobile-bar { display: flex; }
+  .cart-panel { right: 0; bottom: 108px; width: 100%; border-inline: none; }
+  .shop-hero { padding-block: var(--space-8) var(--space-7); }
+  .shop-hero__proof { gap: var(--space-5); }
+  .cross-bar__inner { font-size: 11px; }
+
+  .pick__actions .btn,
+  .studio-cta__actions .btn,
+  .shop-hero__actions .btn { width: 100%; }
+
+  /* Меню на телефоне раскрывается внутри .site-header, а у шапки собственный
+     контекст наложения (sticky + z-index), поэтому z-index 200 у меню за
+     пределами шапки считается как 100. Панель заказа и нижняя панель лежат
+     в body отдельно и потому оказываются НАД раскрытым меню: его пункты
+     перекрыты и не нажимаются. Пока меню открыто, обе панели не нужны —
+     убираем их совсем, заодно они уходят из обхода по Tab. */
+  body.menu-is-open .cart-panel,
+  body.menu-is-open .mobile-bar { display: none; }
+
+  body.menu-is-open .site-nav {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-overlay);
+    background: var(--green-900);
+    color: var(--cream-100);
+    padding: min(var(--space-11), 18vh) var(--page-x) var(--space-8);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body.menu-is-open .site-nav ul {
+    flex-direction: column;
+    gap: var(--space-5);
+    font-size: var(--fs-h3);
+    font-family: var(--font-display);
+  }
+
+  body.menu-is-open .burger { position: relative; z-index: calc(var(--z-overlay) + 1); color: var(--cream-100); }
+  body.menu-is-open .burger span:first-child { transform: translateY(3px) rotate(45deg); }
+  body.menu-is-open .burger span:last-child { transform: translateY(-3px) rotate(-45deg); }
+}
