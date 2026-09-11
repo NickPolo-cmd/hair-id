@@ -236,6 +236,9 @@
   var обходДо = 0;
   function разбудитьОбход() {
     обходДо = (typeof performance !== 'undefined' ? performance.now() : 0) + 600;
+    // Обход живёт внутри кадра, поэтому спящий цикл надо разбудить,
+    // иначе подстраховка просто не отработает.
+    if (typeof разбудитьКадр === 'function') разбудитьКадр();
   }
 
   function sweepReveal(now) {
@@ -473,6 +476,35 @@
     updateParallax();
     sweepReveal(performance.now());
 
+    // Следующий кадр заказываем, только если он для чего-то нужен.
+    //
+    // Раньше цикл крутился всегда: на стоящей странице браузер шестьдесят
+    // раз в секунду будил вкладку, считал velocity, звал четыре функции —
+    // и все они выходили, ничего не сделав. На ноутбуке это заметно
+    // по расходу батареи: работа есть, результата нет.
+    //
+    // Теперь кадр продолжается, пока есть что доводить: страница ещё
+    // едет, догоняет цель при плавной прокрутке, или работает подстраховка
+    // к появлению блоков. Иначе цикл засыпает и просыпается от прокрутки.
+    if (нуженКадр()) requestAnimationFrame(frame);
+    else спим = true;
+  }
+
+  var спим = false;
+
+  function нуженКадр() {
+    if (Math.abs(velocity) > 0.05) return true;
+    if (smoothEnabled && Math.abs(targetY - currentY) > 0.4) return true;
+    var сейчас = typeof performance !== 'undefined' ? performance.now() : 0;
+    if (revealPending && revealPending.length && сейчас <= обходДо) return true;
+    return false;
+  }
+
+  // Любое движение страницы будит цикл. Обработчик лёгкий: он только
+  // заказывает кадр, вся работа по-прежнему в кадре.
+  function разбудитьКадр() {
+    if (!спим) return;
+    спим = false;
     requestAnimationFrame(frame);
   }
 
@@ -559,6 +591,11 @@
     initAnchors();
 
     requestAnimationFrame(frame);
+
+    window.addEventListener('scroll', разбудитьКадр, { passive: true });
+    window.addEventListener('wheel', разбудитьКадр, { passive: true });
+    window.addEventListener('touchmove', разбудитьКадр, { passive: true });
+    window.addEventListener('keydown', разбудитьКадр, { passive: true });
 
     window.addEventListener('hashchange', разбудитьОбход);
     window.addEventListener('popstate', разбудитьОбход);
