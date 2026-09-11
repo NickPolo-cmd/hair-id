@@ -593,7 +593,9 @@
 }
 
 .set__price { font-family: var(--font-display); font-size: 1.4rem; display: flex; flex-direction: column; }
-.set__price s { font-family: var(--font-text); font-size: var(--fs-caption); color: var(--c-text-subtle); }
+/* Не --c-text-subtle: 2,96:1 на светлом при кегле 13 px — на солнце
+   с телефона строка пропадает. --c-text-muted даёт 5,42:1. */
+.set__price s { font-family: var(--font-text); font-size: var(--fs-caption); color: var(--c-text-muted); }
 
 .set__add {
   padding: var(--space-3) var(--space-5);
@@ -846,6 +848,10 @@
      в правом нижнем углу, и без запаса он накрывает кнопку записи */
   padding: var(--space-3) var(--space-4) calc(var(--space-3) + 42px + env(safe-area-inset-bottom, 0px));
   background: color-mix(in srgb, var(--green-900) 94%, transparent);
+  /* Safari до 18 и iOS до 17 знают только версию с префиксом. Без неё
+     панель оставалась полупрозрачной заливкой, и сквозь неё просвечивал
+     текст страницы. У шапки в этом же файле префикс есть. */
+  -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-top: 1px solid color-mix(in srgb, var(--gold-600) 30%, transparent);
 }

@@ -742,7 +742,7 @@ body.has-scrolled .header-logo { --знак: 50px; --надпись: 128px; }
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: var(--fw-regular);
-  color: var(--c-accent);
+  color: var(--c-accent-strong);
 }
 
 /* ===========================================================================
@@ -1106,7 +1106,9 @@ body.has-scrolled .header-logo { --знак: 50px; --надпись: 128px; }
 }
 
 .faq__item[open] summary::after { transform: rotate(45deg); }
-.faq__item summary:hover { color: var(--c-accent); }
+/* При наведении текст не должен становиться хуже читаемым, чем в покое:
+   --c-accent на светлой секции — 3,71:1 против 14,6:1 у обычного цвета. */
+.faq__item summary:hover { color: var(--c-accent-strong); }
 
 .faq__item p { padding-bottom: var(--space-5); color: var(--c-text-muted); max-width: 64ch; }
 
@@ -1339,8 +1341,8 @@ body.has-scrolled .header-logo { --знак: 50px; --надпись: 128px; }
    оба не умеют принимать готовый текст по ссылке. */
 #send-max.is-done,
 #send-tg.is-done {
-  border-color: var(--c-accent);
-  color: var(--c-accent);
+  border-color: var(--c-accent-strong); /* рамке хватает 3:1, тексту нужно 4,5:1 */
+  color: var(--c-accent-strong); /* рамке хватает 3:1, тексту нужно 4,5:1 */
   font-size: var(--fs-caption);
   letter-spacing: var(--ls-wide);
 }
@@ -1361,6 +1363,10 @@ body.has-scrolled .header-logo { --знак: 50px; --надпись: 128px; }
      в правом нижнем углу, и без запаса он накрывает кнопку записи */
   padding: var(--space-3) var(--space-4) calc(var(--space-3) + 42px + env(safe-area-inset-bottom, 0px));
   background: color-mix(in srgb, var(--green-900) 94%, transparent);
+  /* Safari до 18 и iOS до 17 знают только версию с префиксом. Без неё
+     панель оставалась полупрозрачной заливкой, и сквозь неё просвечивал
+     текст страницы. У шапки в этом же файле префикс есть. */
+  -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-top: 1px solid color-mix(in srgb, var(--gold-600) 30%, transparent);
 }
@@ -1675,7 +1681,9 @@ body.has-scrolled .header-logo { --знак: 50px; --надпись: 128px; }
 }
 
 .compare__table tbody tr:last-child td { border-bottom: none; }
-.compare__table td b { color: var(--c-accent); font-weight: var(--fw-semibold); }
+/* Не --c-accent: на кремовом он даёт 3,71:1 при норме 4,5:1 для 14 px.
+   У заголовка строкой выше это уже исправлено, здесь правку не довели. */
+.compare__table td b { color: var(--c-accent-strong); font-weight: var(--fw-semibold); }
 
 .compare__note {
   margin-top: var(--space-5);

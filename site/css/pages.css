@@ -302,7 +302,11 @@
   transition: background-image .5s var(--ease-out-soft, ease),
               box-shadow .42s var(--ease-out-soft, ease),
               translate .42s var(--ease-out-soft, ease),
-              scale .42s var(--ease-out-soft, ease);
+              scale .42s var(--ease-out-soft, ease),
+              /* без этой строки рамка при наведении включалась рывком:
+                 список переходов заменяет прежний целиком, а border-color
+                 был только в нём */
+              border-color .42s var(--ease-out-soft, ease);
 }
 .usluga:hover, .doroga:hover, .service-card:hover,
 .product:hover, .set:hover, .how-card:hover, .statement__card:hover {
@@ -317,7 +321,14 @@
 .brand-badge__img { animation: знак-дышит 6s ease-in-out infinite; }
 
 /* Логотип в шапке слегка светлеет при наведении на него. */
-.header-logo img { transition: filter .4s var(--ease-out-soft, ease); }
+/* transition не складывается: одно правило заменяет другое целиком.
+   Раньше здесь оставался только filter, и переход ширины из main.css
+   пропадал — знак менял размер рывком, а надпись ехала плавно.
+   Поэтому перечисляем оба свойства. */
+.header-logo img,
+.header-logo img.header-logo__word {
+  transition: width .45s var(--ease-out-soft, ease), filter .4s var(--ease-out-soft, ease);
+}
 .header-logo:hover img { filter: brightness(1.14) saturate(1.06); }
 
 @media (prefers-reduced-motion: reduce) {

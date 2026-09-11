@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Наборы для домашнего ухода — Hair ID Shop</title>
 <meta name="description" content="Готовые наборы после кератина, для сухих волос, для кожи головы и к событию. Набор дешевле, чем те же позиции по отдельности.">
 <meta name="keywords" content="набор для волос, уход после кератина набор, набор для сухих волос">
@@ -58,7 +59,7 @@
       <span class="header-logo__sub">Shop</span>
     </a>
 
-    <nav class="site-nav" aria-label="Основная навигация">
+    <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
       <ul data-fade-siblings>
         <li><a href="index.html" class="link-underline">Главная</a></li>
         <li><a href="katalog.html" class="link-underline">Каталог</a></li>
@@ -76,7 +77,7 @@
       </button>
     </div>
 
-    <button class="burger" aria-label="Меню" aria-expanded="false">
+    <button class="burger" aria-label="Меню" aria-expanded="false" aria-controls="site-nav">
       <span></span><span></span>
     </button>
 
@@ -148,7 +149,7 @@
       <p class="t-muted">Средства для волос, отобранные мастером.<br>У каждых волос свой ID.</p>
     </div>
 
-    <nav class="site-footer__nav" aria-label="Разделы">
+    <nav class="site-footer__nav" aria-label="Магазин">
       <h3 class="t-eyebrow">Магазин</h3>
       <ul>
         <li><a href="katalog.html" class="link-underline">Каталог</a></li>

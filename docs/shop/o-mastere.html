@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Кто собирает наборы — Ирина Давыдова, Hair ID</title>
 <meta name="description" content="Наборы собирает мастер, который видит те же волосы через месяц после процедуры. Об Ирине Давыдовой и о том, как устроен магазин.">
 <meta name="keywords" content="Ирина Давыдова, мастер по волосам, Hair ID">
@@ -58,12 +59,13 @@
       <span class="header-logo__sub">Shop</span>
     </a>
 
-    <nav class="site-nav" aria-label="Основная навигация">
+    <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
       <ul data-fade-siblings>
         <li><a href="index.html" class="link-underline">Главная</a></li>
         <li><a href="katalog.html" class="link-underline">Каталог</a></li>
         <li><a href="nabory.html" class="link-underline">Наборы</a></li>
         <li><a href="kak-vybrat.html" class="link-underline">Как подбираю</a></li>
+          <li><a href="o-mastere.html" class="link-underline">Кто собирает</a></li>
         <li><a href="o-mastere.html" class="link-underline" aria-current="page">Кто собирает</a></li>
         <li><a href="https://nickpolo-cmd.github.io/hair-id/" class="link-underline" data-studio-link>Студия</a></li>
       </ul>
@@ -76,7 +78,7 @@
       </button>
     </div>
 
-    <button class="burger" aria-label="Меню" aria-expanded="false">
+    <button class="burger" aria-label="Меню" aria-expanded="false" aria-controls="site-nav">
       <span></span><span></span>
     </button>
 
@@ -140,7 +142,7 @@
       <p class="t-muted">Средства для волос, отобранные мастером.<br>У каждых волос свой ID.</p>
     </div>
 
-    <nav class="site-footer__nav" aria-label="Разделы">
+    <nav class="site-footer__nav" aria-label="Магазин">
       <h3 class="t-eyebrow">Магазин</h3>
       <ul>
         <li><a href="katalog.html" class="link-underline">Каталог</a></li>

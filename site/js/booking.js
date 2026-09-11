@@ -172,7 +172,10 @@
     btn.setAttribute('data-label', original);
     btn.textContent = ok ? okText : failText;
     btn.classList.add('is-done');
-    window.setTimeout(function () {
+    // Без сброса прежнего таймера второе нажатие гасло раньше времени:
+    // срабатывал отсчёт от первого.
+    window.clearTimeout(btn._таймерПодписи);
+    btn._таймерПодписи = window.setTimeout(function () {
       btn.textContent = original;
       btn.classList.remove('is-done');
     }, 3600);
@@ -196,9 +199,14 @@
 
     maxBtn.addEventListener('click', function () {
       var msg = buildMessage() + '\n\nНомер мастера: +7 ' + PHONE.slice(1);
-      copyThen(maxBtn, msg, 'Текст скопирован', 'Номер: ' + PHONE_HUMAN, function () {
-        window.open('https://max.ru', '_blank', 'noopener');
-      });
+      // Окно открываем СРАЗУ, внутри обработчика нажатия. Если сделать это
+      // в колбэке после копирования в буфер, Safari посчитает вызов
+      // не связанным с жестом человека и заблокирует вкладку молча:
+      // текст скопируется, подпись сменится, а мессенджер не откроется.
+      var окно = null;
+      try { окно = window.open('https://max.ru', '_blank', 'noopener'); } catch (e) { окно = null; }
+      copyThen(maxBtn, msg, окно ? 'Текст скопирован' : 'Скопировано, откройте MAX',
+        'Номер: ' + PHONE_HUMAN);
     });
   }
 

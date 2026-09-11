@@ -18,6 +18,12 @@
       галерея.querySelectorAll('.rabota').forEach(function (ф) {
         ф.hidden = !(вид === 'все' || ф.dataset.vid === вид);
       });
+
+      // Высота страницы изменилась — движку надо пересчитать позиции, иначе
+      // параллакс останется посчитанным по полному списку работ и картинки
+      // поедут не туда. Так же делают booking.js и picker.js после похожих
+      // изменений высоты.
+      if (window.HairIDMotion && window.HairIDMotion.refresh) window.HairIDMotion.refresh();
     });
   }
 })();

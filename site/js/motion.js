@@ -122,7 +122,11 @@
 
   function initSmoothScroll() {
     updateSmoothState();
-    window.addEventListener('wheel', onWheel, { passive: false });
+    // Слушатель колеса вешаем ТОЛЬКО когда самодельная прокрутка включена.
+    // С passive: false браузер обязан дождаться этого обработчика перед
+    // каждой прокруткой — а он выходил на первой же строке и не делал
+    // ничего. Плата за пустоту: прокрутка уходит с композитора на главный поток.
+    if (CONFIG.плавнаяПрокрутка) window.addEventListener('wheel', onWheel, { passive: false });
   }
 
   function updateSmoothState() {
@@ -646,7 +650,10 @@
       var id = link.getAttribute('href');
       if (!id || id === '#') return;
 
-      var target = document.querySelector(id);
+      // Значение href приходит из разметки: «#2024» или «#раздел с пробелом»
+    // роняют querySelector исключением и убивают весь обработчик.
+    var target = null;
+    try { target = document.querySelector(id); } catch (e) { return; }
       if (!target) return;
 
       e.preventDefault();
@@ -655,6 +662,14 @@
   }
 
   function scrollToEl(el) {
+    // Родной переход по якорю не только прокручивает, но и переносит фокус.
+    // Мы переход отменили, значит фокус надо перенести руками — иначе
+    // ссылка «Перейти к содержанию» прокручивает страницу, а следующий
+    // Tab уводит обратно в шапку, то есть ровно туда, от чего она спасает.
+    if (el && el.setAttribute) {
+      if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+      try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); }
+    }
     var top = el.getBoundingClientRect().top + window.scrollY - 90;
     top = clamp(top, 0, maxScroll());
 

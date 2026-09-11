@@ -254,13 +254,18 @@
       return r.bottom > 0 && r.top < window.innerHeight;
     }
 
+    // Наблюдателей запоминаем: без ссылки на них отключить их потом неоткуда,
+    // и после гашения частиц они продолжали дёргать play() для холста,
+    // которого на странице уже нет.
+    var наблюдатель = null;
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
+      наблюдатель = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (e.isIntersecting) play();
           else pause();
         });
-      }, { rootMargin: '120px' }).observe(host);
+      }, { rootMargin: '120px' });
+      наблюдатель.observe(host);
     } else {
       play();
     }
@@ -285,13 +290,26 @@
     // Высота раздела меняется и после загрузки: доезжают шрифты, появляются
     // блоки, раскрывается вопрос в FAQ. Если не следить, холст останется
     // прежнего размера, CSS растянет его — и пылинки поедут овалами.
+    var rt = null;
+    var наблюдательРазмера = null;
     if ('ResizeObserver' in window) {
-      var rt = null;
-      new ResizeObserver(function () {
+      наблюдательРазмера = new ResizeObserver(function () {
         window.clearTimeout(rt);
         rt = window.setTimeout(layer.resize, 200);
-      }).observe(host);
+      });
+      наблюдательРазмера.observe(host);
     }
+
+    // Полное выключение слоя. Убрать холст из документа мало: цикл отрисовки
+    // Sparticles продолжает крутиться и жечь процессор, а наблюдатели —
+    // будить его заново при прокрутке.
+    layer.destroy = function () {
+      if (наблюдатель) наблюдатель.disconnect();
+      if (наблюдательРазмера) наблюдательРазмера.disconnect();
+      window.clearTimeout(rt);
+      try { if (sp && sp.destroy) sp.destroy(); else if (sp && sp.stop) sp.stop(); } catch (e) { /* уже мёртв */ }
+      if (box && box.parentNode) box.parentNode.removeChild(box);
+    };
 
     layer.box = box;
     layer.host = host;
@@ -429,7 +447,8 @@
     // сколько его отсутствие, а видимый и остановленный — как работающий).
     сторожКадров(function () {
       layers.forEach(function (l) {
-        if (l.box && l.box.parentNode) l.box.parentNode.removeChild(l.box);
+        if (l.destroy) l.destroy();
+        else if (l.box && l.box.parentNode) l.box.parentNode.removeChild(l.box);
       });
       layers.length = 0;
     });
