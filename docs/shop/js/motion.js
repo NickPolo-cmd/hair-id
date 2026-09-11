@@ -26,6 +26,31 @@
   // ---------------------------------------------------------------------------
 
   var CONFIG = {
+    // Самодельная инерционная прокрутка ВЫКЛЮЧЕНА. Не «пока», а по замерам.
+    //
+    // Как она работала: колесо перехватывалось, e.preventDefault() отменял
+    // нативную прокрутку, а страница двигалась вручную — window.scrollTo
+    // на каждом кадре с плавным подтягиванием к цели. Рядом стояла защита:
+    // если реальная позиция разошлась с ожидаемой больше чем на 2 px,
+    // движок резко приравнивал цель к реальной позиции.
+    //
+    // Пока кадры укладывались в 16 мс, это выглядело мягко. Но на главной
+    // при 15 фактурах и 9 слоях частиц кадр занимал 45–52 мс (замер
+    // профилировщиком, прокрутка колесом: худший кадр 167 мс). На таком
+    // темпе браузер успевает прокрутить страницу между кадрами, срабатывает
+    // защита, позиция скачком возвращается назад — и следующий кадр тянет
+    // её обратно вперёд. Владелец описал это дословно: «зависает и куда-то
+    // перепрыгивает вверх, потом вниз».
+    //
+    // Нативная прокрутка на macOS и так инерционная и живёт в отдельном
+    // потоке композитора: её невозможно затормозить джаваскриптом. Поэтому
+    // прокрутку отдаём браузеру. Разбор основателя (03-РАЗБОР-ОСНОВАТЕЛЯ.md)
+    // уже относил этот движок к переинвестированию и советовал не развивать.
+    //
+    // Вернуть можно одной строкой: плавнаяПрокрутка: true. Но сначала
+    // добейтесь кадра меньше 16 мс, иначе вернётся та же болезнь.
+    плавнаяПрокрутка: false,
+
     scrollEase: 0.11,          // инерция: меньше — тягучее
     wheelMultiplier: 1,        // чувствительность колеса
     smoothMinWidth: 1024,      // ниже — нативная прокрутка
@@ -101,7 +126,8 @@
   }
 
   function updateSmoothState() {
-    var should = !reduced && finePointer && window.innerWidth >= CONFIG.smoothMinWidth;
+    var should = CONFIG.плавнаяПрокрутка &&
+      !reduced && finePointer && window.innerWidth >= CONFIG.smoothMinWidth;
     if (should === smoothEnabled) return;
     smoothEnabled = should;
     body.classList.toggle('is-smooth-scroll', smoothEnabled);
@@ -258,6 +284,20 @@
     parallaxItems = [];
     if (reduced) return;
     document.querySelectorAll('[data-parallax]').forEach(function (el) {
+      // Переход на transform снимается принудительно.
+      //
+      // На этих картинках в CSS стоит transition на transform (0,45–1 с),
+      // а у части — вообще transition: all. Параллакс пишет transform
+      // на каждом кадре, и каждая запись запускала НОВЫЙ переход: браузер
+      // пересчитывал анимацию по шестьдесят раз в секунду поверх самой себя.
+      // Замер профилировщиком на главной: updateParallax съедала 596 мс
+      // из 2 495 мс прокрутки — почти четверть, при девяти элементах.
+      // Плюс движение выглядело вязким: сдвиг догонял цель с задержкой.
+      //
+      // Оставляем opacity — на нём держится плавное появление картинок
+      // (.is-loaded и data-reveal). Убираем только transform.
+      el.style.transitionProperty = 'opacity';
+
       parallaxItems.push({
         el: el,
         strength: num(el.getAttribute('data-parallax'), 0.12),
@@ -270,16 +310,28 @@
     if (!parallaxItems.length) return;
     var vh = window.innerHeight;
 
-    parallaxItems.forEach(function (item) {
-      var rect = item.el.getBoundingClientRect();
+    // Сначала читаем геометрию всех элементов, потом пишем сдвиги: иначе
+    // каждая запись отменяет раскладку и следующее чтение заставляет браузер
+    // пересчитать её заново. В студии это уже сделано, здесь оставалось.
+    var рамки = parallaxItems.map(function (item) {
+      return item.el.getBoundingClientRect();
+    });
+
+    parallaxItems.forEach(function (item, i) {
+      var rect = рамки[i];
       if (rect.bottom < -200 || rect.top > vh + 200) return;
 
       var progress = (rect.top + rect.height / 2 - vh / 2) / vh;
       var shift = (progress * item.strength * 100).toFixed(2);
 
-      item.el.style.transform = item.axis === 'x'
+      var стиль = item.axis === 'x'
         ? 'translate3d(' + shift + 'px,0,0)'
         : 'translate3d(0,' + shift + 'px,0)';
+
+      if (стиль !== item.записано) {
+        item.записано = стиль;
+        item.el.style.transform = стиль;
+      }
     });
   }
 

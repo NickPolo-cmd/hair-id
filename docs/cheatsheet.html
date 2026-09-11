@@ -84,6 +84,18 @@ td b{font-weight:600}
 .stop ul{margin:0;padding-left:5mm;font-size:9.5pt;line-height:1.75}
 .stop li{margin-bottom:.8mm}
 
+.order{
+  margin:0 0 5mm;padding:3.5mm 4mm;border:.35mm solid var(--gold-600);border-radius:1.5mm;
+  background:linear-gradient(180deg,rgba(240,227,204,.5),rgba(240,227,204,.16));
+}
+.order h2{margin:0 0 2mm}
+.order ol{margin:0;padding-left:5mm}
+.order li{margin:0 0 1.4mm;font-size:8.6pt;line-height:1.35}
+.order li b{color:var(--green-700)}
+.order .card-link{
+  display:block;margin:3mm 0 0;padding-top:2.5mm;border-top:.3mm dashed var(--gold-600);font-size:8.2pt;
+}
+.order .card-link a{color:var(--gold-600);font-weight:700}
 .note{
   margin-top:2mm;font-size:8.5pt;color:#5a6960;
 }
@@ -118,6 +130,28 @@ td b{font-weight:600}
       <h1>Шпаргалка мастера</h1>
       <p>Hair ID · висит в студии</p>
     </div>
+  </div>
+
+  <!-- ПОРЯДОК ВИЗИТА: пять шагов, которыми Hair ID отличается от соседей.
+       Без этого блока карта волос и шпаргалка лежали каждая сама по себе,
+       и в приём они не попадали. -->
+  <div class="order">
+    <h2>Порядок визита — пять шагов</h2>
+    <ol>
+      <li><b>Диагностика до состава.</b> Пористость, плотность, история окрашиваний,
+        состояние кожи головы. Смотрим и проговариваем вслух — клиентка должна видеть,
+        что решение принимается при ней.</li>
+      <li><b>Вердикт вслух, включая отказ.</b> «Вот что вижу, вот что поможет,
+        вот что не поможет». Если процедура не нужна — говорим это и не берём денег.</li>
+      <li><b>Процедура.</b></li>
+      <li><b>Карта волос на руки.</b> Заполняем при клиентке: дата, процедура, состав,
+        как отреагировали, параметры волос. Она уносит её домой.</li>
+      <li><b>Домашний уход в тот же день</b> — по карте, а не «вот это все берут».
+        Если рекомендовать нечего, не рекомендуем ничего.</li>
+    </ol>
+    <p class="card-link">Карта волос для печати — <a href="card.html">card.html</a>.
+      Формат A6, бумага от 250 г, двусторонняя печать, фоновая графика включена,
+      режем по пунктирным меткам.</p>
   </div>
 
   <h2>Первый ответ на сообщение</h2>
