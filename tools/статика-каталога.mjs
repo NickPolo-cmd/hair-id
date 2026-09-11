@@ -94,7 +94,10 @@ function карточкаТовара(p, отступ) {
     p.forWhom ? о + '    <p class="product__for"><b>Кому:</b> ' + экр(p.forWhom) + '</p>' : null,
     (p.notFor && p.notFor !== '—')
       ? о + '    <p class="product__notfor"><b>Кому не подойдёт:</b> ' + экр(p.notFor) + '</p>' : null,
-    о + '    <details class="product__more"><summary>Почему это работает</summary>',
+    // Название товара в подписи — только для читалки экрана: тридцать шесть
+    // одинаковых «Почему это работает» подряд на слух не различить.
+    о + '    <details class="product__more"><summary aria-label="Почему это работает: '
+      + экр(p.title) + '">Почему это работает</summary>',
     о + '      <p>' + экр(p.why) + '</p>',
     о + '      <p><b>Как пользоваться.</b> ' + экр(p.how) + '</p>',
     о + '    </details>',
