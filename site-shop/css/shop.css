@@ -1005,9 +1005,15 @@
   .site-footer ul { gap: 0; }
   .site-footer ul a { display: block; padding-block: 11px; }
 
+  /* Размеры ниже взяты 46 px, а не ровно 44. Норма — 44, но элемент, стоящий
+     точно на пороге, на экране с двойной плотностью округляется то в 43,98,
+     то в 44,00: проверка адаптива на одном прогоне показывала нарушение,
+     на следующем — нет. Два пикселя запаса ничего не двигают в раскладке
+     и убирают мигающие ложные тревоги. */
+
   .burger {
-    min-width: 44px;
-    min-height: 44px;
+    min-width: 46px;
+    min-height: 46px;
     align-items: center;
     justify-content: center;
   }
@@ -1023,11 +1029,11 @@
   /* Логотип магазина — 38 px. Это ссылка «на главную», по ней промахиваются
      реже прочего, но 6 px до нормы добираются одной строкой и ничего
      не двигают: у шапки своё поле сверху и снизу. */
-  .header-logo { min-height: 44px; align-items: center; }
+  .header-logo { min-height: 46px; align-items: center; }
 
   .product__more summary { padding-block: var(--space-3); }
 
-  .product__vol { min-height: 44px; }
+  .product__vol { min-height: 46px; }
 
   /* Крестик закрытия панели заказа — 23×24. Это единственный способ убрать
      панель с экрана, и промах по нему на телефоне выглядит как «зависло».
@@ -1036,7 +1042,7 @@
   .cart-panel__close {
     display: grid;
     place-items: center;
-    min-width: 44px;
-    min-height: 44px;
+    min-width: 46px;
+    min-height: 46px;
   }
 }

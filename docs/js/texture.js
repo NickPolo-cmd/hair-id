@@ -75,6 +75,17 @@
     'powder-green': 'bg-powder-green.jpg'
   };
 
+  // Один пересчёт движка на кадр, сколько бы фактур ни появилось.
+  var пересчётЗапрошен = false;
+  function обновитьДвижок() {
+    if (пересчётЗапрошен) return;
+    пересчётЗапрошен = true;
+    requestAnimationFrame(function () {
+      пересчётЗапрошен = false;
+      if (window.HairIDMotion && window.HairIDMotion.refresh) window.HairIDMotion.refresh();
+    });
+  }
+
   function initTextures() {
     // Фактуры создаются НЕ разом при загрузке, а по мере подхода раздела
     // к экрану. Замер на главной (1440×900, 15 фактур): при создании всех
@@ -140,8 +151,13 @@
       layer.appendChild(veil);
       section.insertBefore(layer, section.firstChild);
 
-      // Параллакс узнаёт о новом элементе только через пересбор списка.
-      if (window.HairIDMotion && window.HairIDMotion.refresh) window.HairIDMotion.refresh();
+      // Вставленный слой меняет раскладку, поэтому движку надо пересчитать
+      // места элементов. Но звать полный пересчёт на каждую фактуру нельзя:
+      // на главной их пятнадцать, и они появляются пачкой при подходе
+      // к секции — получалось пятнадцать полных пересчётов подряд,
+      // каждый с обходом всех параллаксов, залипаний и логотипа.
+      // Копим вызовы и делаем один на ближайшем кадре.
+      обновитьДвижок();
     };
 
     if (!('IntersectionObserver' in window)) {

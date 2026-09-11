@@ -81,10 +81,7 @@
   var smoothEnabled = false;
   var expectedY = window.scrollY;  // где страница должна стоять после нашего кадра
 
-  var marquees = [];
   var parallaxItems = [];
-  var stickyItems = [];
-  var logoMorph = null;
 
   // Блоки, которые ещё не показаны, и их наблюдатель. Нужны подстраховке
   // sweepReveal: она добирает то, что наблюдатель пропустил на резком прыжке.
@@ -305,33 +302,65 @@
       parallaxItems.push({
         el: el,
         strength: num(el.getAttribute('data-parallax'), 0.12),
-        axis: el.getAttribute('data-parallax-axis') === 'x' ? 'x' : 'y'
+        axis: el.getAttribute('data-parallax-axis') === 'x' ? 'x' : 'y',
+        записано: '',  // последняя записанная строка transform, см. updateParallax
+        docTop: 0,     // место в документе, снимается measureParallax
+        height: 0
       });
+    });
+    measureParallax();
+  }
+
+  // Место каждого элемента в документе снимается ОДИН раз, а не на каждом кадре.
+  //
+  // Замер профилировщиком на главной студии (1440x900, 24 элемента с параллаксом):
+  // getBoundingClientRect съедал 624 мс из 2 491 мс — четверть всего времени
+  // прокрутки. Причина не в самом вызове, а в том, что страница большая:
+  // каждый запрос рамки заставляет браузер посчитать раскладку целиком,
+  // и таких запросов было двадцать четыре на кадр.
+  //
+  // Положение элемента относительно экрана считается из одного числа —
+  // window.scrollY, — а оно и так известно. Пересъёмка нужна только когда
+  // раскладка действительно поменялась: поворот экрана, изменение размера,
+  // догрузка шрифта или новая фактура (её добавляет texture.js и сам зовёт refresh).
+  function measureParallax() {
+    if (!parallaxItems.length) return;
+    var сдвиг = window.scrollY || window.pageYOffset || 0;
+    parallaxItems.forEach(function (item) {
+      var r = item.el.getBoundingClientRect();
+      item.docTop = r.top + сдвиг;
+      item.height = r.height;
     });
   }
 
+  // Два прохода, а не один. Раньше чтение рамки и запись transform шли вперемешку
+  // по каждой картинке: запись помечала стили грязными, и следующее чтение
+  // заставляло браузер пересчитывать раскладку заново — до двух десятков
+  // принудительных пересчётов за кадр, что и давало подёргивание прокрутки
+  // на телефоне. Сначала читаем все рамки, потом пишем все трансформы.
+  // Вложенных элементов с data-parallax нет (это только картинки), поэтому
+  // разнесение проходов ничего не меняет в самой картинке движения.
   function updateParallax() {
     if (!parallaxItems.length) return;
     var vh = window.innerHeight;
+    var сдвиг = window.scrollY || window.pageYOffset || 0;
 
-    // Сначала читаем геометрию всех элементов, потом пишем сдвиги: иначе
-    // каждая запись отменяет раскладку и следующее чтение заставляет браузер
-    // пересчитать её заново. В студии это уже сделано, здесь оставалось.
-    var рамки = parallaxItems.map(function (item) {
-      return item.el.getBoundingClientRect();
-    });
+    parallaxItems.forEach(function (item) {
+      // Ни одного обращения к раскладке: положение считается из запомненного
+      // места в документе и текущей прокрутки.
+      var top = item.docTop - сдвиг;
+      var bottom = top + item.height;
+      if (bottom < -200 || top > vh + 200) return;
 
-    parallaxItems.forEach(function (item, i) {
-      var rect = рамки[i];
-      if (rect.bottom < -200 || rect.top > vh + 200) return;
-
-      var progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+      var progress = (top + item.height / 2 - vh / 2) / vh;
       var shift = (progress * item.strength * 100).toFixed(2);
 
       var стиль = item.axis === 'x'
         ? 'translate3d(' + shift + 'px,0,0)'
         : 'translate3d(0,' + shift + 'px,0)';
 
+      // Пишем только изменившееся: на стоящей странице кадр не трогает стили
+      // вообще, как и в updateLogoMorph.
       if (стиль !== item.записано) {
         item.записано = стиль;
         item.el.style.transform = стиль;
@@ -340,110 +369,14 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 6. Бегущая строка
+  // Бегущая строка, залипающие секции и перелёт логотипа убраны.
   //
-  // Дорожка дублируется ровно один раз, дубль помечается aria-hidden,
-  // иначе скринридер прочитает прейскурант дважды.
-  // Скорость = базовая + сглаженная скорость прокрутки, с потолком.
+  // Эти три блока приехали в магазин копией движка студии и никогда здесь
+  // не работали: в разметке магазина нет ни data-marquee, ни data-sticky,
+  // ни логотипа в первом экране. Их функции всё равно вызывались на каждом
+  // кадре — пусть и выходили сразу, — а читающий код видел у магазина
+  // возможности, которых у него нет. Понадобятся — берутся из студии.
   // ---------------------------------------------------------------------------
-
-  function initMarquee() {
-    marquees = [];
-    if (reduced) return;
-
-    document.querySelectorAll('[data-marquee]').forEach(function (el) {
-      var track = el.querySelector('.marquee-track');
-      if (!track) return;
-
-      var width = track.offsetWidth;
-      if (!width) return;
-
-      // Достаточно копий, чтобы перекрыть экран дважды и не показать разрыв.
-      var copies = Math.max(1, Math.ceil((window.innerWidth * 2) / width));
-      var tracks = [track];
-
-      for (var i = 0; i < copies; i++) {
-        var clone = track.cloneNode(true);
-        clone.setAttribute('aria-hidden', 'true');
-        el.appendChild(clone);
-        tracks.push(clone);
-      }
-
-      marquees.push({ tracks: tracks, width: width, offset: 0,
-                      speed: num(el.getAttribute('data-marquee-speed'), CONFIG.marqueeBaseSpeed) });
-    });
-  }
-
-  function updateMarquee() {
-    if (!marquees.length) return;
-    var boost = Math.min(Math.abs(velocity) / CONFIG.marqueeScrollBoost, CONFIG.marqueeBoostCap);
-
-    marquees.forEach(function (m) {
-      m.offset -= (m.speed + boost);
-      if (Math.abs(m.offset) >= m.width) m.offset += m.width;
-
-      m.tracks.forEach(function (track, i) {
-        track.style.transform = 'translate3d(' + (m.offset + i * m.width).toFixed(2) + 'px,0,0)';
-      });
-    });
-  }
-
-  // ---------------------------------------------------------------------------
-  // 7. Sticky-секции
-  //
-  // Теперь, когда прокрутка настоящая, работает нативный position: sticky —
-  // он в CSS. Здесь только вешаем класс, чтобы можно было менять вид
-  // залипшего элемента.
-  // ---------------------------------------------------------------------------
-
-  function collectSticky() {
-    stickyItems = [];
-    document.querySelectorAll('[data-sticky]').forEach(function (el) {
-      stickyItems.push({ el: el, top: num(el.getAttribute('data-sticky'), 0) });
-    });
-  }
-
-  function updateSticky() {
-    stickyItems.forEach(function (item) {
-      var stuck = item.el.getBoundingClientRect().top <= item.top + 1;
-      item.el.classList.toggle('is-stuck', stuck);
-    });
-  }
-
-  // ---------------------------------------------------------------------------
-  // 8. Морфинг логотипа
-  //
-  // Большой логотип в первом экране уменьшается до размера логотипа в шапке,
-  // затем передаёт эстафету шапке. Один элемент масштабируется, а не два
-  // подменяют друг друга: подмена дрожит на мобильных.
-  // ---------------------------------------------------------------------------
-
-  function initLogoMorph() {
-    var hero = document.querySelector('[data-logo-hero]');
-    var header = document.querySelector('[data-logo-header]');
-    if (!hero || !header || reduced) return;
-    logoMorph = { hero: hero, header: header, heroW: 0, headerW: 0, distance: 1 };
-    measureLogoMorph();
-  }
-
-  function measureLogoMorph() {
-    if (!logoMorph) return;
-    logoMorph.hero.style.removeProperty('--logo-scale');
-    logoMorph.heroW = logoMorph.hero.offsetWidth || 1;
-    logoMorph.headerW = logoMorph.header.offsetWidth || 1;
-    var heroBottom = logoMorph.hero.getBoundingClientRect().bottom + window.scrollY;
-    var headerBottom = logoMorph.header.getBoundingClientRect().bottom;
-    logoMorph.distance = Math.max(heroBottom - headerBottom, 1);
-  }
-
-  function updateLogoMorph() {
-    if (!logoMorph) return;
-    var progress = clamp(currentY / logoMorph.distance, 0, 1);
-    var target = logoMorph.headerW / logoMorph.heroW;
-    logoMorph.hero.style.setProperty('--logo-scale', (1 - (1 - target) * progress).toFixed(4));
-    logoMorph.hero.style.setProperty('--logo-progress', progress.toFixed(4));
-    body.classList.toggle('is-logo-docked', progress >= 0.99);
-  }
 
   // ---------------------------------------------------------------------------
   // 9. Приглушение соседей в меню
@@ -507,9 +440,6 @@
 
     updateScrollState();
     updateParallax();
-    updateMarquee();
-    updateSticky();
-    updateLogoMorph();
     sweepReveal(performance.now());
 
     requestAnimationFrame(frame);
@@ -525,9 +455,7 @@
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(function () {
       updateSmoothState();
-      measureLogoMorph();
       collectParallax();
-      collectSticky();
     }, 150);
   }
 
@@ -592,8 +520,6 @@
     document.documentElement.classList.add('motion-ready');
 
     collectParallax();
-    collectSticky();
-    initLogoMorph();
     initFadeSiblings();
     initAnchors();
 
@@ -601,8 +527,6 @@
 
     window.addEventListener('resize', onResize, { passive: true });
     window.addEventListener('load', function () {
-      initMarquee();       // после загрузки шрифтов ширина дорожки уже верная
-      measureLogoMorph();
       collectParallax();
     });
   }
@@ -620,9 +544,7 @@
       if (el) scrollToEl(el);
     },
     refresh: function () {
-      measureLogoMorph();
       collectParallax();
-      collectSticky();
 
       // Блоки, дорисованные скриптом после запуска движка (каталог магазина,
       // дни в форме записи), тоже должны попасть под наблюдение — иначе они

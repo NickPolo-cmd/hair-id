@@ -423,14 +423,38 @@
   function collectSticky() {
     stickyItems = [];
     document.querySelectorAll('[data-sticky]').forEach(function (el) {
-      stickyItems.push({ el: el, top: num(el.getAttribute('data-sticky'), 0) });
+      stickyItems.push({ el: el, top: num(el.getAttribute('data-sticky'), 0),
+                         docTop: 0, залипло: null });
+    });
+    measureSticky();
+  }
+
+  // Место залипающих элементов снимается один раз — ровно по той же причине,
+  // что и у параллакса выше: getBoundingClientRect заставляет браузер
+  // пересчитать раскладку целиком, а здесь он вызывался на каждом кадре
+  // для каждого элемента. На странице услуг это кнопка «Записаться»,
+  // которая висит всю прокрутку, то есть пересчёт шёл шестьдесят раз
+  // в секунду всё время чтения страницы.
+  function measureSticky() {
+    if (!stickyItems.length) return;
+    var сдвиг = window.scrollY || window.pageYOffset || 0;
+    stickyItems.forEach(function (item) {
+      item.docTop = item.el.getBoundingClientRect().top + сдвиг;
     });
   }
 
   function updateSticky() {
+    if (!stickyItems.length) return;
+    var сдвиг = window.scrollY || window.pageYOffset || 0;
     stickyItems.forEach(function (item) {
-      var stuck = item.el.getBoundingClientRect().top <= item.top + 1;
-      item.el.classList.toggle('is-stuck', stuck);
+      var stuck = (item.docTop - сдвиг) <= item.top + 1;
+      // Класс переставляем только при смене состояния. Раньше toggle
+      // вызывался каждый кадр с тем же значением: изменения не было,
+      // но браузер всё равно помечал стили грязными.
+      if (stuck !== item.залипло) {
+        item.залипло = stuck;
+        item.el.classList.toggle('is-stuck', stuck);
+      }
     });
   }
 
