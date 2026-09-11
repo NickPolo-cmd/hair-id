@@ -403,6 +403,35 @@
 
 .product__notfor b { color: var(--c-text); font-weight: var(--fw-semibold); }
 
+/* «Советую после: Кератиновое выпрямление» — обратная сторона блока
+   «что взять домой» на странице услуг. Набрана как остальные пояснения
+   карточки, приглушённо: это довод, а не второй призыв к действию.
+   Ссылка подчёркнута, а не выделена одним цветом, — иначе при плохом свете
+   и при дальтонизме она неотличима от обычного текста. */
+.product__after {
+  margin: 0;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--c-text-muted);
+}
+
+.product__after b { color: var(--c-text); font-weight: var(--fw-semibold); }
+
+.product__after a {
+  color: var(--c-accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  /* Отступ сверху и снизу растит зону нажатия до 39 px, когда подпись легла
+     в одну строку, и до 61 px, когда в две, — не трогая раскладку: у строчного
+     элемента вертикальные поля не двигают строку. Пальцем на телефоне в подпись
+     высотой 22 px попасть трудно. Больше 10 px не берём: зоны двух соседних
+     ссылок начали бы налезать друг на друга, и промахов стало бы больше. */
+  padding-block: 10px;
+}
+
+.product__after a:hover,
+.product__after a:focus-visible { color: var(--c-accent-hover); }
+
 .product__more { margin-top: var(--space-2); }
 
 .product__more summary {
