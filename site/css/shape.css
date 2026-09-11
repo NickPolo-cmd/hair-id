@@ -1,0 +1,624 @@
+/**
+ * HAIR ID — shape.css
+ *
+ * Форма, воздух и объём. Подключается последним, после main.css и shop.css,
+ * и намеренно живёт отдельным файлом: здесь одна большая правка целиком,
+ * её можно прочитать подряд и при желании отключить одной строкой.
+ *
+ * Один файл на оба сайта — как tokens.css. Селекторы студии и магазина
+ * лежат вперемешку; неиспользованный селектор не стоит ничего.
+ *
+ * Четыре темы:
+ *   1. Скругления — острых углов на сайте не остаётся.
+ *   2. Воздух и неровность — блоки перестают стоять таблицей.
+ *   3. Объём — блок выпуклый в покое и вдавленный под курсором.
+ *   4. Градиент — золотая грань и тёплый свет, по краям, а не заливкой.
+ */
+
+/* ===========================================================================
+   1. СКРУГЛЕНИЯ
+   ===========================================================================
+   Радиус разный у разных семейств: мелкие элементы скругляются слабо,
+   крупные карточки — сильно. Одинаковый радиус у всего подряд — это ровно
+   то, из-за чего страница выглядела набором ячеек. */
+
+/* --- крупные врезки --- */
+.pricing-note,
+.honest__refusal,
+.geo__area,
+.reviews__empty,
+.booking-form,
+.compare__table,
+.shop-empty,
+.guarantee {
+  border-radius: var(--radius-xl);
+}
+
+/* --- карточки с фотографией --- */
+.service-card,
+.work,
+.statement__photo,
+.visit__photo,
+.about__photo,
+.pick__photo,
+.studio-cta__photo,
+.product,
+.set {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* Снимки в тизере магазина: форма нужна, объём — нет.
+   Они никуда не ведут, а поднятый блок обещает нажатие. */
+.shop-teaser__photos figure {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* --- обычные карточки --- */
+.statement__card,
+.method__step,
+.picker__card,
+.honest__item,
+.geo__card,
+.how-card,
+.aftercare__col,
+.service-card--compact,
+.picker__result,
+.booking-preview,
+.faq__item {
+  border-radius: var(--radius-md);
+}
+
+/* --- мелочь --- */
+.booking-form__select,
+.booking-form__input,
+.booking-form__textarea,
+.cart-item,
+.marquee--gold {
+  border-radius: var(--radius-xs);
+}
+
+.booking-day,
+.booking-slot {
+  border-radius: var(--radius-sm);
+}
+
+/* --- то, что скругляется до пилюли --- */
+.task-chip,
+.cross-bar__link,
+.service-card__cta,
+.product__add,
+.set__add {
+  border-radius: var(--radius-pill);
+}
+
+/* Панель корзины выезжает справа: скругляем только левый край,
+   правый уходит за экран, и радиус там был бы виден как щель. */
+.cart-panel {
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+}
+
+/* Фотография внутри скруглённой карточки повторяет её форму сверху.
+   Без этого угол картинки торчит за скруглением карточки. */
+.service-card__media,
+.product__media,
+.set__media {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+}
+
+/* Ни один угол не остаётся острым: страховка на случай блока,
+   который забыли перечислить выше. */
+.section img,
+.hero__proof li,
+.shop-hero__proof li {
+  border-radius: var(--radius-xs);
+}
+
+.site-header,
+.mobile-bar,
+.band,
+.marquee,
+.tex img,
+.hero__bg img,
+.shop-hero__bg img {
+  border-radius: 0;
+}
+
+/* ===========================================================================
+   2. ВОЗДУХ И НЕРОВНОСТЬ
+   ===========================================================================
+   Ряд одинаковых карточек, выровненных по нижнему краю, читается как
+   таблица. Здесь ряды намеренно сбиты: каждая следующая карточка ниже
+   предыдущей, а высота у них своя, по длине текста.
+
+   Смещение задано отступом, а не transform: transform занят появлением
+   блоков при прокрутке, и они бы передрались. */
+
+@media (min-width: 900px) {
+  .statement__cols,
+  .honest__grid,
+  .geo__grid,
+  .how-grid,
+  .method__steps,
+  .aftercare__grid {
+    align-items: start;
+  }
+
+  .method__steps > :nth-child(2) { margin-top: var(--space-5); }
+  .method__steps > :nth-child(3) { margin-top: var(--space-7); }
+
+  .statement__cols > :nth-child(2) { margin-top: var(--space-6); }
+  .statement__cols > :nth-child(3) { margin-top: var(--space-8); }
+
+  .honest__grid > :nth-child(even) { margin-top: var(--space-6); }
+
+  .geo__grid > :nth-child(2) { margin-top: var(--space-5); }
+  .geo__grid > :nth-child(3) { margin-top: var(--space-7); }
+
+  .how-grid > :nth-child(3n + 2) { margin-top: var(--space-5); }
+  .how-grid > :nth-child(3n + 3) { margin-top: var(--space-7); }
+
+  .aftercare__grid > :nth-child(2) { margin-top: var(--space-5); }
+  .aftercare__grid > :nth-child(3) { margin-top: var(--space-6); }
+
+  /* Раз карточки разной высоты, то и радиус у них может быть разный.
+     Разница небольшая, глазом почти не ловится, но ряд перестаёт
+     выглядеть штампованным. */
+  .honest__item:nth-child(odd),
+  .geo__card:nth-child(odd),
+  .how-card:nth-child(even) {
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* Воздуха внутри карточек прибавлено: тесная карточка выглядит дешёвой
+   независимо от того, что в ней написано. */
+.statement__card { padding: var(--space-7) var(--space-6); }
+.honest__item { padding: var(--space-6); }
+.geo__card { padding: var(--space-6); }
+.how-card { padding: var(--space-6); }
+
+/* Между рядами карточек тоже нужен воздух, иначе смещение читается
+   как ошибка вёрстки, а не как приём. */
+.honest__grid,
+.geo__grid,
+.how-grid { row-gap: var(--space-7); }
+
+/* Вопросы перестают быть строчками списка и становятся блоками.
+   Полоска-разделитель под каждым вопросом больше не нужна. */
+.faq__item {
+  border-bottom: 0;
+  padding: var(--space-4) var(--space-5);
+  background: var(--c-surface);
+  margin-bottom: var(--space-3);
+}
+
+/* ===========================================================================
+   3. ОБЪЁМ: ВЫПУКЛЫЙ В ПОКОЕ, ВДАВЛЕННЫЙ ПОД КУРСОРОМ
+   ===========================================================================
+   Блок в покое чуть приподнят над фоном. Под курсором тень уходит внутрь,
+   блок опускается на два пикселя и еле заметно уменьшается — так ведёт
+   себя настоящая клавиша.
+
+   Сдвиг задан свойствами translate и scale, а не transform. Это отдельные
+   свойства, и они не конфликтуют с появлением блоков при прокрутке,
+   которое как раз занимает transform. */
+
+.statement__card,
+.method__step,
+.picker__card,
+.service-card,
+.honest__item,
+.geo__card,
+.aftercare__col,
+.work,
+.faq__item,
+.how-card,
+.product,
+.set,
+.guarantee,
+.pricing-note,
+.honest__refusal,
+.geo__area,
+.reviews__empty {
+  position: relative;
+  box-shadow: var(--shadow-raise);
+  transition:
+    box-shadow 0.42s var(--ease-out-soft, ease),
+    translate 0.42s var(--ease-out-soft, ease),
+    scale 0.42s var(--ease-out-soft, ease),
+    border-color 0.42s var(--ease-out-soft, ease);
+}
+
+.statement__card:hover,
+.method__step:hover,
+.picker__card:hover,
+.service-card:hover,
+.honest__item:hover,
+.geo__card:hover,
+.aftercare__col:hover,
+.work:hover,
+.faq__item:hover,
+.how-card:hover,
+.product:hover,
+.set:hover,
+.guarantee:hover,
+.pricing-note:hover,
+.honest__refusal:hover,
+.geo__area:hover,
+.reviews__empty:hover,
+.statement__card:focus-within,
+.method__step:focus-within,
+.picker__card:focus-visible,
+.service-card:focus-within,
+.honest__item:focus-within,
+.geo__card:focus-within,
+.aftercare__col:focus-within,
+.work:focus-within,
+.faq__item:focus-within,
+.how-card:focus-within,
+.product:focus-within,
+.set:focus-within {
+  box-shadow: var(--shadow-press);
+  translate: 0 2px;
+  scale: 0.995;
+}
+
+/* Прежние правила наведения поднимали карточку вверх — прямо противоположное
+   тому, что нужно сейчас. Гасим их адресно, чтобы не искать по main.css. */
+.statement__card:hover,
+.method__step:hover,
+.picker__card:hover,
+.service-card:hover,
+.work:hover,
+.product:hover,
+.set:hover,
+.how-card:hover {
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Карточка целиком ведёт куда-то по смыслу
+
+   Ссылка внутри карточки растягивается на всю карточку невидимым слоем.
+   Приём известный: настоящая ссылка остаётся ссылкой — её видно, она
+   попадает в обход с клавиатуры и читается скринридером, — а кликнуть
+   можно в любое место карточки.
+
+   Всё, что внутри карточки тоже кликабельно (кнопка, раскрывающийся
+   вопрос), поднимается над этим слоем, иначе перестанет нажиматься. */
+
+[data-card-link] { position: relative; cursor: pointer; }
+
+[data-card-link] .card-stretch::after,
+[data-card-link] .card-go::after,
+[data-card-link] .service-card__cta::after,
+[data-card-link] .product__add::after,
+[data-card-link] .set__add::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Ссылка обязана быть НЕ позиционирована: иначе её невидимый слой
+   разложится по ней самой, а не по карточке, и нажимается снова только
+   сама подпись. На это и попалась первая версия правки. */
+[data-card-link] .card-stretch,
+[data-card-link] .card-go,
+[data-card-link] .service-card__cta,
+[data-card-link] .product__add,
+[data-card-link] .set__add {
+  position: static;
+}
+
+/* Что должно остаться нажимаемым поверх растянутой ссылки */
+[data-card-link] a:not(.card-go):not(.card-stretch),
+[data-card-link] button:not(.service-card__cta):not(.product__add):not(.set__add),
+[data-card-link] summary,
+[data-card-link] details,
+[data-card-link] input,
+[data-card-link] select {
+  position: relative;
+  z-index: 2;
+}
+
+/* Подпись-переход внизу карточки. Стрелка отъезжает вправо под курсором —
+   единственное движение, которое здесь идёт наружу, поэтому оно и читается
+   как «сюда можно нажать». */
+.card-go {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  font-family: var(--font-text);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--c-accent-strong);
+  text-decoration: none;
+  transition: color 0.3s var(--ease-out-soft, ease);
+}
+
+.card-go__arrow {
+  display: inline-block;
+  transition: translate 0.34s var(--ease-out-soft, ease);
+}
+
+[data-card-link]:hover .card-go { color: var(--c-accent-hover); }
+[data-card-link]:hover .card-go__arrow { translate: 5px 0; }
+
+.card-go:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
+/* ===========================================================================
+   4. ГРАДИЕНТ
+   ===========================================================================
+   Градиентом легко испортить страницу: заливка во весь экран читается как
+   шаблон из конструктора. Поэтому здесь он живёт на линии толщиной в
+   пиксель и в мягком пятне света — там, где его замечают, но не разглядывают.
+
+   Золотая грань по краю блока проявляется под курсором. Сделана маской
+   по кольцу: рамка из градиента без второго фона под ней. */
+
+@supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+  .statement__card::before,
+  .method__step::before,
+  .service-card::before,
+  .honest__item::before,
+  .geo__card::before,
+  .how-card::before,
+  .aftercare__col::before,
+  .product::before,
+  .set::before,
+  .pricing-note::before,
+  .honest__refusal::before,
+  .geo__area::before,
+  .reviews__empty::before,
+  .faq__item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-edge);
+    opacity: 0;
+    transition: opacity 0.42s var(--ease-out-soft, ease);
+
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .statement__card:hover::before,
+  .method__step:hover::before,
+  .service-card:hover::before,
+  .honest__item:hover::before,
+  .geo__card:hover::before,
+  .how-card:hover::before,
+  .aftercare__col:hover::before,
+  .product:hover::before,
+  .set:hover::before,
+  .pricing-note:hover::before,
+  .honest__refusal:hover::before,
+  .geo__area:hover::before,
+  .reviews__empty:hover::before,
+  .faq__item:hover::before,
+  .statement__card:focus-within::before,
+  .method__step:focus-within::before,
+  .service-card:focus-within::before,
+  .honest__item:focus-within::before,
+  .geo__card:focus-within::before,
+  .how-card:focus-within::before,
+  .product:focus-within::before,
+  .set:focus-within::before,
+  .faq__item:focus-within::before {
+    opacity: 1;
+  }
+}
+
+/* Тёплое пятно за крупной врезкой. Слабое, из одного угла — как отсвет
+   от лампы, а не как заливка. */
+.pricing-note,
+.honest__refusal,
+.geo__area,
+.reviews__empty,
+.guarantee,
+.booking-form,
+.shop-empty {
+  background-image: var(--gradient-card-glow);
+  background-repeat: no-repeat;
+}
+
+/* Свет по верхнему краю раздела. Без него стык двух светлых разделов
+   выглядит склейкой двух листов бумаги. */
+.section { position: relative; }
+
+.section::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 200px;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--gradient-section-top);
+}
+
+/* Заголовок раздела получает золотую черту — та же линия-разделитель,
+   что уже была в системе, просто до сих пор нигде не использовалась. */
+.section-head .t-eyebrow { position: relative; padding-bottom: var(--space-3); }
+
+.section-head .t-eyebrow::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 72px;
+  height: 1px;
+  background: var(--gradient-rule);
+}
+
+.section-head--center .t-eyebrow::after {
+  left: 50%;
+  translate: -50% 0;
+  width: 120px;
+}
+
+/* ===========================================================================
+   5. ЕСЛИ ЧЕЛОВЕК ОТКЛЮЧИЛ АНИМАЦИИ
+   ===========================================================================
+   Форма, объём и градиент остаются: они статичные. Убирается только
+   движение — сдвиг блока и отъезд стрелки. */
+
+@media (prefers-reduced-motion: reduce) {
+  .statement__card,
+  .method__step,
+  .picker__card,
+  .service-card,
+  .honest__item,
+  .geo__card,
+  .aftercare__col,
+  .work,
+  .faq__item,
+  .how-card,
+  .product,
+  .set,
+  .card-go__arrow {
+    transition: box-shadow 0.2s linear;
+  }
+
+  .statement__card:hover,
+  .method__step:hover,
+  .picker__card:hover,
+  .service-card:hover,
+  .honest__item:hover,
+  .geo__card:hover,
+  .aftercare__col:hover,
+  .work:hover,
+  .faq__item:hover,
+  .how-card:hover,
+  .product:hover,
+  .set:hover {
+    translate: none;
+    scale: none;
+  }
+
+  [data-card-link]:hover .card-go__arrow { translate: none; }
+}
+
+/* ===========================================================================
+   6. ВРЕЗКИ, У КОТОРЫХ БЫЛА ПОЛОСА СЛЕВА
+   ===========================================================================
+   Полоса в два пикселя по левому краю работала, пока углы были прямыми:
+   она отмечала границу блока. На скруглённом блоке та же полоса
+   превращается в толстую дугу и выглядит браком печати.
+
+   Акцент никуда не делся — он в тёплой заливке и в тонкой грани
+   по всему периметру. */
+
+.picker__result,
+.works__note,
+.booking-preview,
+.guarantee,
+.booking__urgency,
+.compare__note {
+  border-left: 0;
+  border: 1px solid color-mix(in srgb, var(--c-accent) 32%, transparent);
+  border-radius: var(--radius-lg);
+}
+
+.guarantee { border-radius: var(--radius-xl); }
+
+.works__note,
+.booking__urgency,
+.compare__note {
+  padding: var(--space-4) var(--space-5);
+}
+
+/* ===========================================================================
+   7. ЧТО БУДЕТ ПОСЛЕ ПЕРВОГО СООБЩЕНИЯ
+   ===========================================================================
+   Здесь нумерация нужна по-настоящему: это порядок шагов, и человек
+   считает по ним, сколько ещё до результата. */
+
+.booking__what-next {
+  counter-reset: next;
+  margin: var(--space-5) auto 0;
+  padding: var(--space-5) var(--space-6);
+  max-width: 62ch;
+  list-style: none;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  text-align: left;
+}
+
+.booking__what-next li {
+  counter-increment: next;
+  position: relative;
+  padding-left: var(--space-7);
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  line-height: 1.6;
+}
+
+.booking__what-next li:last-child { margin-bottom: 0; }
+
+.booking__what-next li::before {
+  content: counter(next);
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-circle);
+  background: var(--c-accent-soft);
+  border: 1px solid color-mix(in srgb, var(--c-accent) 40%, transparent);
+  font-family: var(--font-display);
+  font-size: var(--fs-caption);
+  color: var(--c-accent-strong);
+}
+
+/* ===========================================================================
+   8. КОНТРАСТ
+   ===========================================================================
+   Пиксельный замер поймал одно место: подзаголовки групп услуг
+   («Восстановить», «Гладкость», «Уход», «Образ») набраны золотом
+   тринадцатым кеглем — 3,59 при норме 4,5. На мониторе читается,
+   с телефона на солнце пропадает.
+
+   Тот же оттенок, что уже используется для остального мелкого золота. */
+
+.services__group-title { color: var(--c-accent-strong); }
+
+/* Главная кнопка. Тёмный текст лежит на золотом градиенте, и в том углу,
+   где градиент самый тёмный (gold-700), контраст падал до 3,79 при норме 4,5 —
+   буквы там подтапливались. Поднял самую тёмную ступень на один тон, до
+   gold-600: получается 4,62, а блеск остался — остальные ступени те же. */
+
+.btn-primary {
+  background-image: linear-gradient(
+    118deg,
+    var(--gold-600) 0%,
+    var(--gold-300) 18%,
+    var(--gold-500) 38%,
+    var(--gold-100) 54%,
+    var(--gold-600) 74%,
+    var(--gold-400) 100%
+  );
+}

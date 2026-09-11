@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hair ID — карта волос для печати</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/**
+ * Карта волос — печатный носитель Hair ID.
+ *
+ * Формат A6 (105×148 мм), две стороны. Печатается на плотной бумаге от 250 г,
+ * режется по меткам. Клиентка забирает карту домой.
+ *
+ * Это физическое воплощение идеи «у каждых волос свой ID» и единственный
+ * отличительный предмет, которого нет у конкурентов.
+ */
+
+:root{
+  --green-900:#10160f; --green-700:#1c2620; --green-500:#2f3d35;
+  --gold-600:#9a7b44; --gold-400:#c0a070; --gold-300:#d0b088; --gold-100:#f0e3cc;
+  --cream:#faf7f1; --cream-2:#f2ede3; --cream-3:#e6dfd1;
+  --gradient-gold:linear-gradient(118deg,#8a6d3c 0%,#d0b088 18%,#b09060 38%,#f0e3cc 54%,#9a7b44 74%,#c0a070 100%);
+  --gradient-rule:linear-gradient(90deg,transparent,#9a7b44 18%,#e2c89f 50%,#9a7b44 82%,transparent);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  padding:24px;
+  background:#8d8d8d;
+  font-family:'Manrope',sans-serif;
+  color:var(--green-700);
+}
+
+.hint{
+  max-width:960px;margin:0 auto 24px;padding:18px 22px;
+  background:var(--cream);border-left:3px solid var(--gold-600);
+  font-size:14px;line-height:1.65;
+}
+.hint h1{margin:0 0 10px;font-family:'Playfair Display',serif;font-size:22px;font-weight:500}
+.hint b{font-weight:600}
+.hint ul{margin:8px 0 0;padding-left:20px}
+.hint li{margin-bottom:4px}
+
+.sheet{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;max-width:960px;margin:0 auto}
+
+/* A6 = 105×148 мм */
+.card{
+  width:105mm;height:148mm;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+
+/* ЛИЦО — тёмное, с монограммой */
+.card--front{
+  background:linear-gradient(160deg,#24302a 0%,#1c2620 42%,#10160f 100%);
+  color:var(--cream);
+  align-items:center;justify-content:center;
+  text-align:center;padding:14mm 10mm;
+}
+
+.card--front::after{
+  content:'';position:absolute;inset:5mm;
+  border:.4mm solid rgba(154,123,68,.5);
+  pointer-events:none;
+}
+
+.logo{width:34mm;height:auto;border-radius:1mm;border:.3mm solid rgba(176,144,96,.55);margin-bottom:8mm}
+
+.card__title{
+  font-family:'Manrope',sans-serif;
+  font-size:9pt;letter-spacing:.34em;text-transform:uppercase;
+  background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;color:transparent;
+  margin:0 0 3mm;
+}
+
+.card__slogan{
+  font-family:'Playfair Display',serif;font-size:15pt;line-height:1.25;
+  margin:0 0 9mm;font-weight:400;
+}
+
+.owner{width:100%;text-align:left;font-size:8pt;line-height:2.4}
+.owner .line{border-bottom:.2mm dotted rgba(250,247,241,.45)}
+.owner span{color:var(--gold-300);letter-spacing:.06em}
+
+.card__foot{
+  position:absolute;bottom:9mm;left:0;width:100%;
+  font-size:6.5pt;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,241,.6);
+}
+
+/* ОБОРОТ — светлый, с таблицей визитов */
+.card--back{
+  background:var(--cream);
+  padding:8mm 7mm;
+}
+
+.back__head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding-bottom:2.5mm;margin-bottom:3mm;
+  border-bottom:.3mm solid var(--cream-3);
+}
+.back__head h2{margin:0;font-family:'Playfair Display',serif;font-size:11pt;font-weight:500}
+.back__head span{font-size:6.5pt;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-600)}
+
+table{width:100%;border-collapse:collapse;font-size:6.6pt}
+th{
+  text-align:left;font-weight:600;font-size:5.8pt;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--gold-600);padding:0 1mm 1.4mm;border-bottom:.3mm solid var(--cream-3);
+}
+td{height:8.4mm;border-bottom:.2mm dotted var(--cream-3);padding:0 1mm;vertical-align:bottom}
+
+.params{
+  margin-top:3.5mm;padding-top:2.5mm;border-top:.3mm solid var(--cream-3);
+  font-size:6.4pt;line-height:2.3;
+}
+.params b{
+  display:block;font-size:5.8pt;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-600);margin-bottom:1.5mm;font-weight:600;
+}
+.params .row{display:flex;gap:3mm}
+.params .row > span{flex:1;border-bottom:.2mm dotted var(--cream-3)}
+.params i{font-style:normal;color:#8b9389}
+
+.next{
+  margin-top:3mm;padding:2.2mm 3mm;
+  background:linear-gradient(100deg,rgba(192,160,112,.16),rgba(192,160,112,.05));
+  border-left:.6mm solid var(--gold-400);
+  font-size:7pt;
+}
+.next b{font-weight:600}
+
+.rule{height:.4mm;background:var(--gradient-rule);margin:3mm 0;opacity:.75}
+
+@media print{
+  @page{size:A4;margin:10mm}
+  body{background:#fff;padding:0}
+  .hint{display:none}
+  .sheet{gap:6mm}
+  .card{box-shadow:none;outline:.2mm dashed #bbb;outline-offset:2mm;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="hint">
+  <h1>Карта волос — как печатать</h1>
+  <p><b>Что это.</b> Карточка, которую клиентка забирает домой. В ней записано, что делали
+  с её волосами, чем и как они отреагировали. Это физическое воплощение идеи
+  «у каждых волос свой ID» и единственный предмет, которого нет у конкурентов
+  в районе.</p>
+  <ul>
+    <li>Нажмите <b>Ctrl+P</b> и выберите «Сохранить как PDF» или печать.</li>
+    <li>Бумага — плотная, от 250 г. На обычной карта мнётся и теряет смысл.</li>
+    <li>В настройках печати включите <b>фоновую графику</b>, иначе тёмная сторона выйдет белой.</li>
+    <li>Печатать двусторонне: лицо и оборот. Резать по пунктирным меткам.</li>
+  </ul>
+</div>
+
+<div class="sheet">
+
+  <!-- ЛИЦЕВАЯ СТОРОНА -->
+  <div class="card card--front">
+    <img class="logo" src="assets/logo/hair-id-logo-original.jpg" alt="Hair ID">
+    <p class="card__title">Карта волос</p>
+    <p class="card__slogan">У каждых волос<br>свой ID</p>
+
+    <div class="owner">
+      <div class="line"><span>Имя</span></div>
+      <div class="line"><span>Первый визит</span></div>
+      <div class="line"><span>Телефон</span></div>
+    </div>
+
+    <p class="card__foot">Осельки · Всеволожский район · 8 994 426-99-44</p>
+  </div>
+
+  <!-- ОБОРОТНАЯ СТОРОНА -->
+  <div class="card card--back">
+    <div class="back__head">
+      <h2>История визитов</h2>
+      <span>Hair ID</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:16%">Дата</th>
+          <th style="width:30%">Процедура</th>
+          <th style="width:28%">Состав</th>
+          <th style="width:26%">Как отреагировали</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="params">
+      <b>Параметры волос</b>
+      <div class="row"><span><i>Пористость:</i></span><span><i>Плотность:</i></span></div>
+      <div class="row"><span><i>Кожа головы:</i></span><span><i>Длина:</i></span></div>
+      <div class="row"><span><i>Белок или влага:</i></span><span><i>Последнее осветление:</i></span></div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="next">
+      <b>Дома:</b> ______________________________________<br>
+      <b>Следующий шаг:</b> _______________ <b>Когда:</b> ____________
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

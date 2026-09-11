@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nickpolo-cmd.github.io/hair-id/sitemap.xml

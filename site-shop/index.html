@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Уход за волосами: шампуни, маски, масла — Hair ID Shop, СПб</title>
+<meta name="description" content="Шампуни, маски, масла и термозащита, отобранные мастером Hair ID: кому подходит и почему. Бесплатный подбор по фото. СПб и Ленинградская область.">
+<meta name="keywords" content="шампунь после кератина, маска для повреждённых волос, протеиновая маска, масло для волос, шампунь для жирной кожи головы, термозащита для волос, уход за волосами после осветления, средства для волос СПб, купить уход для волос Ленинградская область">
+<meta name="geo.region" content="RU-LEN">
+<meta name="format-detection" content="telephone=no">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hair ID Shop — уход по вашему ID, а не по чужому отзыву">
+<meta property="og:description" content="Каждое средство отобрано мастером и объяснено: кому подходит и почему работает.">
+<meta property="og:image" content="https://hairid-shop.netlify.app/assets/logo/hair-id-badge-ru.jpg">
+<meta property="og:url" content="https://hairid-shop.netlify.app/">
+<meta property="og:site_name" content="Hair ID Shop">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://hairid-shop.netlify.app/">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/logo/apple-touch-icon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<script>
+/* Ставится до первой отрисовки: включает начальные состояния анимаций.
+   Страховка: если motion.js не отметился за три секунды, снимаем класс —
+   иначе спрятанное стилями содержимое так и останется невидимым. */
+(function () {
+  var root = document.documentElement;
+  root.classList.add('has-motion');
+  window.setTimeout(function () {
+    if (!root.classList.contains('motion-ready')) root.classList.remove('has-motion');
+  }, 3000);
+})();
+</script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/motion.css">
+<link rel="stylesheet" href="css/shop.css">
+<link rel="stylesheet" href="css/texture.css">
+<link rel="stylesheet" href="css/shape.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<div class="page-veil" aria-hidden="true"></div>
+<div class="scroll-progress-bar" aria-hidden="true"></div>
+
+<a href="#main" class="skip-link">Перейти к содержанию</a>
+
+<!-- =========================================================================
+     ПОЛОСА СВЯЗИ СО СТУДИЕЙ
+     Два сайта одного бренда должны видеть друг друга с первого экрана,
+     иначе человек не поймёт, что это одни руки.
+     ========================================================================= -->
+<div class="cross-bar">
+  <div class="container cross-bar__inner">
+    <span>Средства подбирает практикующий мастер студии Hair ID</span>
+    <a href="https://hairid.netlify.app" class="cross-bar__link" data-studio-link>Записаться на процедуру →</a>
+  </div>
+</div>
+
+<header class="site-header shop-header">
+  <div class="site-header__inner">
+
+    <a href="#top" class="header-logo" aria-label="Hair ID Shop, наверх">
+      <img width="320" height="232" src="assets/logo/hair-id-monogram.png" alt="Hair ID Shop">
+      <span class="header-logo__sub">Shop</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Основная навигация">
+      <ul data-fade-siblings>
+        <li><a href="index.html" class="link-underline" aria-current="page">Главная</a></li>
+        <li><a href="katalog.html" class="link-underline">Каталог</a></li>
+        <li><a href="nabory.html" class="link-underline">Наборы</a></li>
+        <li><a href="kak-vybrat.html" class="link-underline">Как подбираю</a></li>
+        <li><a href="o-mastere.html" class="link-underline">Кто собирает</a></li>
+        <li><a href="https://hairid.netlify.app" class="link-underline" data-studio-link>Студия</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-contact">
+      <a href="tel:+79944269944" class="header-phone">8 994 426-99-44</a>
+      <button type="button" class="cart-toggle" id="cart-toggle">
+        Заказ <span class="cart-toggle__count" id="cart-count">0</span>
+      </button>
+    </div>
+
+    <button class="burger" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+
+  </div>
+</header>
+
+<main class="page-main" id="main">
+<div id="top"></div>
+
+  <!-- =======================================================================
+       1 · ТЁМНЫЙ — ГЕРОЙ
+       ======================================================================= -->
+  <section class="shop-hero" data-theme="dark" data-powder data-sparkle>
+    <div class="shop-hero__bg" aria-hidden="true">
+      <img width="1200" height="1500" src="assets/photo/care-3.jpg" alt="" data-parallax="0.06">
+      <span class="shop-hero__veil"></span>
+    </div>
+
+    <div class="container shop-hero__inner">
+      <p class="t-eyebrow" data-reveal="fade">Hair ID Shop</p>
+
+      <h1 class="shop-hero__title" data-split="words" data-reveal="fade" data-reveal-delay="250">
+        Уход, подобранный под ваши волосы
+      </h1>
+
+      <p class="t-lead shop-hero__lead" data-reveal="up" data-reveal-delay="650">
+        На маркетплейсе вы выбираете по отзывам людей с другими волосами.
+        Здесь каждое средство отобрано мастером, который им работает,
+        и объяснено: кому подходит и почему.
+      </p>
+
+      <div class="shop-hero__actions" data-reveal="up" data-reveal-delay="850">
+        <a href="#catalog" class="btn btn-primary btn-lg">Смотреть каталог</a>
+        <a href="#pick" class="btn btn-ghost btn-lg">Бесплатный подбор</a>
+      </div>
+
+      <ul class="shop-hero__proof" data-reveal="fade" data-reveal-delay="1050">
+        <li><strong>36</strong> <span>отобранных средств</span></li>
+        <li><strong>4</strong> <span>готовых набора</span></li>
+        <li><strong>0 ₽</strong> <span>подбор по фото</span></li>
+        <li><strong>СПб</strong> <span>и Ленинградская область</span></li>
+      </ul>
+
+      <p class="shop-hero__geo" data-reveal="fade" data-reveal-delay="1150">
+        Забрать можно в студии в Осельках, 15 минут от Токсово и 24 от Девяткино.
+        По Санкт-Петербургу и Ленинградской области отправляю доставкой:
+        способ, стоимость и срок называю до оплаты — <a href="terms.html">условия заказа</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       2 · СВЕТЛЫЙ — ПОДБОР ПО ЗАДАЧЕ + КАТАЛОГ
+       ======================================================================= -->
+  <section class="section catalog" id="catalog">
+    <div class="container">
+
+      <div class="section-head">
+        <p class="t-eyebrow" data-reveal="fade">Каталог</p>
+        <h2 data-split="words" data-reveal="fade">Каталог: начните с задачи</h2>
+        <p class="t-lead" data-reveal="up">Люди редко знают, какой именно шампунь
+          или маска им нужны. Зато точно знают, что корни жирнятся за день,
+          а концы сухие. Начните отсюда — подберу средство под состояние волос.</p>
+      </div>
+
+      <div class="task-chips" id="shop-tasks" data-reveal="up"></div>
+
+      <p class="catalog__count" role="status"><span id="shop-count"></span></p>
+
+      <div class="shop-grid" id="shop-grid" data-reveal-group></div>
+
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       3 · ТЁМНЫЙ — НАБОРЫ
+       ======================================================================= -->
+  <section class="section sets" id="sets" data-theme="dark" data-tex="hair-dark" data-powder data-sparkle>
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="t-eyebrow" data-reveal="fade">Наборы</p>
+        <h2 data-split="words" data-reveal="fade">Собранные наборы</h2>
+        <p class="t-lead" data-reveal="up">Собраны так, как я советую их в студии после конкретных процедур.
+          Набор дешевле, чем те же позиции по отдельности; сумму подтвержу в ответе.</p>
+      </div>
+
+      <div class="sets-grid" id="shop-sets" data-reveal-group></div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       4 · СВЕТЛЫЙ — БЕСПЛАТНЫЙ ПОДБОР
+       ======================================================================= -->
+  <section class="section pick" id="pick" data-tex="foam">
+    <div class="container pick__grid">
+
+      <div class="pick__text">
+        <p class="t-eyebrow" data-reveal="fade">Бесплатно</p>
+        <h2 data-split="words" data-reveal="fade">Не уверены, что подойдёт именно вам?</h2>
+        <p class="t-lead" data-reveal="up">Пришлите фото волос при дневном свете
+          и напишите, что беспокоит. Отвечу, что нужно вашим волосам и от чего можно спокойно отказаться —
+          даже если это средство есть у меня в каталоге.</p>
+
+        <ul class="pick__list" data-reveal-group>
+          <li data-reveal="up"><b>Сухие или перегруженные белком?</b> На вид одно и то же,
+            а средства нужны противоположные. Разберёмся по фото и одному простому тесту.</li>
+          <li data-reveal="up"><b>Что брать первым?</b> Если бюджет ограничен, скажу, с какого одного средства начать.</li>
+          <li data-reveal="up"><b>Честно про ненужное.</b> Если дело в привычке, а покупка ничего не изменит, я так и скажу.</li>
+        </ul>
+
+        <div class="pick__actions" data-reveal="up">
+          <a href="https://wa.me/79944269944" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Написать в WhatsApp</a>
+          <a href="https://t.me/+79944269944" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+
+      <figure class="pick__photo parallax-frame" data-reveal="clip">
+        <img width="1200" height="1500" src="assets/photo/care-4.jpg" alt="Средства для ухода за волосами" data-parallax="0.08" loading="lazy">
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       5 · СВЕТЛЫЙ ГЛУБЖЕ — КАК ОТБИРАЮ
+       ======================================================================= -->
+  <section class="section how" id="how" data-tex="cream-soft">
+    <div class="container">
+      <div class="section-head">
+        <p class="t-eyebrow" data-reveal="fade">Как отбираю</p>
+        <h2 data-split="words" data-reveal="fade">Почему в каталоге так мало позиций</h2>
+        <p class="t-lead" data-reveal="up">Потому что каждое средство должно пройти
+          пять условий. Не проходит хотя бы одно — в каталог не попадает.</p>
+      </div>
+
+      <div class="how-grid grid grid-3" data-reveal-group>
+        <div class="how-card" data-reveal="up" data-card-link>
+          <h3>Работала им сама</h3>
+          <p>Знаю по рукам, как средство ведёт себя на разных волосах. Не по описанию
+            производителя.</p>
+          <a class="card-go" href="#catalog">Смотреть каталог <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="how-card" data-reveal="up" data-card-link>
+          <h3>Состав можно объяснить</h3>
+          <p>Простыми словами: что там работает и почему. Если объяснить не получается —
+            значит, не понимаю сама.</p>
+          <a class="card-go" href="#pick">Спросить про состав <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="how-card" data-reveal="up" data-card-link>
+          <h3>Есть документы</h3>
+          <p>Декларация соответствия, срок годности, легальный поставщик.</p>
+          <a class="card-go" href="#catalog">Смотреть каталог <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="how-card" data-reveal="up" data-card-link>
+          <h3>Решает задачу из диагностики</h3>
+          <p>Не «для всех типов волос» вообще, а под конкретное состояние:
+            у сухой длины и жирной кожи нужды противоположные.</p>
+          <a class="card-go" href="#pick">Бесплатный подбор <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="how-card" data-reveal="up" data-card-link>
+          <h3>Стабильно в наличии</h3>
+          <p>Средство, которое то есть, то нет, подводит в самый нужный момент.</p>
+          <a class="card-go" href="#catalog">Что есть сейчас <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="how-card how-card--accent" data-reveal="up" data-card-link>
+          <h3>Цена сопоставима с маркетплейсом</h3>
+          <p>Сравниваю перед каждой закупкой. Если выходит заметно дороже
+            маркетплейса — позицию не беру вовсе. Проверять цену за моей спиной
+            нормально, и я это учитываю.</p>
+          <a class="card-go" href="#catalog">Смотреть цены <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       6 · ТЁМНЫЙ — СВЯЗЬ СО СТУДИЕЙ
+       Реклама второго сайта, как просили: отсюда ведём в студию.
+       ======================================================================= -->
+  <section class="section studio-cta" data-theme="dark" data-tex="powder-green" data-powder>
+    <div class="container studio-cta__grid">
+
+      <figure class="studio-cta__photo parallax-frame" data-reveal="clip">
+        <img width="1200" height="857" src="assets/photo/process-1.jpg" alt="Мастер работает с волосами клиентки" data-parallax="0.1" loading="lazy">
+      </figure>
+
+      <div class="studio-cta__text">
+        <p class="t-eyebrow" data-reveal="fade">Студия Hair ID</p>
+        <h2 data-split="words" data-reveal="fade">После диагностики видно, что из этого вам нужно</h2>
+        <p class="t-lead" data-reveal="up">Домашний уход — половина результата. Вторая
+          половина делается руками: холодное восстановление, кератин без формальдегида,
+          уход и причёски. Осельки, Всеволожский район — 15 минут от Токсово.</p>
+
+        <ul class="studio-cta__facts" data-reveal-group>
+          <li data-reveal="up">Диагностика бесплатно, в том числе по фото</li>
+          <li data-reveal="up">Одна клиентка в записи, без очереди</li>
+          <li data-reveal="up">Карта волос: что делали, чем и как отреагировали</li>
+        </ul>
+
+        <div class="studio-cta__actions" data-reveal="up">
+          <a href="https://hairid.netlify.app" class="btn btn-primary btn-lg" data-studio-link>Перейти на сайт студии</a>
+          <a href="tel:+79944269944" class="btn btn-ghost btn-lg">8 994 426-99-44</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- =========================================================================
+     ФУТЕР
+     ========================================================================= -->
+<footer class="site-footer" data-theme="dark">
+  <div class="container site-footer__inner">
+
+    <div class="site-footer__brand">
+      <img width="192" height="192" loading="lazy" decoding="async" src="assets/logo/hair-id-mark.png" alt="Hair ID Shop">
+      <p class="t-muted">Средства для волос, отобранные мастером.<br>У каждых волос свой ID.</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Разделы">
+      <h3 class="t-eyebrow">Магазин</h3>
+      <ul>
+        <li><a href="katalog.html" class="link-underline">Каталог</a></li>
+        <li><a href="nabory.html" class="link-underline">Наборы</a></li>
+        <li><a href="kak-vybrat.html#pick" class="link-underline">Бесплатный подбор</a></li>
+        <li><a href="kak-vybrat.html" class="link-underline">Как подбираю</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-footer__contacts">
+      <h3 class="t-eyebrow">Связь</h3>
+      <ul>
+        <li><a href="tel:+79944269944" class="footer-phone">8 994 426-99-44</a></li>
+        <li><a href="https://wa.me/79944269944" class="link-underline" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href="https://t.me/+79944269944" class="link-underline" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="https://max.ru" class="link-underline" target="_blank" rel="noopener">MAX — по тому же номеру</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__legal">
+      <h3 class="t-eyebrow">Студия</h3>
+      <ul>
+        <li><a href="https://hairid.netlify.app" class="link-underline" data-studio-link>Услуги и запись</a></li>
+        <li><a href="https://hairid.netlify.app#services" class="link-underline" data-studio-link>Цены на процедуры</a></li>
+        <li class="t-muted">д. Нижние Осельки,<br>Всеволожский район,<br>Ленинградская область</li>
+      </ul>
+    </div>
+
+    <div class="site-footer__legal">
+      <h3 class="t-eyebrow">Документы</h3>
+      <ul>
+        <li><a href="terms.html" class="link-underline">Заказ, оплата, доставка и возврат</a></li>
+        <li><a href="privacy.html" class="link-underline">Политика конфиденциальности</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="site-footer__bottom container">
+    <span class="t-muted">© 2026 Hair ID Shop</span>
+    <span class="t-muted">Не является публичной офертой. Наличие и цену подтверждаю в переписке</span>
+  </div>
+</footer>
+
+<!-- =========================================================================
+     ПАНЕЛЬ ЗАКАЗА
+     ========================================================================= -->
+<aside class="cart-panel" id="cart-panel" data-theme="dark" aria-label="Ваш заказ">
+  <div class="cart-panel__head">
+    <p>Ваш заказ</p>
+    <button type="button" class="cart-panel__close" id="cart-toggle-close" aria-label="Свернуть">×</button>
+  </div>
+  <ul class="cart-panel__list" id="cart-list"></ul>
+  <div class="cart-panel__foot">
+    <p class="cart-panel__total">Итого <b id="cart-total">—</b></p>
+    <p class="cart-panel__note">Отправлю подтверждение наличия и способ оплаты в ответном сообщении</p>
+    <div class="cart-panel__buttons">
+      <a class="btn btn-primary" id="cart-wa" href="#" target="_blank" rel="noopener">Заказать в WhatsApp</a>
+      <a class="btn btn-ghost" id="cart-tg" href="#" target="_blank" rel="noopener">Telegram</a>
+    </div>
+  </div>
+</aside>
+
+<div class="mobile-bar">
+  <a href="#pick" class="mobile-bar__btn mobile-bar__btn--ghost">Подбор</a>
+  <a href="#catalog" class="mobile-bar__btn mobile-bar__btn--primary">Каталог</a>
+</div>
+
+<!-- Счётчик пока не подключён: номер Яндекс.Метрики не вписан (js/analytics.js, YM_ID = 0).
+     Пока номера нет, файл незачем скачивать на каждой странице.
+     Как только номер появится, вернуть сюда подключение js/analytics.js. -->
+<script src="js/motion.js"></script>
+<script src="js/products.data.js" onerror="/* товаров ещё нет — работает список-образец */"></script>
+<script src="js/catalog.js"></script>
+<script src="js/shop-ui.js"></script>
+<script src="js/vendor/sparticles.min.js"></script>
+<script src="js/texture.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "Hair ID Shop",
+  "description": "Средства для волос, отобранные практикующим мастером: шампуни, кондиционеры, маски, масла, сыворотки и несмываемый уход. Подбор под состояние волос, бесплатная консультация по фото.",
+  "url": "https://hairid-shop.netlify.app/",
+  "telephone": "+7 994 426-99-44",
+  "image": "https://hairid-shop.netlify.app/assets/photo/care-3.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "деревня Нижние Осельки",
+    "addressRegion": "Ленинградская область",
+    "addressCountry": "RU"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Санкт-Петербург" },
+    { "@type": "AdministrativeArea", "name": "Ленинградская область" },
+    { "@type": "AdministrativeArea", "name": "Всеволожский район" }
+  ],
+  "currenciesAccepted": "RUB",
+  "paymentAccepted": "Наличные, перевод",
+  "parentOrganization": {
+    "@type": "HairSalon",
+    "name": "Hair ID",
+    "url": "https://hairid.netlify.app/"
+  }
+}
+</script>
+
+</body>
+</html>

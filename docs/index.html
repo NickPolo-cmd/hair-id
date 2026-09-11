@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кератин и восстановление волос — Hair ID, СПб и Ленобласть</title>
+<meta name="description" content="Кератин без формальдегида, ботокс, восстановление после осветления, причёски. Диагностика по фото бесплатно. Студия в Осельках, Всеволожский район, Ленобласть.">
+<meta name="keywords" content="кератиновое выпрямление волос, ботокс для волос, восстановление волос после осветления, холодное восстановление волос, реконструкция волос, спа для волос, счастье для волос, очищение кожи головы, чёлка-шторка, причёска на свадьбу, мастер по волосам, Всеволожский район, Токсово, Лесколово, Санкт-Петербург, Ленинградская область">
+<meta name="geo.region" content="RU-LEN">
+<meta name="geo.placename" content="Нижние Осельки, Всеволожский район, Ленинградская область">
+<meta name="format-detection" content="telephone=no">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hair ID — у каждых волос свой ID">
+<meta property="og:description" content="Сначала смотрю состояние волос, потом подбираю процедуру. Осельки, Всеволожский район. Диагностика бесплатно.">
+<meta property="og:image" content="https://nickpolo-cmd.github.io/hair-id/assets/logo/hair-id-badge-ru.jpg">
+<meta property="og:url" content="https://nickpolo-cmd.github.io/hair-id/">
+<meta property="og:site_name" content="Hair ID">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://nickpolo-cmd.github.io/hair-id/">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/logo/apple-touch-icon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<script>
+/* Ставится до первой отрисовки: включает начальные состояния анимаций.
+   Нет скрипта — нет класса, и страница показывается целиком, без анимаций.
+
+   Страховка. Под этим классом стили прячут больше сотни блоков, и показывает
+   их только motion.js. Если он не дойдёт — мобильный интернет, обрыв,
+   блокировщик — человек увидит пустую страницу и уйдёт. Поэтому: не отметился
+   за три секунды — снимаем класс и показываем всё как есть, без анимаций. */
+(function () {
+  var root = document.documentElement;
+  root.classList.add('has-motion');
+  window.setTimeout(function () {
+    if (!root.classList.contains('motion-ready')) root.classList.remove('has-motion');
+  }, 3000);
+})();
+</script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/motion.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/texture.css">
+<link rel="stylesheet" href="css/shape.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="has-hero-logo">
+
+<!-- Монограмма живёт в одном экземпляре и перелетает из первого экрана
+     в шапку по мере прокрутки. Второго логотипа нет, подмены
+     прозрачностью нет: летит один и тот же элемент. -->
+<img class="brandmark brandmark--sign" width="320" height="232"
+     src="assets/logo/hair-id-monogram.png" alt="" aria-hidden="true" decoding="async">
+<img class="brandmark brandmark--word" width="502" height="77"
+     src="assets/logo/hair-id-wordmark.png" alt="" aria-hidden="true" decoding="async">
+
+<div class="page-veil" aria-hidden="true"></div>
+<div class="scroll-progress-bar" aria-hidden="true"></div>
+
+<a href="#main" class="skip-link">Перейти к содержанию</a>
+
+<!-- =========================================================================
+     ШАПКА
+     Телефон выведен в шапку: в услугах половина людей звонит,
+     а не пишет, и прятать номер за кнопкой — терять записи.
+     ========================================================================= -->
+<header class="site-header">
+  <div class="site-header__inner">
+
+    <a href="#top" class="header-logo" data-logo-header aria-label="Hair ID, наверх">
+      <img class="header-logo__sign" width="320" height="232" src="assets/logo/hair-id-monogram.png" alt="Hair ID">
+      <img class="header-logo__word" width="502" height="77" src="assets/logo/hair-id-wordmark.png" alt="" aria-hidden="true">
+    </a>
+
+    <nav class="site-nav" aria-label="Основная навигация">
+      <ul data-fade-siblings>
+        <li><a href="index.html" class="link-underline" aria-current="page">Главная</a></li>
+        <li><a href="uslugi.html" class="link-underline">Услуги и цены</a></li>
+        <li><a href="raboty.html" class="link-underline">Работы</a></li>
+        <li><a href="o-mastere.html" class="link-underline">Обо мне</a></li>
+        <li><a href="kak-doehat.html" class="link-underline">Как доехать</a></li>
+        <li><a href="https://nickpolo-cmd.github.io/hair-id/shop/" target="_blank" rel="noopener" class="link-underline">Уход домой</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-contact">
+      <a href="tel:+79944269944" class="header-phone">8 994 426-99-44</a>
+      <a href="#booking" class="btn btn-primary header-cta">Записаться</a>
+    </div>
+
+    <button class="burger" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+
+  </div>
+</header>
+
+<main class="page-main" id="main">
+<div id="top"></div>
+
+  <!-- =======================================================================
+       1 · ТЁМНЫЙ — ГЕРОЙ
+       ======================================================================= -->
+  <section class="hero" data-theme="dark" data-powder data-sparkle>
+
+    <div class="hero__bg" aria-hidden="true">
+      <img width="1600" height="960" src="assets/photo/hero-texture.jpg" srcset="assets/photo/hero-texture-800.jpg 800w, assets/photo/hero-texture.jpg 1600w" sizes="100vw" alt="" data-parallax="0.06">
+      <span class="hero__bg-veil"></span>
+      <span class="hero__bg-glow"></span>
+    </div>
+
+    <div class="container hero__inner">
+
+      <div class="hero__logo" data-logo-hero>
+        <!-- Пустое посадочное место: сюда монограмма встаёт в покое,
+             отсюда же улетает в шапку. Самой картинки здесь нет. -->
+        <span class="hero__logo-slot hero__logo-slot--sign" aria-hidden="true"></span>
+        <span class="hero__logo-slot hero__logo-slot--word" aria-hidden="true"></span>
+        <img class="hero__logo-tagline" width="505" height="50"
+             src="assets/logo/hair-id-tagline.png"
+             alt="Hair ID — студия волос и продукты по уходу">
+      </div>
+
+      <!-- Город в неразрывной обёртке: без неё строка ломалась по дефису
+           и получалось «САНКТ- / ПЕТЕРБУРГ». -->
+      <p class="t-eyebrow hero__category">Восстановление и уход за волосами ·
+        <span class="nowrap">Санкт-Петербург</span> и Ленинградская область</p>
+
+      <h1 class="hero__title" data-split="words" data-reveal="fade" data-reveal-delay="300">
+        У каждых волос свой ID
+      </h1>
+
+      <p class="t-lead hero__lead" data-reveal="up" data-reveal-delay="700">
+        Кератиновое выпрямление, ботокс, восстановление после осветления и уход.
+        Сначала смотрю, что происходит с вашими волосами и кожей головы,
+        потом говорю, какая процедура нужна — и нужна ли вообще.
+        Диагностика бесплатная: пришлите фото, и до всякой записи узнаете,
+        что с волосами и сколько это будет стоить.
+      </p>
+
+      <div class="hero__actions" data-reveal="up" data-reveal-delay="900">
+        <a href="#booking" class="btn btn-primary btn-lg">Бесплатная диагностика по фото</a>
+        <a href="#services" class="btn btn-ghost btn-lg">Услуги и цены</a>
+      </div>
+
+      <!-- Было четыре показателя: три времени в пути и «1 клиентка в записи».
+           Крупная единица без пояснения читалась как «у мастера один клиент»,
+           а три дороги подряд не отвечают на вопрос «почему вам можно
+           доверить голову». Теперь: цена входа, формат работы, дорога. -->
+      <ul class="hero__proof" data-reveal="fade" data-reveal-delay="1100">
+        <li><strong>0 ₽</strong> <span>диагностика, в том числе по фото</span></li>
+        <li><strong>1 в день</strong> <span>одна клиентка, без очереди</span></li>
+        <li><strong>15 мин</strong> <span>от Токсово, 24 от Девяткино</span></li>
+      </ul>
+
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-line"></span>
+      <span class="t-eyebrow">листайте</span>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       2 · ТЁМНЫЙ — БЕГУЩАЯ СТРОКА
+       ======================================================================= -->
+  <div class="marquee marquee--gold" data-theme="dark" data-marquee data-marquee-speed="0.3">
+    <div class="marquee-track">
+      <span>Холодное восстановление</span><span class="marquee-sep">·</span>
+      <span>Кератин без формальдегида</span><span class="marquee-sep">·</span>
+      <span>Ботокс</span><span class="marquee-sep">·</span>
+      <span>СПА для волос</span><span class="marquee-sep">·</span>
+      <span>Счастье для волос</span><span class="marquee-sep">·</span>
+      <span>Причёски</span><span class="marquee-sep">·</span>
+      <span>Чёлка-шторка</span><span class="marquee-sep">·</span>
+      <span>Подбор образа</span><span class="marquee-sep">·</span>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       3 · СВЕТЛЫЙ — ПРОБЛЕМА
+       ======================================================================= -->
+  <section class="section statement" data-tex="cream-gloss">
+    <div class="container statement__grid">
+
+      <div class="statement__text-col">
+        <p class="t-eyebrow" data-reveal="fade">Почему наугад не работает</p>
+        <h2 class="statement__text" data-split="words" data-reveal="fade">
+          Одна и та же процедура на разных волосах даёт разный результат.
+        </h2>
+        <p class="t-lead" data-reveal="up">Поэтому «сделайте мне кератин» — это ещё
+          не задача. Задача выясняется до того, как я беру состав в руки.</p>
+      </div>
+
+      <figure class="statement__photo parallax-frame" data-reveal="clip">
+        <img width="1200" height="1500" loading="lazy" decoding="async" src="assets/photo/process-3.jpg" alt="Мастер расчёсывает волосы клиентки" data-parallax="0.08">
+      </figure>
+
+    </div>
+
+    <div class="container">
+      <div class="statement__cols grid grid-3" data-reveal-group>
+        <div class="statement__card" data-reveal="up" data-card-link>
+          <h3>Волосы перегружены белком</h3>
+          <p class="t-muted">Маска с кератином каждую неделю — и волосы стали жёсткими
+            и ломкими. Белка им уже хватает, не хватает жиров. Отличить помогает простой тест:
+            как влажная прядь тянется и возвращается.</p>
+          <a class="card-go" href="#picker">Подобрать по состоянию <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="statement__card" data-reveal="up" data-card-link>
+          <h3>Кожа и длина требуют разного</h3>
+          <p class="t-muted">У корней жирнится за сутки, а концы сухие. Это две разные
+            задачи на одной голове, и шампунь «для всех типов» не решает ни одну.</p>
+          <a class="card-go" href="#services">Посмотреть услуги <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="statement__card" data-reveal="up" data-card-link>
+          <h3>Процедура не решит проблему</h3>
+          <p class="t-muted">Иногда честный ответ — «сейчас это вам не поможет».
+            Скажу об этом до записи.</p>
+          <a class="card-go" href="#honest">Когда я откажу <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       4 · ТЁМНЫЙ — МЕТОД
+       ======================================================================= -->
+  <section class="section method" id="method" data-theme="dark" data-tex="hair-dark" data-tex-strong data-powder>
+    <div class="container">
+
+      <div class="section-head section-head--center">
+        <p class="t-eyebrow" data-reveal="fade">Метод Hair ID</p>
+        <h2 data-split="words" data-reveal="fade">Как я работаю</h2>
+        <p class="t-lead" data-reveal="up">Так проходит любая работа — от разовой укладки
+          до курса восстановления.</p>
+      </div>
+
+      <ol class="method__steps" data-reveal-group>
+
+        <li class="method__step" data-reveal="up" data-card-link>
+          <span class="method__num">1</span>
+          <h3>Диагностика</h3>
+          <p>Смотрю пористость, плотность, состояние кутикулы и кожи головы.
+            Спрашиваю, что делали с волосами за последний год.</p>
+          <p class="method__out"><strong>Бесплатно</strong> — в студии или по фото</p>
+          <a class="card-go" href="#booking">Прислать фото <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </li>
+
+        <li class="method__step" data-reveal="up" data-card-link>
+          <span class="method__num">2</span>
+          <h3>Протокол</h3>
+          <p>Процедуру и состав подбираю под ваши волосы. Называю цену, время
+            и срок, сколько это продержится именно у вас.</p>
+          <p class="method__out"><strong>Цена финальная</strong> — доплат на месте нет</p>
+          <a class="card-go" href="#services">Услуги и цены <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </li>
+
+        <li class="method__step" data-reveal="up" data-card-link>
+          <span class="method__num">3</span>
+          <h3>Домашний уход</h3>
+          <p>Обычный шампунь с сульфатами смывает кератин за месяц. Подбираю
+            средства под ваши волосы и записываю в карту.</p>
+          <p class="method__out"><strong>Карта волос</strong> — заберёте с собой</p>
+          <a class="card-go" href="#shop">Средства для дома <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       5 · СВЕТЛЫЙ — ПОДБОР ПО ЗАДАЧЕ
+       ======================================================================= -->
+  <section class="section picker" id="picker" data-tex="foam">
+    <div class="container">
+      <div class="section-head">
+        <p class="t-eyebrow" data-reveal="fade">Подбор</p>
+        <h2 data-split="words" data-reveal="fade">С чем пришли?</h2>
+        <p class="t-lead" data-reveal="up">Выберите то, что ближе к вашей ситуации —
+          объясню, что с этим делают и в каком порядке.</p>
+      </div>
+
+      <div class="picker__grid grid grid-3" data-reveal-group>
+        <button class="picker__card" data-picker="damaged" data-reveal="up">
+          <span class="picker__label">Волосы после осветления</span>
+          <span class="picker__desc">Сухие, ломкие, путаются, тянутся во влажном виде</span>
+          <span class="picker__link">Что делать →</span>
+        </button>
+        <button class="picker__card" data-picker="frizz" data-reveal="up">
+          <span class="picker__label">Пушатся и не лежат</span>
+          <span class="picker__desc">Каждое утро — сорок минут борьбы с укладкой</span>
+          <span class="picker__link">Что делать →</span>
+        </button>
+        <button class="picker__card" data-picker="scalp" data-reveal="up">
+          <span class="picker__label">Жирные корни, сухие концы</span>
+          <span class="picker__desc">Голова несвежая уже на второй день</span>
+          <span class="picker__link">Что делать →</span>
+        </button>
+        <button class="picker__card" data-picker="dull" data-reveal="up">
+          <span class="picker__label">Тусклые и безжизненные</span>
+          <span class="picker__desc">Вроде целые, но выглядят уставшими</span>
+          <span class="picker__link">Что делать →</span>
+        </button>
+        <button class="picker__card" data-picker="event" data-reveal="up">
+          <span class="picker__label">Скоро важное событие</span>
+          <span class="picker__desc">Свадьба, выпускной, съёмка, юбилей</span>
+          <span class="picker__link">Что делать →</span>
+        </button>
+        <button class="picker__card" data-picker="change" data-reveal="up">
+          <span class="picker__label">Хочу что-то поменять</span>
+          <span class="picker__desc">Но не понимаю, что именно, и боюсь рискнуть</span>
+          <span class="picker__link">Что делать →</span>
+        </button>
+      </div>
+
+      <div class="picker__result" id="picker-result" hidden aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       6 · СВЕТЛЫЙ ГЛУБОКИЙ — УСЛУГИ И ЦЕНЫ
+       Цена названа прямо: её ищут первым делом, и её отсутствие
+       читается как «дорого, раз не пишут».
+       ======================================================================= -->
+  <section class="section services" id="services" data-tex="cream-abstract">
+    <div class="container">
+      <div class="section-head">
+        <p class="t-eyebrow" data-reveal="fade">Услуги и цены</p>
+        <h2 data-split="words" data-reveal="fade">Услуги и цены на процедуры для волос</h2>
+        <p class="t-lead" data-reveal="up">Цена зависит от длины и густоты. В карточках —
+          от какой суммы начинается. Точную назову после диагностики, до записи,
+          и на месте она не изменится.</p>
+      </div>
+
+      <div class="guarantee" data-reveal="up" data-card-link>
+        <div class="guarantee__item">
+          <b>Не подойдёт — не сделаю</b>
+          <span>Если по диагностике процедура не поможет, скажу об этом и не возьму денег.
+            Отказаться — нормально. Испорченные волосы потом не вернёшь</span>
+        </div>
+        <div class="guarantee__item">
+          <b>Цена не изменится на месте</b>
+          <span>Сумму называю до записи. Состав входит. Доплат «за густоту»
+            в процессе не будет</span>
+        </div>
+        <div class="guarantee__item">
+          <b>Честный срок эффекта</b>
+          <span>Скажу, сколько продержится именно на ваших волосах. Без рекламного
+            «до полугода»</span>
+        </div>
+        <a class="card-go" href="#honest">Что ещё говорю честно <span class="card-go__arrow" aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="services__group">
+        <h3 class="services__group-title" data-reveal="up">Восстановить</h3>
+        <div class="grid grid-3" data-reveal-group>
+
+          <article class="service-card" data-reveal="up" data-card-link id="usluga-spasu">
+            <div class="service-card__media">
+              <img width="1050" height="1400" src="assets/photo/work-2.jpg" alt="Сухие спутанные волосы до ухода" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h4>Спасу ваши волосы</h4>
+              <p class="t-muted">Когда испортили и не знаете, что делать. Разбираем,
+                что произошло, и составляем план. Начинается с бесплатной диагностики.</p>
+              <p class="service-card__price"><b>от 5 000 ₽</b> <span>диагностика бесплатно</span></p>
+              <button class="service-card__cta" data-book="Спасу ваши волосы">Записаться</button>
+            </div>
+          </article>
+
+          <article class="service-card" data-reveal="up" data-card-link id="usluga-holodnoe">
+            <div class="service-card__media">
+              <img width="1200" height="900" src="assets/photo/work-1.jpg" alt="Волосы после холодного восстановления" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h4>Холодное восстановление <span class="service-card__alt">оно же реконструкция</span></h4>
+              <p class="t-muted">Восстановление без нагрева и утюжка. Для тонких, пористых
+                и повреждённых волос, и для тех, кому горячие процедуры нельзя.</p>
+              <p class="service-card__price"><b>от 3 000 ₽</b> <span>эффект около месяца</span></p>
+              <button class="service-card__cta" data-book="Холодное восстановление">Записаться</button>
+            </div>
+          </article>
+
+          <article class="service-card" data-reveal="up" data-card-link id="usluga-posle-osvetleniya">
+            <div class="service-card__media">
+              <img width="1200" height="1500" src="assets/photo/result-1.jpg" alt="Светлые волосы после курса восстановления" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h4>Восстановление после осветления</h4>
+              <p class="t-muted">Курс процедур с контролем между визитами. Одна процедура
+                здесь не решает — важно, чтобы между ними волосы не разрушались заново.</p>
+              <p class="service-card__price"><b>от 3 500 ₽</b> <span>за процедуру курса</span></p>
+              <button class="service-card__cta" data-book="Восстановление после осветления">Записаться</button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="services__group">
+        <h3 class="services__group-title" data-reveal="up">Гладкость</h3>
+        <div class="grid grid-2" data-reveal-group>
+
+          <article class="service-card service-card--wide" data-reveal="up" data-card-link id="usluga-keratin">
+            <div class="service-card__media">
+              <img width="1200" height="857" src="assets/photo/process-4.jpg" alt="Укладка длинных волос после кератина" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h4>Кератиновое выпрямление</h4>
+              <p class="t-muted">Гладкость на 3–6 месяцев. Работаю составами без
+                формальдегида и не чаще трёх раз в год на одних волосах. Состав подбираю
+                под структуру: тонким мягкий, плотным сильный.</p>
+              <p class="service-card__price"><b>от 3 200 ₽</b> <span>2,5–4 часа</span></p>
+              <button class="service-card__cta" data-book="Кератиновое выпрямление">Записаться</button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--wide" data-reveal="up" data-card-link id="usluga-botoks">
+            <div class="service-card__media">
+              <img width="1200" height="1500" src="assets/photo/result-4.jpg" alt="Плотные ухоженные волосы после ботокса" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <h4>Ботокс для волос</h4>
+              <p class="t-muted">Ботулотоксина в составе нет, уколов тоже — это только
+                название. Не выпрямляет. Заполняет повреждения и возвращает плотность.
+                Держится 1,5–3 месяца.</p>
+              <p class="service-card__price"><b>от 3 000 ₽</b> <span>2–3 часа</span></p>
+              <button class="service-card__cta" data-book="Ботокс для волос">Записаться</button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="services__group">
+        <h3 class="services__group-title" data-reveal="up">Уход</h3>
+        <div class="grid grid-4" data-reveal-group>
+
+          <article class="service-card service-card--compact" data-reveal="up" data-card-link id="usluga-pitanie">
+            <div class="service-card__body">
+              <h4>Питание и увлажнение</h4>
+              <p class="t-muted">Мягкость и блеск, видно после первой процедуры.
+                Держится две-три недели и накапливается от визита к визиту.
+                Структуру не чинит: для этого есть восстановление.</p>
+              <p class="service-card__price"><b>от 1 800 ₽</b></p>
+              <button class="service-card__cta" data-book="Питание и увлажнение">Записаться</button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--compact" data-reveal="up" data-card-link id="usluga-spa">
+            <div class="service-card__body">
+              <h4>СПА для волос</h4>
+              <p class="t-muted">Шесть шагов: очищение кожи головы, массаж, питание длины.
+                Полтора часа. Берут, когда волосы в целом живые, но выглядят уставшими.
+                При сильных повреждениях сначала восстановление, потом СПА.</p>
+              <p class="service-card__price"><b>от 2 000 ₽</b></p>
+              <button class="service-card__cta" data-book="СПА для волос">Записаться</button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--compact" data-reveal="up" data-card-link id="usluga-peeling">
+            <div class="service-card__body">
+              <h4>Очищение кожи головы</h4>
+              <p class="t-muted">Когда корни жирнятся за день, а уход будто не работает.
+                Пилинг снимает плёнку из себума и силиконов, после него средства
+                начинают действовать. При ранках и раздражении не делаю — сначала к врачу.</p>
+              <p class="service-card__price"><b>от 1 200 ₽</b></p>
+              <button class="service-card__cta" data-book="Очищение кожи головы">Записаться</button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--compact" data-reveal="up" data-card-link id="usluga-schastie">
+            <div class="service-card__body">
+              <h4>Счастье для волос</h4>
+              <p class="t-muted">Японский уход, сильный видимый эффект за визит.</p>
+              <p class="service-card__price"><b>от 2 500 ₽</b></p>
+              <button class="service-card__cta" data-book="Счастье для волос">Записаться</button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="services__group">
+        <h3 class="services__group-title" data-reveal="up">Образ</h3>
+        <div class="grid grid-3" data-reveal-group>
+
+          <article class="service-card service-card--compact" data-reveal="up" data-card-link id="usluga-chelka">
+            <div class="service-card__body">
+              <h4>Чёлка-шторка</h4>
+              <p class="t-muted">Перемены без риска: отрастает красиво, убирается за ухо. Форму подбираю под лицо.</p>
+              <p class="service-card__price"><b>от 800 ₽</b></p>
+              <button class="service-card__cta" data-book="Чёлка-шторка">Записаться</button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--compact" data-reveal="up" data-card-link id="usluga-pricheska">
+            <div class="service-card__body">
+              <h4>Причёски на мероприятия</h4>
+              <p class="t-muted">Свадьба, выпускной, съёмка. Держится весь день.
+                Можно сделать пробную заранее.</p>
+              <p class="service-card__price"><b>от 2 500 ₽</b> <span>выезд возможен</span></p>
+              <button class="service-card__cta" data-book="Причёска на мероприятие">Записаться</button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--compact" data-reveal="up" data-card-link id="usluga-obraz">
+            <div class="service-card__body">
+              <h4>Подбор образа</h4>
+              <p class="t-muted">Разбор внешности целиком: стрижка, цвет, одежда.
+                Ничего не режем, пока вы не уверены.</p>
+              <p class="service-card__price"><b>от 4 000 ₽</b></p>
+              <button class="service-card__cta" data-book="Подбор образа">Записаться</button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Сетка по длине снимает главный страх: доплата на месте -->
+      <div class="pricing-note" data-reveal="up" data-card-link>
+        <h3>Как считается цена</h3>
+        <div class="pricing-note__grid">
+          <div><span>Короткие, до плеч</span><b>базовая цена</b></div>
+          <div><span>Средние, до лопаток</span><b>+ 500 ₽</b></div>
+          <div><span>Длинные, ниже лопаток</span><b>+ 1 000 ₽</b></div>
+          <div><span>Повышенная густота</span><b>+ 500 ₽</b></div>
+        </div>
+        <p class="t-small t-muted">Состав входит в стоимость. Сумму называю до записи,
+          на месте она не меняется. Если по диагностике процедура вам не подходит —
+          скажу об этом и не возьму денег.</p>
+          <a class="card-go" href="#booking">Узнать точную цену <span class="card-go__arrow" aria-hidden="true">→</span></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       7 · ТЁМНЫЙ — ФОТОРАЗДЕЛИТЕЛЬ
+       ======================================================================= -->
+  <section class="band" data-theme="dark" aria-hidden="true">
+    <div class="band__media parallax-frame">
+      <img width="1600" height="720" loading="lazy" decoding="async" src="assets/photo/texture-wide.jpg" alt="" data-parallax="0.16">
+    </div>
+    <div class="band__veil"></div>
+    <p class="band__line">У каждых волос свой ID</p>
+  </section>
+
+  <!-- =======================================================================
+       8 · СВЕТЛЫЙ — РАБОТЫ
+       ======================================================================= -->
+  <section class="section works" id="works" data-tex="cream-soft">
+    <div class="container">
+      <div class="section-head">
+        <p class="t-eyebrow" data-reveal="fade">Работы</p>
+        <h2 data-split="words" data-reveal="fade">До и после</h2>
+        <p class="t-lead" data-reveal="up">Пары «до и после» снимаю сама: один свет,
+          один ракурс, без обработки. Иначе сравнивать бессмысленно.</p>
+        <p class="works__note" data-reveal="fade">Сейчас здесь показано, как будет
+          устроена галерея. Свои снимки поставлю после первых съёмок — с письменного
+          согласия клиенток.</p>
+      </div>
+
+      <div class="works__grid" data-reveal-group>
+        <figure class="work parallax-frame" data-reveal="clip" data-card-link>
+          <img width="1200" height="900" src="assets/photo/work-1.jpg" alt="Волосы после холодного восстановления" data-parallax="0.08" loading="lazy">
+          <figcaption>Холодное восстановление после осветления
+            <a class="card-go" href="#services">Про эту процедуру <span class="card-go__arrow" aria-hidden="true">→</span></a>
+          </figcaption>
+        </figure>
+        <figure class="work parallax-frame" data-reveal="clip" data-card-link>
+          <img width="1050" height="1400" src="assets/photo/work-2.jpg" alt="Сухие спутанные волосы до ухода" data-parallax="0.11" loading="lazy">
+          <figcaption>Сухие и спутанные — с чего начинают
+            <a class="card-go" href="#picker">С чего начать <span class="card-go__arrow" aria-hidden="true">→</span></a>
+          </figcaption>
+        </figure>
+        <figure class="work parallax-frame" data-reveal="clip" data-card-link>
+          <img width="1200" height="1500" src="assets/photo/result-2.jpg" alt="Гладкие ухоженные волосы" data-parallax="0.06" loading="lazy">
+          <figcaption>Гладкость и блеск после ухода
+            <a class="card-go" href="#services">Про уход <span class="card-go__arrow" aria-hidden="true">→</span></a>
+          </figcaption>
+        </figure>
+        <figure class="work parallax-frame" data-reveal="clip" data-card-link>
+          <img width="1200" height="814" src="assets/photo/work-4.jpg" alt="Блеск волос при мягком свете" data-parallax="0.1" loading="lazy">
+          <figcaption>Питание и увлажнение · один визит
+            <a class="card-go" href="#services">Про эту процедуру <span class="card-go__arrow" aria-hidden="true">→</span></a>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       9 · ТЁМНЫЙ — ЧЕСТНО
+       ======================================================================= -->
+  <section class="section honest" id="honest" data-theme="dark" data-tex="powder-green" data-tex-strong data-powder>
+    <div class="container">
+      <div class="section-head">
+        <p class="t-eyebrow" data-reveal="fade">Честно</p>
+        <h2 data-split="words" data-reveal="fade">То, о чём обычно не пишут</h2>
+      </div>
+
+      <div class="honest__grid" data-reveal-group>
+
+        <article class="honest__item" data-reveal="up" data-card-link>
+          <h3>Про формальдегид</h3>
+          <p>Надпись «без формальдегида» на этикетке — ещё не гарантия. Метиленгликоль
+            и метандиол превращаются в формальдегид при нагреве утюжком. Поэтому важны
+            состав, проветривание и частота: не чаще трёх раз в год.</p>
+          <a class="card-go" href="#faq">Вопросы о кератине <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="honest__item" data-reveal="up" data-card-link>
+          <h3>Волос — мёртвая структура</h3>
+          <p>Его нельзя «вылечить»: живая часть только в фолликуле под кожей.
+            Уход улучшает внешнее состояние и поведение волоса. Это честная
+            формулировка, и она отличается от «восстановим изнутри».</p>
+          <a class="card-go" href="#services">Что реально помогает <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="honest__item" data-reveal="up" data-card-link>
+          <h3>Секущийся кончик не запаять</h3>
+          <p>Средства склеивают его на два-три мытья, потом он расслаивается дальше
+            по длине. Единственное рабочее решение — состричь.</p>
+          <a class="card-go" href="#booking">Спросить про свои концы <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="honest__item" data-reveal="up" data-card-link>
+          <h3>Порядок процедур решает</h3>
+          <p>Осветление делают до кератина, а красить после него можно не раньше
+            чем через пять недель. Поэтому я спрашиваю про планы на цвет заранее.</p>
+          <a class="card-go" href="#compare">Кератин или ботокс <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </article>
+
+      </div>
+
+      <div class="honest__refusal" data-reveal="up" data-card-link>
+        <h3>Когда я откажу в процедуре</h3>
+        <p class="t-muted">В этих случаях процедура навредит или не даст результата:</p>
+        <ul class="honest__list">
+          <li>ранки, воспаления или раздражение на коже головы</li>
+          <li>подозрение на грибковое заболевание — сначала к врачу</li>
+          <li>активное выпадение по неясной причине — направлю к трихологу</li>
+          <li>аллергия на компоненты состава</li>
+          <li>свежая химическая завивка вместе с осветлением</li>
+          <li>беременность и кормление — горячий кератин нет, холодный уход да,
+            после разговора с вашим врачом</li>
+          <li>астма и обострение кожных заболеваний</li>
+          <li>процедура конфликтует с вашим календарём окрашивания</li>
+        </ul>
+        <p class="t-small t-muted">Я мастер, а не врач: диагнозы не ставлю
+          и лечение не назначаю. Когда вижу медицинский вопрос — говорю прямо.</p>
+          <a class="card-go" href="#booking">Спросить про свой случай <span class="card-go__arrow" aria-hidden="true">→</span></a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =======================================================================
+       9б · СВЕТЛЫЙ — КЕРАТИН ИЛИ БОТОКС
+       Отвечает на живой поисковый вопрос и снимает главную путаницу.
+       ======================================================================= -->
+  <section class="section compare" id="compare" data-tex="cream-gloss">
+    <div class="container">
+      <div class="section-head">
+        <p class="t-eyebrow" data-reveal="fade">Сравнение</p>
+        <h2 data-split="words" data-reveal="fade">Кератин или ботокс: что выбрать</h2>
+        <p class="t-lead" data-reveal="up">Их постоянно путают, а задачи у них разные.
+          Если коротко: кератин — чтобы волосы лежали, ботокс — чтобы выглядели
+          живыми.</p>
+      </div>
+
+      <p class="compare__swipe t-eyebrow" data-reveal="fade">Таблица шире экрана — листайте вбок →</p>
+
+      <div class="compare__table" data-reveal="up">
+        <table>
+          <thead>
+            <tr>
+              <th>Что сравниваем</th>
+              <th>Кератиновое выпрямление</th>
+              <th>Ботокс для волос</th>
+              <th>Холодное восстановление</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Задача</td>
+              <td>Убрать пушистость, выпрямить</td>
+              <td>Вернуть плотность и блеск</td>
+              <td>Восстановить пористую длину</td>
+            </tr>
+            <tr>
+              <td>Выпрямляет</td>
+              <td><b>Да</b></td>
+              <td>Нет</td>
+              <td>Нет, локон останется локоном</td>
+            </tr>
+            <tr>
+              <td>Сколько держится</td>
+              <td>3–6 месяцев</td>
+              <td>1,5–3 месяца</td>
+              <td>Около месяца, накопительно</td>
+            </tr>
+            <tr>
+              <td>Нагрев утюжком</td>
+              <td>Да, обязателен</td>
+              <td>Чаще да</td>
+              <td><b>Нет</b></td>
+            </tr>
+            <tr>
+              <td>Кому подходит</td>
+              <td>Вьющиеся, пушистые, непослушные</td>
+              <td>Пористые после осветления, тонкие</td>
+              <td>Тем, кому нагрев противопоказан</td>
+            </tr>
+            <tr>
+              <td>Беременным</td>
+              <td>Нет</td>
+              <td>По согласованию с врачом</td>
+              <td>По согласованию с врачом</td>
+            </tr>
+            <tr>
+              <td>Сколько занимает</td>
+              <td>2,5–4 часа</td>
+              <td>2–3 часа</td>
+              <td>1–1,5 часа</td>
+            </tr>
+            <tr>
+              <td>Когда можно красить</td>
+              <td>Не раньше чем через 5 недель</td>
+              <td>Через 2 недели</td>
+              <td>Не мешает окрашиванию</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="compare__note" data-reveal="fade">Ботулотоксина в «ботоксе для волос»
+        нет, уколов не будет — это только название процедуры. Если сомневаетесь,
+        что выбрать, пришлите фото: по состоянию волос видно, какая из трёх процедур
+        даст результат, а какая будет тратой денег.</p>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       9в · ТЁМНЫЙ — ПОСЛЕ ПРОЦЕДУРЫ
+       ======================================================================= -->
+  <section class="section aftercare" id="aftercare" data-theme="dark" data-tex="hair-close" data-powder data-sparkle>
+    <div class="container">
+      <div class="section-head">
+        <p class="t-eyebrow" data-reveal="fade">После процедуры</p>
+        <h2 data-split="words" data-reveal="fade">Что можно и что нельзя после кератина</h2>
+        <p class="t-lead" data-reveal="up">Сколько продержится эффект, решают первые дни дома.</p>
+      </div>
+
+      <div class="aftercare__grid" data-reveal-group>
+        <div class="aftercare__col aftercare__col--yes" data-reveal="up" data-card-link>
+          <h3>Можно</h3>
+          <ul>
+            <li>Мыть голову через 48–72 часа после процедуры</li>
+            <li>Мыть только бессульфатным шампунем</li>
+            <li>Сушить феном и расчёсывать как обычно</li>
+            <li>Собирать волосы мягкой резинкой без металла</li>
+            <li>Красить — не раньше чем через пять недель</li>
+            <li>Ходить в бассейн, надев шапочку</li>
+          </ul>
+          <a class="card-go" href="#faq">Ещё вопросы об уходе <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="aftercare__col aftercare__col--no" data-reveal="up" data-card-link>
+          <h3>Нельзя первые трое суток</h3>
+          <ul>
+            <li>Мыть голову и мочить волосы</li>
+            <li>Собирать в тугой хвост, пучок, косу</li>
+            <li>Закалывать заколками и оставлять заломы</li>
+            <li>Закладывать волосы за уши и надевать очки на голову</li>
+            <li>Надевать шапку и тугой капюшон</li>
+            <li>Идти в баню и сауну</li>
+          </ul>
+          <a class="card-go" href="#booking">Записаться на процедуру <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="aftercare__col" data-reveal="up" data-card-link>
+          <h3>Что сокращает срок</h3>
+          <ul>
+            <li>Обычный шампунь с сульфатами — главная причина</li>
+            <li>Солёная и хлорированная вода без защиты</li>
+            <li>Частое мытьё очень горячей водой</li>
+            <li>Осветление уже после процедуры — его делают до</li>
+          </ul>
+          <p class="aftercare__note">Полный список отдаю на руки после визита —
+            запоминать не нужно.</p>
+          <a class="card-go" href="#shop">Бессульфатный шампунь <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       10 · СВЕТЛЫЙ — КАК ПРОХОДИТ ВИЗИТ
+       Снимает тревогу «что там будет» — частая причина не записаться.
+       ======================================================================= -->
+  <section class="section visit" id="visit" data-tex="cream-abstract">
+    <div class="container visit__grid">
+
+      <figure class="visit__photo parallax-frame" data-reveal="clip">
+        <img width="1200" height="857" src="assets/photo/process-1.jpg" alt="Мастер работает с волосами клиентки" data-parallax="0.07" loading="lazy">
+      </figure>
+
+      <div class="visit__text">
+        <p class="t-eyebrow" data-reveal="fade">Как проходит визит</p>
+        <h2 data-split="words" data-reveal="fade">Чтобы вы знали заранее</h2>
+
+        <ol class="visit__steps" data-reveal-group>
+          <li data-reveal="up"><b>До визита</b> присылаете фото — отвечаю, что подойдёт
+            и сколько будет стоить. Едете, только если решение устроило.</li>
+          <li data-reveal="up"><b>В начале</b> смотрим волосы вместе, при дневном свете.
+            Показываю, что вижу, и объясняю простыми словами.</li>
+          <li data-reveal="up"><b>Во время процедуры</b> вы одна в студии. Никакой очереди,
+            параллельных голов и чужих разговоров.</li>
+          <li data-reveal="up"><b>В конце</b> разбираем домашний уход и записываем всё
+            в карту волос — вы забираете её с собой.</li>
+          <li data-reveal="up"><b>Через неделю</b> напишу и спрошу, как волосы себя ведут.
+            Ничего не предлагаю, просто проверяю результат.</li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       11 · ТЁМНЫЙ — ОТЗЫВЫ
+       ======================================================================= -->
+  <section class="section reviews" id="reviews" data-theme="dark" data-tex="powder-gold" data-powder data-sparkle>
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="t-eyebrow" data-reveal="fade">Отзывы</p>
+        <h2 data-split="words" data-reveal="fade">Что говорят клиентки</h2>
+      </div>
+
+      <div class="reviews__empty" data-reveal="up" data-card-link>
+        <p class="reviews__empty-title">Отзывов пока нет — и придумывать я их не стану</p>
+        <p class="t-muted">Студия открылась недавно. Как только клиентки напишут первые
+          отзывы на Авито и в Яндекс Картах, они появятся здесь — с именами и фотографиями работ.</p>
+        <p class="t-muted">Пока предлагаю проверить меня иначе: пришлите фото волос
+          и посмотрите, как я отвечу. Разбор бесплатный и ни к чему не обязывает —
+          по нему видно, разбирается человек в волосах или продаёт процедуру.</p>
+        <a href="#booking" class="btn btn-ghost card-stretch">Прислать фото на разбор</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       12 · СВЕТЛЫЙ — МАГАЗИН, ПЕРЕХОД НА ВТОРОЙ САЙТ
+       ======================================================================= -->
+  <section class="section shop-teaser" id="shop" data-tex="foam">
+    <div class="container shop-teaser__grid">
+
+      <div class="shop-teaser__text">
+        <p class="t-eyebrow" data-reveal="fade">Hair ID Shop</p>
+        <h2 data-split="words" data-reveal="fade">Уход, подобранный под ваши волосы</h2>
+        <p class="t-lead" data-reveal="up">Процедура держится ровно столько, сколько ей
+          позволяет домашний уход. Средства подбираю по результатам диагностики —
+          и продаю здесь же, чтобы вы не выбирали наугад на маркетплейсе.</p>
+        <div class="shop-teaser__actions" data-reveal="up">
+          <a href="https://nickpolo-cmd.github.io/hair-id/shop/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Перейти в магазин ухода</a>
+        </div>
+      </div>
+
+      <div class="shop-teaser__photos" data-reveal-group>
+        <figure data-reveal="clip"><img width="1200" height="1500" src="assets/photo/care-bottle.jpg" alt="Средство для домашнего ухода" loading="lazy"></figure>
+        <figure data-reveal="clip"><img width="1200" height="1500" src="assets/photo/care-3.jpg" alt="Средства для ухода за волосами" loading="lazy"></figure>
+        <figure data-reveal="clip"><img width="1200" height="1500" src="assets/photo/care-4.jpg" alt="Косметика для волос" loading="lazy"></figure>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       13 · СВЕТЛЫЙ ГЛУБОКИЙ — О МАСТЕРЕ
+       ======================================================================= -->
+  <section class="section about" id="about" data-theme="dark" data-tex="hair-close" data-powder>
+    <div class="container about__grid">
+
+      <figure class="about__photo parallax-frame" data-reveal="clip">
+        <img width="1200" height="1500" src="assets/photo/master.jpg" alt="Ирина Давыдова, мастер студии Hair ID, за работой" data-parallax="0.07" loading="lazy">
+      </figure>
+
+      <div class="about__text">
+        <p class="t-eyebrow" data-reveal="fade">О мастере</p>
+        <h2 data-split="words" data-reveal="fade">Кто будет работать с вашими волосами</h2>
+
+        <p class="about__name" data-reveal="up">Ирина Давыдова — мастер и владелица студии Hair ID</p>
+
+        <p class="about__lead-own" data-reveal="up">
+          Я Ирина, парикмахер-стилист в индустрии красоты. Моё призвание — создавать
+          образы, в которых каждая женщина чувствует себя уверенно, стильно и гармонично.
+        </p>
+
+        <p data-reveal="up">
+          Я уделяю особое внимание качеству волос, подбирая уход и стрижки, которые
+          подчёркивают индивидуальность. Лёгкий экспресс-образ за час, стильные вечерние
+          укладки и макияж — всё это поможет вам выглядеть безупречно в любой ситуации.
+          Учитывая ваши пожелания, я помогу создать образ, который не только дополнит
+          вашу внешность, но и подарит отличное настроение.
+        </p>
+
+        <p class="t-lead" data-reveal="up">
+          Средства почти всегда нормальные. Беда в том, что их подобрали
+          не тем волосам.
+        </p>
+
+        <p data-reveal="up">
+          Поэтому я не начинаю разговор с прайса. Сначала смотрю, что происходит
+          с вашими волосами и кожей головы, и только потом говорю, что можно сделать.
+          Иногда честный ответ — «сейчас процедура не нужна, давайте уберём причину».
+        </p>
+
+        <ul class="about__facts" data-reveal-group>
+          <li data-reveal="up"><strong>Отдельная студия.</strong> Не кухня и не гостиная: рабочее место, вытяжка, инструменты после каждой клиентки в дезинфекции</li>
+          <li data-reveal="up"><strong>Одна клиентка в записи.</strong> Никакой очереди и параллельных голов</li>
+          <li data-reveal="up"><strong>Диагностика бесплатно.</strong> В студии или по фото при дневном свете</li>
+          <li data-reveal="up"><strong>Карта волос.</strong> Записываю, что делали и как отреагировали — в следующий раз не начинаем сначала</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       14 · СВЕТЛЫЙ — ВОПРОСЫ
+       ======================================================================= -->
+  <section class="section faq" id="faq" data-tex="cream-soft">
+    <div class="container faq__grid">
+
+      <div class="faq__aside">
+        <div data-sticky="120">
+          <p class="t-eyebrow">Вопросы</p>
+          <h2>Что обычно <br>спрашивают</h2>
+          <p class="t-muted faq__aside-note">Не нашли свой вопрос — напишите,
+            отвечу лично.</p>
+          <a href="https://wa.me/79944269944" class="btn btn-ghost" target="_blank" rel="noopener">Задать вопрос</a>
+        </div>
+      </div>
+
+      <div class="faq__list" data-reveal-group>
+
+        <details class="faq__item" data-reveal="up">
+          <summary>Кератин вредит волосам?</summary>
+          <p>Вредят неподходящий состав, нарушенная технология и слишком частое
+            повторение. Я работаю составами без формальдегида, делаю не чаще
+            трёх раз в год на одних волосах и проветриваю кабинет. Ломкость, которую
+            приписывают кератину, обычно остаётся от осветления до него.</p>
+        </details>
+
+        <details class="faq__item" data-reveal="up">
+          <summary>Чем ботокс отличается от кератина?</summary>
+          <p>Кератин выпрямляет и убирает пушистость — «чтобы лежали». Ботокс не
+            выпрямляет, он заполняет повреждения и возвращает плотность — «чтобы
+            выглядели живыми». Ботулотоксина в нём нет, это только название процедуры.</p>
+        </details>
+
+        <details class="faq__item" data-reveal="up">
+          <summary>Сколько держится результат?</summary>
+          <p>Кератин — 3–6 месяцев, ботокс — 1,5–3 месяца, холодное восстановление —
+            около месяца с накопительным эффектом, «Счастье для волос» — около месяца
+            и работает курсом. Срок сокращает одно: обычный шампунь с сульфатами сразу после процедуры.</p>
+        </details>
+
+        <details class="faq__item" data-reveal="up">
+          <summary>Я живу не в Осельках. Есть смысл ехать?</summary>
+          <p>Сначала пришлите фото волос при дневном свете — бесплатно скажу,
+            что подойдёт и сколько будет стоить. Поедете, только если решение вас устроит.
+            Ко мне приезжают из Токсово, Лесколово, Кузьмоловского, Сертолово,
+            Девяткино и Мурино — дорога от 9 до 30 минут.</p>
+        </details>
+
+        <details class="faq__item" data-reveal="up">
+          <summary>Можно во время беременности?</summary>
+          <p>Горячий кератин — нет. Холодное восстановление, уход, питание
+            и увлажнение — можно, но только после разговора с вашим врачом.
+            Обязательно скажите мне о беременности до записи: от этого зависит
+            выбор состава.</p>
+        </details>
+
+        <details class="faq__item" data-reveal="up">
+          <summary>Что нельзя делать после процедуры?</summary>
+          <p>Первые дни после кератина — не собирать волосы в тугой хвост, не закалывать,
+            мыть только бессульфатным шампунем. Окрашивание — не раньше чем через
+            пять недель. Полный список выдаю на руки после визита.</p>
+        </details>
+
+        <details class="faq__item" data-reveal="up">
+          <summary>Почему не поехать в салон в городе?</summary>
+          <p>Поезжайте, если вам там хорошо. Разница вот в чём. В салоне на вас
+            обычно час записи и мастер, который сегодня делает восьмую голову.
+            У меня одна клиентка в день и полтора-четыре часа только на вас,
+            диагностика до записи бесплатная, а цена названа заранее и на месте
+            не растёт. Дорога от Девяткино — 24 минуты, от Токсово — 15.
+            Если ехать далеко и незачем, я так и скажу на разборе фото.</p>
+        </details>
+
+        <details class="faq__item" data-reveal="up">
+          <summary>А если просто купить средство и делать дома?</summary>
+          <p>Иногда это и есть правильный ответ — например, когда волосам не хватает
+            только питания. Тогда я подберу средство и не позову на процедуру.
+            Домашние наборы для кератина — другое дело: состав там слабее,
+            а утюжок без опыта чаще ломает волосы, чем выпрямляет. Что именно
+            нужно вашим волосам, видно по фото, и это бесплатно.</p>
+        </details>
+
+        <details class="faq__item" data-reveal="up">
+          <summary>Как оплатить и будет ли чек?</summary>
+          <p>Наличными или переводом. Чек выдаю через приложение «Мой налог».</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       15 · ТЁМНЫЙ — КАК ДОБРАТЬСЯ
+       ======================================================================= -->
+  <section class="section geo" id="geo" data-theme="dark" data-tex="powder-green">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="t-eyebrow" data-reveal="fade">Как добраться</p>
+        <h2 data-split="words" data-reveal="fade">Откуда приезжают: Петербург и область</h2>
+      </div>
+
+      <div class="geo__grid" data-reveal-group>
+
+        <div class="geo__card" data-reveal="up" data-card-link>
+          <h3>На машине</h3>
+          <ul class="geo__times">
+            <li><span>Лесколово</span><strong>9 мин</strong></li>
+            <li><span>Токсово</span><strong>15 мин</strong></li>
+            <li><span>Кузьмоловский</span><strong>20 мин</strong></li>
+            <li><span>Девяткино, Мурино</span><strong>24 мин</strong></li>
+            <li><span>Парнас, Просвещения</span><strong>23 мин</strong></li>
+            <li><span>Сертолово</span><strong>25 мин</strong></li>
+          </ul>
+          <p class="t-small t-muted">Перекрёсток дорог 41К-012 и 41К-071.
+            Бесплатная парковка у студии.</p>
+          <a class="card-go" href="#booking">Записаться <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="geo__card" data-reveal="up" data-card-link>
+          <h3>На электричке</h3>
+          <p>До станции <strong>Осельки</strong> — 24 минуты от Девяткино,
+            есть прямые от Финляндского вокзала. Билет около 70 ₽ — расписание и цену проверьте перед выездом.</p>
+          <a class="card-go" href="#booking">Подобрать время под электричку <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="geo__card" data-reveal="up" data-card-link>
+          <h3>На автобусе</h3>
+          <p>Маршрут <strong>619</strong> от метро Девяткино — каждые 20 минут,
+            примерно с 07:20 до 22:30, расписание проверьте перед выездом.<br>
+            Маршрут <strong>675Г</strong> от метро Проспект Просвещения.</p>
+          <a class="card-go" href="#booking">Спросить, как доехать <span class="card-go__arrow" aria-hidden="true">→</span></a>
+        </div>
+
+      </div>
+
+      <div class="geo__area" data-reveal="fade" data-card-link>
+        <h3 class="t-eyebrow">Откуда ко мне приезжают</h3>
+        <p class="t-muted"><b>Всеволожский район:</b> Нижние и Верхние Осельки, Осельки,
+          Лесколово, Скотное, Рапполово, Касимово, Пери, Кавголово, Хиттолово, Токсово,
+          Новое Токсово, Куйвози, Гарболово, Матокса, Вартемяги, Агалатово,
+          Кузьмоловский, Юкки, Сертолово, Новое Девяткино, Мурино, Бугры, Всеволожск.</p>
+        <p class="t-muted"><b>Санкт-Петербург:</b> Парголово, Шувалово, Озерки,
+          Парнас, проспект Просвещения, Гражданский проспект, Академическая,
+          Политехническая, Калининский, Выборгский и Приморский районы.
+          От метро Девяткино — прямой автобус.</p>
+        <p class="t-muted"><b>Ленинградская область:</b> Приозерское направление,
+          Сосново, Рощино, Первомайское, Токсово-Кавголовское плато.
+          Из дальних районов визит удобно совмещать с поездкой в город —
+          подберу время под ваш маршрут.</p>
+        <p class="geo__address">Студия: д. Нижние Осельки, Всеволожский район,
+          Ленинградская область. Точный адрес присылаю после записи.</p>
+          <a class="card-go" href="#booking">Узнать адрес при записи <span class="card-go__arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       16 · СВЕТЛЫЙ — ЗАПИСЬ
+       Работающая форма: собирает услугу, день, время и имя,
+       собирает из этого готовое сообщение и открывает мессенджер.
+       ======================================================================= -->
+  <section class="section booking" id="booking" data-tex="cream-gloss">
+    <div class="container">
+
+      <div class="section-head section-head--center">
+        <p class="t-eyebrow" data-reveal="fade">Запись</p>
+        <h2 data-split="words" data-reveal="fade">Начнём с диагностики</h2>
+        <p class="t-lead" data-reveal="up">Выберите услугу и удобное время — соберу
+          сообщение, вам останется отправить его в мессенджер. Отвечаю в течение часа.</p>
+        <p class="booking__urgency" data-reveal="fade">В день принимаю одну клиентку:
+          процедуры идут от полутора до четырёх часов. Поэтому ближайшие даты
+          разбирают за несколько дней вперёд.</p>
+
+        <ol class="booking__what-next" data-reveal="up">
+          <li>Вы отправляете собранное сообщение — ничего дописывать не нужно.</li>
+          <li>Я прошу фото волос при дневном свете. Это не обязательно,
+            но без фото я не назову точную цену.</li>
+          <li>В течение часа отвечаю: что подойдёт, сколько стоит и сколько займёт.</li>
+          <li>Дальше решаете вы. Отказаться на этом шаге — нормально
+            и ничего не стоит.</li>
+        </ol>
+      </div>
+
+      <form class="booking-form" id="booking-form" data-reveal="up" novalidate>
+
+        <div class="booking-form__step">
+          <label class="booking-form__label" for="bf-service">
+            <span class="booking-form__num">1</span> Что вас интересует
+          </label>
+          <select id="bf-service" class="booking-form__select" name="service">
+            <option value="Бесплатная диагностика">Бесплатная диагностика по фото</option>
+            <option value="Спасу ваши волосы">Спасу ваши волосы — от 5 000 ₽</option>
+            <option value="Холодное восстановление">Холодное восстановление — от 3 000 ₽</option>
+            <option value="Восстановление после осветления">Восстановление после осветления — от 3 500 ₽</option>
+            <option value="Кератиновое выпрямление">Кератиновое выпрямление — от 3 200 ₽</option>
+            <option value="Ботокс для волос">Ботокс для волос — от 3 000 ₽</option>
+            <option value="Питание и увлажнение">Питание и увлажнение — от 1 800 ₽</option>
+            <option value="СПА для волос">СПА для волос — от 2 000 ₽</option>
+            <option value="Очищение кожи головы">Очищение кожи головы — от 1 200 ₽</option>
+            <option value="Счастье для волос">Счастье для волос — от 2 500 ₽</option>
+            <option value="Чёлка-шторка">Чёлка-шторка — от 800 ₽</option>
+            <option value="Причёска на мероприятие">Причёска на мероприятие — от 2 500 ₽</option>
+            <option value="Подбор образа">Подбор образа — от 4 000 ₽</option>
+          </select>
+        </div>
+
+        <div class="booking-form__step">
+          <span class="booking-form__label">
+            <span class="booking-form__num">2</span> Удобный день
+          </span>
+          <div class="booking-days" id="booking-days" role="radiogroup" aria-label="Выберите день"></div>
+        </div>
+
+        <div class="booking-form__step">
+          <span class="booking-form__label">
+            <span class="booking-form__num">3</span> Удобное время
+          </span>
+          <div class="booking-slots" id="booking-slots" role="radiogroup" aria-label="Выберите время">
+            <button type="button" role="radio" aria-checked="false" class="booking-slot" data-slot="Утро, 9:00–12:00">Утро<span>9:00–12:00</span></button>
+            <button type="button" role="radio" aria-checked="false" class="booking-slot" data-slot="День, 12:00–16:00">День<span>12:00–16:00</span></button>
+            <button type="button" role="radio" aria-checked="false" class="booking-slot" data-slot="Вечер, 16:00–20:00">Вечер<span>16:00–20:00</span></button>
+            <button type="button" role="radio" aria-checked="false" class="booking-slot" data-slot="Любое время">Любое<span>как удобно вам</span></button>
+          </div>
+        </div>
+
+        <div class="booking-form__step">
+          <label class="booking-form__label" for="bf-name">
+            <span class="booking-form__num">4</span> Как к вам обращаться
+          </label>
+          <div class="booking-form__row">
+            <input type="text" id="bf-name" class="booking-form__input" name="name"
+                   placeholder="Имя" autocomplete="given-name">
+            <input type="text" id="bf-len" class="booking-form__input" name="length"
+                   aria-label="Длина волос"
+                   placeholder="Длина волос: до плеч / до лопаток / ниже">
+          </div>
+          <textarea id="bf-note" class="booking-form__input booking-form__textarea" name="note"
+                    aria-label="Что беспокоит и что делали за последний год"
+                    placeholder="Что беспокоит: сухость, пушистость, ломкость, жирные корни. И что делали за последний год — осветление, окрашивание, кератин"></textarea>
+        </div>
+
+        <div class="booking-preview" id="booking-preview">
+          <p class="booking-preview__label">Сообщение, которое отправится</p>
+          <pre class="booking-preview__text" id="booking-preview-text"></pre>
+        </div>
+
+        <div class="booking-form__send">
+          <p class="booking-form__send-label">Куда отправить</p>
+          <div class="booking-form__buttons">
+            <a class="btn btn-primary btn-lg" id="send-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-ghost btn-lg" id="send-tg" href="#" target="_blank" rel="noopener">Telegram</a>
+            <button type="button" class="btn btn-ghost btn-lg" id="send-max">MAX</button>
+            <a class="btn btn-ghost btn-lg" href="tel:+79944269944">Позвонить</a>
+          </div>
+          <p class="booking-form__note t-small t-muted">
+            Ничего не отправляется автоматически. В WhatsApp текст подставится сам.
+            Telegram и MAX подставить текст по ссылке не дают — поэтому он копируется
+            в буфер обмена, останется вставить его в чат одним движением.
+            Данные никуда больше не передаются.
+          </p>
+        </div>
+
+      </form>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- =========================================================================
+     ФУТЕР
+     ========================================================================= -->
+<footer class="site-footer" id="contacts" data-theme="dark" data-footer-reveal>
+  <div class="container site-footer__inner">
+
+    <div class="site-footer__brand">
+      <img width="192" height="192" loading="lazy" decoding="async" src="assets/logo/hair-id-mark.png" alt="Hair ID">
+      <p class="t-muted">Восстановление и уход за волосами.<br>У каждых волос свой ID.</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Разделы">
+      <h3 class="t-eyebrow">Разделы</h3>
+      <ul>
+        <li><a href="uslugi.html" class="link-underline">Услуги и цены</a></li>
+        <li><a href="raboty.html" class="link-underline">Работы</a></li>
+        <li><a href="o-mastere.html" class="link-underline">Обо мне</a></li>
+        <li><a href="kak-doehat.html" class="link-underline">Как доехать</a></li>
+        <li><a href="index.html#faq" class="link-underline">Вопросы</a></li>
+        <li><a href="https://nickpolo-cmd.github.io/hair-id/shop/" target="_blank" rel="noopener" class="link-underline">Магазин ухода</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-footer__contacts">
+      <h3 class="t-eyebrow">Связь</h3>
+      <ul>
+        <li><a href="tel:+79944269944" class="footer-phone">8 994 426-99-44</a></li>
+        <li><a href="https://wa.me/79944269944" class="link-underline" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href="https://t.me/+79944269944" class="link-underline" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="https://max.ru" class="link-underline" target="_blank" rel="noopener">MAX — по тому же номеру</a></li>
+        <li class="t-muted">д. Нижние Осельки,<br>Всеволожский район,<br>Ленинградская область</li>
+      </ul>
+    </div>
+
+    <div class="site-footer__legal">
+      <h3 class="t-eyebrow">Документы</h3>
+      <ul>
+        <li><a href="privacy.html" class="link-underline">Политика конфиденциальности</a></li>
+        <li><a href="terms.html" class="link-underline">Согласие на обработку данных</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="site-footer__bottom container">
+    <span class="t-muted">© 2026 Hair ID</span>
+    <span class="t-muted">Услуги не являются медицинскими. Имеются противопоказания —
+      обсудим их на диагностике</span>
+  </div>
+</footer>
+
+<!-- =========================================================================
+     ЛИПКАЯ ПАНЕЛЬ НА ТЕЛЕФОНЕ
+     Больше половины посетителей придут с телефона. Кнопка действия
+     должна быть под большим пальцем, а не «где-то выше по странице».
+     ========================================================================= -->
+<div class="mobile-bar" aria-hidden="false">
+  <a href="tel:+79944269944" class="mobile-bar__btn mobile-bar__btn--ghost">Позвонить</a>
+  <a href="#booking" class="mobile-bar__btn mobile-bar__btn--primary">Записаться</a>
+</div>
+
+<!-- Счётчик пока не подключён: номер Яндекс.Метрики не вписан (js/analytics.js, YM_ID = 0).
+     Пока номера нет, файл незачем скачивать на каждой странице.
+     Как только номер появится, вернуть сюда подключение js/analytics.js. -->
+<script src="js/motion.js"></script>
+<script src="js/picker.js"></script>
+<script src="js/booking.js"></script>
+<script src="js/vendor/sparticles.min.js"></script>
+<script src="js/texture.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  "name": "Hair ID",
+  "description": "Студия восстановления и ухода за волосами. Диагностика перед процедурой, холодное восстановление, кератиновое выпрямление, ботокс, СПА-уход, причёски.",
+  "slogan": "У каждых волос свой ID",
+  "telephone": "+7 994 426-99-44",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "деревня Нижние Осельки",
+    "addressRegion": "Ленинградская область",
+    "addressCountry": "RU"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Санкт-Петербург" },
+    { "@type": "AdministrativeArea", "name": "Ленинградская область" },
+    { "@type": "AdministrativeArea", "name": "Всеволожский район" },
+    "Нижние Осельки", "Верхние Осельки", "Осельки", "Лесколово", "Скотное",
+    "Рапполово", "Касимово", "Пери", "Кавголово", "Хиттолово", "Токсово",
+    "Новое Токсово", "Куйвози", "Гарболово", "Матокса", "Вартемяги", "Агалатово",
+    "Кузьмоловский", "Юкки", "Сертолово", "Новое Девяткино", "Мурино", "Бугры",
+    "Всеволожск", "Парголово", "Шувалово", "Озерки", "Парнас", "Девяткино"
+  ],
+  "founder": { "@type": "Person", "name": "Ирина Давыдова", "jobTitle": "Мастер по волосам" },
+  "employee": { "@type": "Person", "name": "Ирина Давыдова", "jobTitle": "Мастер по волосам" },
+  "geo": { "@type": "GeoCoordinates", "latitude": 60.2333, "longitude": 30.5333 },
+  "hasMap": "https://yandex.ru/maps/?text=Нижние%20Осельки",
+  "currenciesAccepted": "RUB",
+  "paymentAccepted": "Наличные, перевод",
+  "url": "https://nickpolo-cmd.github.io/hair-id/",
+  "priceRange": "800–7000 ₽",
+  "openingHours": "Mo-Su 09:00-20:00",
+  "makesOffer": [
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 5000 }, "itemOffered": { "@type": "Service", "name": "Спасу ваши волосы" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 3000 }, "itemOffered": { "@type": "Service", "name": "Холодное восстановление волос (реконструкция)" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 3500 }, "itemOffered": { "@type": "Service", "name": "Восстановление волос после осветления" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 3200 }, "itemOffered": { "@type": "Service", "name": "Кератиновое выпрямление волос" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 3000 }, "itemOffered": { "@type": "Service", "name": "Ботокс для волос" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 1800 }, "itemOffered": { "@type": "Service", "name": "Питание и увлажнение волос" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 2000 }, "itemOffered": { "@type": "Service", "name": "СПА для волос" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 1200 }, "itemOffered": { "@type": "Service", "name": "Очищение кожи головы" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 2500 }, "itemOffered": { "@type": "Service", "name": "Счастье для волос" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 800 }, "itemOffered": { "@type": "Service", "name": "Чёлка-шторка" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 2500 }, "itemOffered": { "@type": "Service", "name": "Причёски для мероприятий" } },
+    { "@type": "Offer", "priceCurrency": "RUB", "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "RUB", "minPrice": 4000 }, "itemOffered": { "@type": "Service", "name": "Подбор образа" } }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Кератин вредит волосам?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Вредят неподходящий состав, нарушенная технология и слишком частое повторение. Я работаю составами без формальдегида, делаю не чаще трёх раз в год на одних волосах и проветриваю кабинет. Ломкость, которую приписывают кератину, обычно остаётся от осветления до него."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чем ботокс отличается от кератина?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Кератин выпрямляет и убирает пушистость — «чтобы лежали». Ботокс не выпрямляет, он заполняет повреждения и возвращает плотность — «чтобы выглядели живыми». Ботулотоксина в нём нет, это только название процедуры."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Сколько держится результат?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Кератин — 3–6 месяцев, ботокс — 1,5–3 месяца, холодное восстановление — около месяца с накопительным эффектом, «Счастье для волос» — около месяца и работает курсом. Срок сокращает одно: обычный шампунь с сульфатами сразу после процедуры."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Я живу не в Осельках. Есть смысл ехать?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Сначала пришлите фото волос при дневном свете — бесплатно скажу, что подойдёт и сколько будет стоить. Поедете, только если решение вас устроит. Ко мне приезжают из Токсово, Лесколово, Кузьмоловского, Сертолово, Девяткино и Мурино — дорога от 9 до 30 минут."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно во время беременности?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Горячий кератин — нет. Холодное восстановление, уход, питание и увлажнение — можно, но только после разговора с вашим врачом. Обязательно скажите мне о беременности до записи: от этого зависит выбор состава."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что нельзя делать после процедуры?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Первые дни после кератина — не собирать волосы в тугой хвост, не закалывать, мыть только бессульфатным шампунем. Окрашивание — не раньше чем через пять недель. Полный список выдаю на руки после визита."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Почему не поехать в салон в городе?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Поезжайте, если вам там хорошо. Разница вот в чём. В салоне на вас обычно час записи и мастер, который сегодня делает восьмую голову. У меня одна клиентка в день и полтора-четыре часа только на вас, диагностика до записи бесплатная, а цена названа заранее и на месте не растёт. Дорога от Девяткино — 24 минуты, от Токсово — 15. Если ехать далеко и незачем, я так и скажу на разборе фото."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "А если просто купить средство и делать дома?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Иногда это и есть правильный ответ — например, когда волосам не хватает только питания. Тогда я подберу средство и не позову на процедуру. Домашние наборы для кератина — другое дело: состав там слабее, а утюжок без опыта чаще ломает волосы, чем выпрямляет. Что именно нужно вашим волосам, видно по фото, и это бесплатно."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как оплатить и будет ли чек?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Наличными или переводом. Чек выдаю через приложение «Мой налог»."
+      }
+    }
+  ]
+}
+</script>
+
+</body>
+</html>
