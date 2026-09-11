@@ -13,7 +13,12 @@ const ЭКРАНЫ = [
 ];
 
 const СТРАНИЦЫ = [
-  ...['index', 'uslugi', 'raboty', 'o-mastere', 'kak-doehat', 'privacy', 'terms', 'card', 'cheatsheet']
+  // Гео-страницы и диагностику добавили позже — и полгода они жили бы
+  // без проверки: мелкая ссылка на одной из них нашлась только при
+  // обходе живого сайта. Новая страница обязана попадать сюда сразу.
+  ...['index', 'uslugi', 'raboty', 'o-mastere', 'kak-doehat', 'diagnostika',
+      'keratin-toksovo', 'keratin-leskolovo', 'vosstanovlenie-oselki',
+      'privacy', 'terms', 'card', 'cheatsheet']
       .map(и => ({ сайт: 'студия', адрес: `http://localhost:4321/${и}.html`, имя: и })),
   ...['index', 'katalog', 'nabory', 'kak-vybrat', 'o-mastere', 'privacy', 'terms']
       .map(и => ({ сайт: 'магазин', адрес: `http://localhost:4322/${и}.html`, имя: и })),
