@@ -274,13 +274,18 @@ body.has-scrolled .header-cta {
   --надпись: 148px;
 }
 
-.header-logo__sign {
+/* Селектор по картинке, а не по классу .header-logo__sign: класс есть только
+   на главной, где логотип разбит на знак и надпись ради перелёта. На всех
+   остальных страницах в шапке лежит одна картинка без класса — и до этой
+   правки к ней не применялось ни одно правило ширины, поэтому монограмма
+   рисовалась в свои натуральные 320 px: огромная и в видимых пикселях. */
+.header-logo img {
   width: var(--знак);
   height: auto;
   transition: width 0.45s var(--ease-out-soft);
 }
 
-.header-logo__word {
+.header-logo img.header-logo__word {
   width: var(--надпись);
   height: auto;
   transition: width 0.45s var(--ease-out-soft);

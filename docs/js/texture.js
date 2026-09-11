@@ -76,11 +76,27 @@
   };
 
   function initTextures() {
+    // Фактуры создаются НЕ разом при загрузке, а по мере подхода раздела
+    // к экрану. Замер на главной (1440×900, 15 фактур): при создании всех
+    // сразу средний кадр при прокрутке был 56 мс — это 18 кадров в секунду
+    // вместо 60, и прокрутка ощутимо дёргалась. Причина не в параллаксе
+    // (его снятие давало 2 мс), а в самих картинках: пятнадцать снимков
+    // во весь экран декодируются и держатся в памяти одновременно.
+    var ждущие = [];
+
     document.querySelectorAll('[data-tex]').forEach(function (section) {
       var key = section.getAttribute('data-tex');
-      var file = FILES[key];
-      if (!file) return;
+      if (!FILES[key]) return;
+      ждущие.push(section);
+    });
 
+    if (!ждущие.length) return;
+
+    var создать = function (section) {
+      if (section.querySelector(':scope > .tex')) return;
+
+      var key = section.getAttribute('data-tex');
+      var file = FILES[key];
       var size = SIZES[key] || [1400, 933];
 
       var layer = document.createElement('div');
@@ -88,9 +104,16 @@
       layer.setAttribute('aria-hidden', 'true');
 
       var img = document.createElement('img');
-      // На узком экране берём копию поуже: телефону незачем качать
-      // фактуру шириной 1400 px — рядом лежит вариант на 700 px.
-      var узкий = window.matchMedia && window.matchMedia('(max-width: 700px)').matches;
+      // Ширина копии выбирается по фактическому размеру раздела, а не по
+      // «телефон или нет»: фактура лежит под текстом с прозрачностью 0,34,
+      // и на ней растяжение узкой копии не читается, а вес отличается вдвое.
+      // Узкая копия (700 px) берётся почти всегда, а не только на телефоне.
+      // Фактура лежит под текстом с прозрачностью 0,34 и ещё под вуалью —
+      // растяжение вдвое на ней не читается, а декодировать вдвое меньше.
+      // На широком экране (больше 1600 px) берём полную: там разница
+      // уже может стать заметной на однотонных участках.
+      var ширина = section.getBoundingClientRect().width || window.innerWidth;
+      var узкий = ширина <= 1600;
       img.src = ПАПКА_ФАКТУР + (узкий ? file.replace(/\.jpg$/, '-700.jpg') : file);
       img.alt = '';
       img.loading = 'lazy';
@@ -98,9 +121,13 @@
       img.width = size[0];
       img.height = size[1];
 
-      // Лёгкий параллакс тем же движком, что и у остальных фотографий.
-      // Меньше, чем у сюжетных снимков: фон не должен перетягивать внимание.
-      if (!reduced) img.setAttribute('data-parallax', '0.04');
+      // Параллакса у фактуры нет намеренно. Замер на главной студии
+      // (1440x900, 15 фактур): с ним средний кадр при прокрутке 48,6 мс,
+      // без него 40,6 мс — восемь миллисекунд на каждом кадре. При этом
+      // движение не видно: фактура лежит под текстом с прозрачностью 0,34,
+      // и сдвиг на 4% под полупрозрачной вуалью человек не различает.
+      // Собственный слой .powder ниже двигается по-прежнему — там движение
+      // как раз заметно, а стоит оно дешевле: частицы рисуются в canvas.
 
       var markLoaded = function () { img.classList.add('is-loaded'); };
       if (img.complete && img.naturalWidth) markLoaded();
@@ -112,7 +139,26 @@
       layer.appendChild(img);
       layer.appendChild(veil);
       section.insertBefore(layer, section.firstChild);
-    });
+
+      // Параллакс узнаёт о новом элементе только через пересбор списка.
+      if (window.HairIDMotion && window.HairIDMotion.refresh) window.HairIDMotion.refresh();
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      // Старый браузер: делаем как раньше, всё сразу. Лучше медленно, чем никак.
+      ждущие.forEach(создать);
+      return;
+    }
+
+    var наблюдатель = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        наблюдатель.unobserve(e.target);
+        создать(e.target);
+      });
+    }, { rootMargin: '400px 0px' });
+
+    ждущие.forEach(function (s) { наблюдатель.observe(s); });
   }
 
   // ---------------------------------------------------------------------------
@@ -188,9 +234,26 @@
     host.appendChild(box);
 
     var rect = host.getBoundingClientRect();
-    var w = Math.max(1, Math.round(rect.width));
-    var h = Math.max(1, Math.round(rect.height));
-    var area = w * h;
+    var wCss = Math.max(1, Math.round(rect.width));
+    var hCss = Math.max(1, Math.round(rect.height));
+    var area = wCss * hCss;
+
+    // Холст рисуется в половинном разрешении и растягивается обратно средствами
+    // CSS (.powder canvas { width:100%; height:100% }).
+    //
+    // Почему: холст пудры занимает весь раздел — на главной это 1440x1243,
+    // то есть 1,8 млн точек, которые очищаются и перерисовываются шестьдесят
+    // раз в секунду. Замер на стоящей странице, где вообще никто не прокручивает:
+    // с частицами кадр 66,5 мс, без частиц 16,7 мс. Вчетверо. Половинное
+    // разрешение уменьшает площадь вчетверо, а пудра мягкая и размытая —
+    // растяжение на ней не читается.
+    //
+    // Размеры частиц пересчитываются тем же множителем, иначе после растяжения
+    // они стали бы вдвое крупнее задуманного. Нижняя граница 0,6 пикселя:
+    // ниже частица перестаёт попадать в точку и мерцает.
+    var масштаб = Math.min(1, 640 / wCss);
+    var w = Math.max(1, Math.round(wCss * масштаб));
+    var h = Math.max(1, Math.round(hCss * масштаб));
 
     var opts = {};
     var src = kind === 'spark' ? SPARK : DUST;
@@ -200,6 +263,10 @@
     opts.count = kind === 'spark'
       ? countFor(area, 90000, 22)
       : countFor(area, 20000, 90);
+
+    // Частицы живут в координатах холста, а холст растягивается на 1/масштаб.
+    opts.minSize = Math.max(0.6, +(opts.minSize * масштаб).toFixed(2));
+    opts.maxSize = Math.max(1, +(opts.maxSize * масштаб).toFixed(2));
 
     var sp = null;
     try {
@@ -248,8 +315,12 @@
       resumeIfVisible: function () { if (onScreen()) play(); },
       resize: function () {
         var r = host.getBoundingClientRect();
-        var nw = Math.max(1, Math.round(r.width));
-        var nh = Math.max(1, Math.round(r.height));
+        // Тот же множитель, что и при создании. Без него первый же вызов
+        // (а ResizeObserver срабатывает сразу при подписке) возвращал холсту
+        // полный размер раздела и сводил уменьшение на нет.
+        var k = Math.min(1, 640 / Math.max(1, r.width));
+        var nw = Math.max(1, Math.round(r.width * k));
+        var nh = Math.max(1, Math.round(r.height * k));
         if (nw === w && nh === h) return;
         w = nw; h = nh;
         sp.setCanvasSize(nw, nh);
@@ -289,13 +360,31 @@
     function кадр() {
       ждём = false;
       var vh = window.innerHeight || 1;
+
+      // Сначала читаем геометрию всех слоёв, только потом пишем сдвиги.
+      // Раньше чтение и запись чередовались в одном цикле: каждая запись
+      // отменяла посчитанную раскладку, и следующее getBoundingClientRect
+      // заставляло браузер считать её заново — по одному принудительному
+      // пересчёту на слой, на каждом кадре прокрутки. На главной студии
+      // это давало средний кадр 56 мс вместо 16, то есть примерно
+      // 18 кадров в секунду, и прокрутка заметно дёргалась.
+      var рамки = [];
       for (var i = 0; i < layers.length; i++) {
-        var l = layers[i];
-        var r = l.host.getBoundingClientRect();
+        рамки.push(layers[i].host.getBoundingClientRect());
+      }
+
+      for (var j = 0; j < layers.length; j++) {
+        var l = layers[j];
+        var r = рамки[j];
         if (r.bottom < -200 || r.top > vh + 200) continue;
         // -1 когда секция входит снизу, +1 когда уходит вверх
         var ход = ((vh - r.top) / (vh + r.height)) * 2 - 1;
-        l.box.style.translate = '0 ' + (ход * АМПЛИТУДА * l.depth).toFixed(1) + 'px';
+        var сдвиг = '0 ' + (ход * АМПЛИТУДА * l.depth).toFixed(1) + 'px';
+        // Пишем только изменившееся: на стоящей странице кадр не трогает стили.
+        if (сдвиг !== l.записано) {
+          l.записано = сдвиг;
+          l.box.style.translate = сдвиг;
+        }
       }
     }
 
@@ -310,9 +399,59 @@
     кадр();
   }
 
+  // Сторож кадров.
+  //
+  // Частицы — самая дорогая часть оформления, и цена у них не в расчётах,
+  // а в выводе полупрозрачного холста поверх фотографий. Замеры на этой
+  // же странице: при включённой аппаратной отрисовке кадр ровно 16,7 мс
+  // (шестьдесят кадров в секунду, частицы не стоят ничего); при программной
+  // отрисовке тот же кадр 66–124 мс, то есть 8–15 кадров в секунду,
+  // а отдельные кадры доходили до 1,2 секунды — страница просто замирала.
+  //
+  // Отличить одно от другого заранее нельзя: количество ядер тут ни при чём
+  // (у владельца их шестнадцать, и всё равно дёргалось). Поэтому смотрим
+  // на настоящие кадры уже после запуска: полторы секунды наблюдения, и если
+  // машина не вытягивает — частицы гасим. Решение запоминается на вкладке,
+  // чтобы на каждой следующей странице не проверять заново.
+  var ПОРОГ_КАДРА = 26;   // мс; 26 мс — это примерно 38 кадров в секунду
+
+  function помнимОтказ(значение) {
+    try {
+      if (значение === undefined) return window.sessionStorage.getItem('hairid-частицы') === 'выкл';
+      window.sessionStorage.setItem('hairid-частицы', значение ? 'выкл' : 'вкл');
+    } catch (e) {
+      // Приватный режим — просто не запоминаем, проверим ещё раз на этой странице.
+    }
+    return false;
+  }
+
+  function сторожКадров(погасить) {
+    var кадры = [];
+    var прошлый = 0;
+    var конец = 0;
+
+    function тик(t) {
+      if (!прошлый) { прошлый = t; конец = t + 1500; window.requestAnimationFrame(тик); return; }
+      кадры.push(t - прошлый);
+      прошлый = t;
+      if (t < конец) { window.requestAnimationFrame(тик); return; }
+
+      if (кадры.length < 12) return;   // вкладка была свёрнута, судить не по чему
+      кадры.sort(function (a, b) { return a - b; });
+      var медиана = кадры[Math.floor(кадры.length / 2)];
+      if (медиана > ПОРОГ_КАДРА) {
+        помнимОтказ(true);
+        погасить();
+      }
+    }
+
+    window.requestAnimationFrame(тик);
+  }
+
   function initParticles() {
     if (reduced) return;
     if (typeof Sparticles === 'undefined') return;
+    if (помнимОтказ()) return;   // на этой вкладке уже выяснили, что не тянет
 
     var layers = [];
 
@@ -328,6 +467,17 @@
     if (!layers.length) return;
 
     initParallax(layers);
+
+    // Через полторы секунды решаем, тянет ли машина. Не тянет — убираем
+    // холсты совсем: остановки анимации мало, платить приходится за сам
+    // вывод холста на экран (замерено: скрытый холст стоит столько же,
+    // сколько его отсутствие, а видимый и остановленный — как работающий).
+    сторожКадров(function () {
+      layers.forEach(function (l) {
+        if (l.box && l.box.parentNode) l.box.parentNode.removeChild(l.box);
+      });
+      layers.length = 0;
+    });
 
     var timer = null;
     window.addEventListener('resize', function () {
