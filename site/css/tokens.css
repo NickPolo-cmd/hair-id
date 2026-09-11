@@ -482,14 +482,6 @@ button {
    «Санкт-Петербург» ломался на «САНКТ-» и «ПЕТЕРБУРГ». */
 .nowrap { white-space: nowrap; }
 
-/* Крупный герой */
-.t-display {
-  font-family: var(--font-display);
-  font-size: var(--fs-display);
-  line-height: var(--lh-tight);
-  letter-spacing: var(--ls-display);
-}
-
 /* Подпись капителью с разрядкой — как «HAIR ID» под монограммой.
    Главный опознавательный приём бренда в тексте. */
 .t-eyebrow {
@@ -509,29 +501,6 @@ button {
 
 .t-small { font-size: var(--fs-small); }
 .t-muted { color: var(--c-text-muted); }
-
-/* Золотая заливка текста. Работает только на крупном кегле:
-   на мелком градиент превращается в грязь. */
-.t-gold {
-  background: var(--gradient-gold);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Градиентные подложки секций */
-.bg-dark { background: var(--gradient-dark); }
-.bg-cream { background: var(--gradient-cream); }
-
-/* Рамка с золотым градиентом.
-   Делается двумя фонами и маской: обычный border градиент не принимает. */
-.border-gold {
-  position: relative;
-  background:
-    linear-gradient(var(--c-surface), var(--c-surface)) padding-box,
-    var(--gradient-gold-soft) border-box;
-  border: 1px solid transparent;
-}
 
 /* ===========================================================================
    Раскладка
@@ -626,39 +595,12 @@ button {
   color: var(--c-accent);
 }
 
-/* ===========================================================================
-   Поверхности
-   =========================================================================== */
-
-.surface {
-  background: var(--c-surface);
-  border: var(--border-hairline) solid var(--c-border);
-}
-
 /* Карточка с золотой каймой, которая проявляется при наведении. */
 .surface-gold {
   position: relative;
   background: var(--c-surface);
   border: var(--border-hairline) solid var(--c-border);
   transition: border-color 0.5s ease;
-}
-
-.surface-gold::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: var(--border-hairline) solid transparent;
-  background: var(--gradient-gold) border-box;
-  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-}
-
-.surface-gold:hover::before {
-  opacity: 1;
 }
 
 /* Скрытый текст для скринридеров */

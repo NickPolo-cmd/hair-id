@@ -178,7 +178,6 @@
 .statement__card { padding: var(--space-7) var(--space-6); }
 .honest__item { padding: var(--space-6); }
 .geo__card { padding: var(--space-6); }
-.how-card { padding: var(--space-6); }
 
 /* Между рядами карточек тоже нужен воздух, иначе смещение читается
    как ошибка вёрстки, а не как приём. */

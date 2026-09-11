@@ -81,16 +81,6 @@
   border-top: 1px dashed var(--c-border);
 }
 
-/* Предупреждение автора шаблона — на печать не идёт */
-.doc__note {
-  margin-top: var(--space-8);
-  padding: var(--space-5);
-  background: var(--c-accent-soft);
-  border-left: 2px solid var(--c-accent);
-  font-size: var(--fs-small);
-  color: var(--c-text-muted);
-}
-
 .doc .site-footer {
   padding-block: var(--space-6);
 }

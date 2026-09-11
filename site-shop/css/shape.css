@@ -79,11 +79,6 @@
   border-radius: var(--radius-xs);
 }
 
-.booking-day,
-.booking-slot {
-  border-radius: var(--radius-sm);
-}
-
 /* --- то, что скругляется до пилюли --- */
 .task-chip,
 .cross-bar__link,
@@ -176,8 +171,6 @@
 /* Воздуха внутри карточек прибавлено: тесная карточка выглядит дешёвой
    независимо от того, что в ней написано. */
 .statement__card { padding: var(--space-7) var(--space-6); }
-.honest__item { padding: var(--space-6); }
-.geo__card { padding: var(--space-6); }
 .how-card { padding: var(--space-6); }
 
 /* Между рядами карточек тоже нужен воздух, иначе смещение читается
@@ -185,15 +178,6 @@
 .honest__grid,
 .geo__grid,
 .how-grid { row-gap: var(--space-7); }
-
-/* Вопросы перестают быть строчками списка и становятся блоками.
-   Полоска-разделитель под каждым вопросом больше не нужна. */
-.faq__item {
-  border-bottom: 0;
-  padding: var(--space-4) var(--space-5);
-  background: var(--c-surface);
-  margin-bottom: var(--space-3);
-}
 
 /* ===========================================================================
    3. ОБЪЁМ: ВЫПУКЛЫЙ В ПОКОЕ, ВДАВЛЕННЫЙ ПОД КУРСОРОМ
@@ -547,14 +531,6 @@
   border-radius: var(--radius-lg);
 }
 
-.guarantee { border-radius: var(--radius-xl); }
-
-.works__note,
-.booking__urgency,
-.compare__note {
-  padding: var(--space-4) var(--space-5);
-}
-
 /* ===========================================================================
    7. ЧТО БУДЕТ ПОСЛЕ ПЕРВОГО СООБЩЕНИЯ
    ===========================================================================
@@ -571,35 +547,6 @@
   border-radius: var(--radius-lg);
   background: var(--c-surface);
   text-align: left;
-}
-
-.booking__what-next li {
-  counter-increment: next;
-  position: relative;
-  padding-left: var(--space-7);
-  margin-bottom: var(--space-3);
-  font-size: var(--fs-small);
-  color: var(--c-text-muted);
-  line-height: 1.6;
-}
-
-.booking__what-next li:last-child { margin-bottom: 0; }
-
-.booking__what-next li::before {
-  content: counter(next);
-  position: absolute;
-  left: 0;
-  top: -1px;
-  width: 24px;
-  height: 24px;
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius-circle);
-  background: var(--c-accent-soft);
-  border: 1px solid color-mix(in srgb, var(--c-accent) 40%, transparent);
-  font-family: var(--font-display);
-  font-size: var(--fs-caption);
-  color: var(--c-accent-strong);
 }
 
 /* ===========================================================================

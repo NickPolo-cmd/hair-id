@@ -54,25 +54,6 @@
   pointer-events: none;
 }
 
-/* Бегущая строка */
-.marquee {
-  position: relative;
-  display: flex;
-  overflow: hidden;
-  width: 100%;
-  user-select: none;
-}
-
-.marquee-track {
-  display: flex;
-  align-items: center;
-  flex: 0 0 auto;
-  white-space: nowrap;
-  will-change: transform;
-}
-
-.marquee-track > * { flex: 0 0 auto; }
-
 /* Sticky-секции — нативные. Работают, потому что прокрутка настоящая:
    движок анимирует позицию страницы, а не сдвигает контейнер трансформом. */
 [data-sticky] {

@@ -1046,3 +1046,50 @@
     min-height: 46px;
   }
 }
+
+
+/* ===========================================================================
+   ПЕЧАТЬ
+
+   Список средств распечатывают, чтобы взять с собой или показать клиенту
+   на приёме. Своих правил печати у магазина не было вовсе: на бумагу уходили
+   шапка, панель заказа, фактуры и все фоны — лист получался тёмным,
+   а половина текста на нём нечитаемой.
+   =========================================================================== */
+
+@media print {
+  .site-header,
+  .mobile-bar,
+  .cart-panel,
+  .cart-fallback,
+  .scroll-progress-bar,
+  .page-veil,
+  .tex,
+  .powder,
+  .page-grain,
+  .cross-bar,
+  .site-footer nav { display: none !important; }
+
+  body { background: #fff; color: #000; }
+
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: #000 !important;
+  }
+
+  /* Раскрывашки «Почему это работает» на бумаге раскрыты: иначе распечатка
+     каталога — это тридцать шесть названий без единого пояснения. */
+  .product__more { display: block; }
+  .product__more > *:not(summary) { display: block !important; }
+
+  /* Карточка товара не разрывается между листами. */
+  .product,
+  .set { break-inside: avoid; }
+
+  a { text-decoration: underline; }
+  img { max-width: 100% !important; }
+}

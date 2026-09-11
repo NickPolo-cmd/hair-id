@@ -955,34 +955,6 @@ body.has-scrolled .header-logo { --знак: 50px; --надпись: 128px; }
 .visit__steps b { color: var(--c-text); font-weight: var(--fw-semibold); }
 
 /* ===========================================================================
-   ОТЗЫВЫ — тёмный
-   =========================================================================== */
-
-.review {
-  margin: 0;
-  padding: var(--space-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  height: 100%;
-  background: color-mix(in srgb, var(--green-600) 55%, transparent);
-  border: 1px solid var(--c-border);
-}
-
-.review p { margin: 0; font-family: var(--font-display); font-size: var(--fs-h4); line-height: 1.5; }
-
-.review cite {
-  margin-top: auto;
-  font-style: normal;
-  font-size: var(--fs-caption);
-  letter-spacing: var(--ls-wide);
-  text-transform: uppercase;
-  color: var(--c-accent);
-}
-
-.reviews__note { margin-top: var(--space-6); text-align: center; color: var(--c-text-muted); }
-
-/* ===========================================================================
    ПЕРЕХОД В МАГАЗИН
    =========================================================================== */
 
@@ -1540,16 +1512,56 @@ body.has-scrolled .header-logo { --знак: 50px; --надпись: 128px; }
    =========================================================================== */
 
 @media print {
+  /* Печатают отсюда прайс, шпаргалку мастера и карточку услуги — то есть
+     листы, которые потом лежат в студии. Раньше правил было два: спрятать
+     шапку и сделать фон белым у body. Секции со своим тёмным фоном при этом
+     оставались тёмными: принтер заливал лист краской, а светлый текст на нём
+     местами не пропечатывался вовсе. */
+
   .site-header,
   .hero__scroll,
   .marquee,
   .scroll-progress-bar,
   .mobile-bar,
-  .page-veil { display: none !important; }
+  .page-veil,
+  .tex,
+  .powder,
+  .page-grain,
+  .site-footer nav { display: none !important; }
 
   body { background: #fff; color: #000; }
-}
 
+  /* Любой собственный фон на бумаге не нужен: краска тратится, а читаемость
+     падает. Рамки оставляем — по ним видно границы блоков. */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: #000 !important;
+  }
+
+  a { text-decoration: underline; }
+
+  /* Адрес ссылки на бумаге не виден — дописываем его рядом.
+     Внутренние якоря пропускаем: «#ceny» на листе только мешает. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+
+  /* Блоки не разрываются между листами: цена отдельно от названия услуги
+     на бумаге читается как ошибка. */
+  .usluga,
+  .guarantee__item,
+  .price-row,
+  figure,
+  table { break-inside: avoid; }
+
+  img { max-width: 100% !important; }
+}
 
 /* ===========================================================================
    ГАРАНТИИ
@@ -1619,7 +1631,6 @@ body.has-scrolled .header-logo { --знак: 50px; --надпись: 128px; }
 @media (max-width: 900px) {
   .guarantee { grid-template-columns: 1fr; }
 }
-
 
 /* ===========================================================================
    СРАВНЕНИЕ ПРОЦЕДУР
