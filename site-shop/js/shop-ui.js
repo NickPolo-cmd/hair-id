@@ -88,8 +88,10 @@
       // сворачивания крестиком скринридер продолжит объявлять «развёрнуто».
       var toggle = document.getElementById('cart-toggle');
       if (toggle) toggle.setAttribute('aria-expanded', 'false');
-      // Панель вернётся, как только человек добавит следующую позицию
-      window.setTimeout(function () { panel.classList.add('is-dismissed'); }, 600);
+      // Признак «закрыл человек» ставим сразу, а не через задержку: пересчёт
+      // заказа может случиться раньше 600 мс (например, от выбора объёма),
+      // и панель успевала выехать обратно.
+      panel.classList.add('is-dismissed');
     });
 
     document.addEventListener('click', function (e) {
@@ -100,11 +102,15 @@
   }
 
   function initFaqSync() {
-    document.querySelectorAll('details').forEach(function (d) {
-      d.addEventListener('toggle', function () {
-        if (window.HairIDMotion) window.HairIDMotion.refresh();
-      });
-    });
+    // Один слушатель на документ вместо обработчика на каждую раскрывашку:
+    // сетка каталога перерисовывается целиком при смене задачи, и подписанные
+    // <details> исчезают вместе с обработчиками, а новые их не получают.
+    // Событие toggle не всплывает, поэтому слушаем в фазе перехвата.
+    document.addEventListener('toggle', function (e) {
+      if (e.target && e.target.tagName === 'DETAILS') {
+        if (window.HairIDMotion && window.HairIDMotion.refresh) window.HairIDMotion.refresh();
+      }
+    }, true);
   }
 
   function init() {

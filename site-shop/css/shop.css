@@ -456,15 +456,6 @@
   white-space: nowrap;
 }
 
-/* Объём в строке заказа: раньше он был виден только в тексте сообщения,
-   и проверить свой выбор до отправки было негде. */
-.cart-item__name i {
-  display: block;
-  font-style: normal;
-  font-size: var(--fs-caption);
-  color: var(--c-text-muted);
-}
-
 .product__more { margin-top: var(--space-2); }
 
 .product__more summary {
@@ -777,8 +768,10 @@
   font-size: var(--fs-small);
 }
 
-/* Набор — одна позиция. Под названием мелко перечисляем, что внутри,
-   иначе «Набор „После кератина“» выглядит как кот в мешке. */
+/* Под названием позиции — мелкая строка: у набора перечень того, что внутри
+   (иначе «Набор „После кератина“» выглядит как кот в мешке), у товара —
+   выбранный объём. Раньше объём был виден только в тексте сообщения,
+   и проверить свой выбор до отправки было негде. */
 .cart-item__name i {
   display: block;
   margin-top: 2px;
@@ -788,6 +781,23 @@
 }
 
 .cart-item--set .cart-item__name { color: var(--gold-300); }
+
+/* Запасное поле с текстом заказа: показывается, только когда буфер обмена
+   недоступен (http, старый браузер, отказ в разрешении). Иначе человек уходил
+   в мессенджер с пустым чатом и подписью «скопируйте вручную». */
+.cart-fallback {
+  width: 100%;
+  min-height: 120px;
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--cream-100);
+  color: var(--green-900);
+  font: inherit;
+  font-size: var(--fs-small);
+  resize: vertical;
+}
 
 .cart-item__qty { display: flex; align-items: center; gap: var(--space-2); }
 
