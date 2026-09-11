@@ -137,6 +137,14 @@ td{height:8.4mm;border-bottom:.2mm dotted var(--cream-3);padding:0 1mm;vertical-
 
 .rule{height:.4mm;background:var(--gradient-rule);margin:3mm 0;opacity:.75}
 
+/* Ссылки в пояснении к печати были ростом 19 px — пальцем не попасть.
+   Поля растят зону нажатия до 45 px и ничего не двигают: у строчного
+   элемента вертикальные поля не меняют строку. Ширину карточки не трогаем:
+   это макет A6, он обязан выглядеть так, как выйдет из принтера. */
+@media (pointer: coarse){
+  p a, li a, td a, .card-link a{padding-block:13px}
+}
+
 @media print{
   @page{size:A4;margin:10mm}
   body{background:#fff;padding:0}

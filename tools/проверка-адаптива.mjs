@@ -90,8 +90,26 @@ for (const экран of ЭКРАНЫ) {
         // 4. Зоны нажатия меньше 44×44 — палец не попадает
         if (мобильный) {
           итог.мелкиеНажатия = [];
+
+          // Настоящая зона нажатия не всегда равна рамке самого элемента.
+          // В карточках проекта ссылка растянута невидимым слоем ::after
+          // на всю карточку — нажимается карточка целиком, а подпись внизу
+          // это лишь её видимая часть. Меряя подпись, проверка находила
+          // «мелкое нажатие» там, где палец попадает по области 300×400.
+          // Поэтому: если у элемента есть растянутый на всю карточку слой,
+          // берём рамку карточки, а не подписи.
+          const зонаНажатия = (э) => {
+            const своя = э.getBoundingClientRect();
+            const слой = getComputedStyle(э, '::after');
+            const растянут = слой.content !== 'none' && слой.position === 'absolute' &&
+              ['top', 'right', 'bottom', 'left'].every(с => слой[с] === '0px');
+            if (!растянут) return своя;
+            const карточка = э.closest('[data-card-link]') || э.offsetParent;
+            return карточка ? карточка.getBoundingClientRect() : своя;
+          };
+
           document.querySelectorAll('a, button, [role="button"], input, select, summary').forEach(э => {
-            const р = э.getBoundingClientRect();
+            const р = зонаНажатия(э);
             if (р.width === 0 || р.height === 0) return;
             if (getComputedStyle(э).visibility === 'hidden') return;
             if (р.width < 40 || р.height < 40) {
@@ -138,10 +156,25 @@ for (const экран of ЭКРАНЫ) {
           const hero = document.querySelector('.hero');
           if (!hero) return 'нет первого экрана';
           const путь = Math.max(1, hero.offsetHeight * 0.34);
+          // Ждём не «столько-то миллисекунд», а самого события посадки.
+          // Фиксированные 850 мс однажды дали ложную тревогу: на последней
+          // из 64 проверок машина была занята, перелёт не успел завершиться,
+          // и отчёт показал промах в 287 px там, где три отдельных прогона
+          // подряд дали ноль. Ждать признак — надёжнее, чем ждать время.
+          const ждатьПосадку = async (мс) => {
+            const до = Date.now() + мс;
+            while (Date.now() < до) {
+              if (document.body.classList.contains('is-logo-docked')) return true;
+              await пауза(50);
+            }
+            return false;
+          };
+
           const кадры = [];
           for (const доля of [0, 0.5, 1.25]) {
             window.scrollTo(0, Math.round(путь * доля));
             await пауза(850);
+            if (доля === 1.25) await ждатьПосадку(2500);
             кадры.push({
               прокрутка: Math.round(window.scrollY),
               знак: рамка('.brandmark--sign'), надпись: рамка('.brandmark--word'),
