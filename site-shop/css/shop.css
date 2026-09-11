@@ -426,6 +426,45 @@
 .product__after a:hover,
 .product__after a:focus-visible { color: var(--c-accent-hover); }
 
+/* Три цены по объёмам — решение владельца: человек сразу видит, за что
+   платит, и не считает в уме. Показывается только там, где объёмов больше
+   одного; у остальных товаров цена одна и списка нет. */
+.product__prices {
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+  font-size: var(--fs-small);
+}
+
+.product__prices li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: 2px;
+  color: var(--c-text-muted);
+  border-bottom: 1px dotted var(--c-border);
+}
+
+.product__prices li:last-child { border-bottom: 0; }
+
+.product__prices b {
+  color: var(--c-text);
+  font-weight: var(--fw-semibold);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Объём в строке заказа: раньше он был виден только в тексте сообщения,
+   и проверить свой выбор до отправки было негде. */
+.cart-item__name i {
+  display: block;
+  font-style: normal;
+  font-size: var(--fs-caption);
+  color: var(--c-text-muted);
+}
+
 .product__more { margin-top: var(--space-2); }
 
 .product__more summary {

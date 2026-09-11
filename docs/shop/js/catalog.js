@@ -18,6 +18,29 @@
 
   var PHONE = '79944269944';
 
+  // Карточки собираются склейкой строк, а данные товаров приходят из файла,
+  // который собирает бот из сообщений. Одна двойная кавычка в названии — и
+  // атрибут рвётся, карточка съезжает; чужой тег — и это уже исполнение
+  // чужого кода на странице. Поэтому всё, что идёт в разметку, проходит здесь.
+  function экр(значение) {
+    return String(значение === null || значение === undefined ? '' : значение)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Адреса проверяем отдельно: экранирование не спасает от «javascript:».
+  // Пропускаем только обычные ссылки и пути внутри сайта.
+  function адрес(значение) {
+    var у = String(значение || '').trim();
+    if (/^(https?:|mailto:|tel:|#|\/|[\w.\-]+\/)/i.test(у) || /^[\w.\-]+\.(jpg|jpeg|png|webp|svg|gif)$/i.test(у)) {
+      return экр(у);
+    }
+    return '';
+  }
+
   // ---------------------------------------------------------------------------
   // Товары
   //
@@ -308,6 +331,9 @@
         subtitle: t.subtitle || t.volume || '',
         task: t.task && t.task.length ? t.task : ['dry'],
         price: t.price,
+        // Цены по объёмам: без этой строки список цен и пересчёт в заказе
+        // не работали — поле просто не доезжало до карточки.
+        prices: t.prices || null,
         volume: t.volume || '',
         photo: t.photo,
         forWhom: t.forWhom || '',
@@ -344,9 +370,27 @@
     });
   }
 
+  // Цена зависит от выбранного объёма. Без этого человек выбирал 738 мл,
+  // а в заказ уходила цена флакона 318 мл — разницу пришлось бы доплачивать
+  // при встрече, ровно то, чего бренд обещает не делать.
+  // prices — список цен в том же порядке, что и объёмы в поле volume.
+  function priceFor(p) {
+    if (!p) return null;
+    var volumes = volumeList(p);
+    var chosen = chosenVol[p.id];
+    if (p.prices && p.prices.length && volumes.length) {
+      var i = volumes.indexOf(chosen);
+      // Объём ещё не выбран — показываем цену самого маленького флакона,
+      // и подпись «от» рядом говорит, что это нижняя граница.
+      if (i === -1) i = 0;
+      if (p.prices[i] !== undefined && p.prices[i] !== null) return p.prices[i];
+    }
+    return p.price;
+  }
+
   function lineById(id) {
     var p = byId(id);
-    if (p) return { title: p.title, note: chosenVol[p.id] || p.volume, price: p.price, kind: 'product' };
+    if (p) return { title: p.title, note: chosenVol[p.id] || p.volume, price: priceFor(p), kind: 'product' };
 
     var s = setById(id);
     if (!s) return null;
@@ -389,7 +433,6 @@
       // Смена задачи меняет только это число и сетку ниже. Без живой области
       // человек со скринридером нажимает чип и не узнаёт, сколько средств
       // осталось, — приходится вручную пересчитывать карточки.
-      counter.setAttribute('role', 'status');
       counter.textContent = list.length + ' ' +
         (list.length % 10 === 1 && list.length % 100 !== 11 ? 'средство'
           : list.length % 10 >= 2 && list.length % 10 <= 4 && (list.length % 100 < 10 || list.length % 100 >= 20) ? 'средства'
@@ -404,22 +447,23 @@
     box.innerHTML = list.map(function (p) {
       var inCart = cart[p.id] ? ' is-in-cart' : '';
       return '' +
-      '<article class="product' + inCart + '" id="' + p.id + '" data-product="' + p.id + '" data-card-link>' +
-        '<div class="product__media"><img src="' + p.photo + '" alt="' + p.title + '" loading="lazy"></div>' +
+      '<article class="product' + inCart + '" id="' + экр(p.id) + '" data-product="' + экр(p.id) + '" data-card-link>' +
+        '<div class="product__media"><img src="' + адрес(p.photo) + '" alt="' + экр(p.title) + '" width="800" height="600" loading="lazy"></div>' +
         '<div class="product__body">' +
-          '<h3>' + p.title + '</h3>' +
-          '<p class="product__subtitle">' + p.subtitle + '</p>' +
+          '<h3>' + экр(p.title) + '</h3>' +
+          '<p class="product__subtitle">' + экр(p.subtitle) + '</p>' +
           // Пустое «Кому» не печатаем совсем: строка «Кому: Шампунь OLORCHEE»
           // выглядела как главный продающий текст карточки, а смысла в ней ноль.
-          (p.forWhom ? '<p class="product__for"><b>Кому:</b> ' + p.forWhom + '</p>' : '') +
-          (p.notFor && p.notFor !== '—' ? '<p class="product__notfor"><b>Кому не подойдёт:</b> ' + p.notFor + '</p>' : '') +
+          (p.forWhom ? '<p class="product__for"><b>Кому:</b> ' + экр(p.forWhom) + '</p>' : '') +
+          (p.notFor && p.notFor !== '—' ? '<p class="product__notfor"><b>Кому не подойдёт:</b> ' + экр(p.notFor) + '</p>' : '') +
           afterProcedure(p) +
+          priceList(p) +
           '<details class="product__more"><summary>Почему это работает</summary>' +
-            '<p>' + p.why + '</p><p><b>Как пользоваться.</b> ' + p.how + '</p>' +
+            '<p>' + экр(p.why) + '</p><p><b>Как пользоваться.</b> ' + экр(p.how) + '</p>' +
           '</details>' +
           '<div class="product__foot">' +
             '<span class="product__price">' + money(p.price) + volumeField(p) + '</span>' +
-            '<button type="button" class="product__add" data-add="' + p.id + '">' +
+            '<button type="button" class="product__add" data-add="' + экр(p.id) + '">' +
               (cart[p.id] ? 'В заказе' : 'В заказ') +
             '</button>' +
           '</div>' +
@@ -445,7 +489,7 @@
     var ссылки = список.map(function (у) {
       // target="_blank": студия — отдельный сайт, и уводить человека из
       // каталога с набранным заказом нельзя, корзина живёт на этой вкладке.
-      return '<a href="' + у.адрес + '" target="_blank" rel="noopener">' + у.имя + '</a>';
+      return '<a href="' + адрес(у.адрес) + '" target="_blank" rel="noopener">' + экр(у.имя) + '</a>';
     }).join(', ');
 
     return '<p class="product__after"><b>Советую после:</b> ' + ссылки + '</p>';
@@ -454,14 +498,27 @@
   // Объём в карточке. Когда в данных объёмов несколько, вместо строки
   // «318 / 518 / 738 мл» печатаем выбор: иначе выбрать нужный флакон негде,
   // и мастер переспрашивает по каждой такой позиции.
+  // Список «объём — цена» под ценой в карточке. Владелец выбрал показывать
+  // все три цены, а не одну со словом «от»: так человек сразу видит, за что
+  // платит, и не считает в уме.
+  function priceList(p) {
+    var volumes = volumeList(p);
+    if (!p.prices || !p.prices.length || volumes.length < 2) return '';
+    var строки = volumes.map(function (v, i) {
+      var ц = p.prices[i];
+      return '<li><span>' + экр(v) + '</span><b>' + (ц ? money(ц) : 'по запросу') + '</b></li>';
+    }).join('');
+    return '<ul class="product__prices">' + строки + '</ul>';
+  }
+
   function volumeField(p) {
     var volumes = volumeList(p);
-    if (!volumes.length) return '<i>' + p.volume + '</i>';
+    if (!volumes.length) return '<i>' + экр(p.volume) + '</i>';
 
-    return '<select class="product__vol" data-vol="' + p.id + '" aria-label="Объём — ' + p.title + '">' +
+    return '<select class="product__vol" data-vol="' + экр(p.id) + '" aria-label="Объём — ' + экр(p.title) + '">' +
              '<option value="">Объём — выберите</option>' +
              volumes.map(function (v) {
-               return '<option value="' + v + '"' + (chosenVol[p.id] === v ? ' selected' : '') + '>' + v + '</option>';
+               return '<option value="' + экр(v) + '"' + (chosenVol[p.id] === v ? ' selected' : '') + '>' + экр(v) + '</option>';
              }).join('') +
            '</select>';
   }
@@ -474,11 +531,11 @@
       var names = s.items.map(function (id) { var p = byId(id); return p ? p.title : ''; }).filter(Boolean);
       return '' +
       '<article class="set" data-reveal="up" data-card-link>' +
-        '<div class="set__media"><img src="' + s.photo + '" alt="' + s.title + '" loading="lazy"></div>' +
+        '<div class="set__media"><img src="' + адрес(s.photo) + '" alt="' + экр(s.title) + '" width="800" height="600" loading="lazy"></div>' +
         '<div class="set__body">' +
           '<h3>' + s.title + '</h3>' +
           '<p class="set__why">' + s.why + '</p>' +
-          '<ul class="set__items">' + names.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ul>' +
+          '<ul class="set__items">' + names.map(function (n) { return '<li>' + экр(n) + '</li>'; }).join('') + '</ul>' +
           '<div class="set__foot">' +
             '<span class="set__price">' + money(s.price) + (s.old ? '<s>' + money(s.old) + '</s>' : '') + '</span>' +
             '<button type="button" class="set__add" data-add-set="' + s.id + '">В заказ</button>' +
@@ -505,14 +562,14 @@
   function cartTotal() {
     return Object.keys(cart).reduce(function (sum, k) {
       var line = lineById(k);
-      return sum + (line && line.price ? line.price * cart[k] : 0);
+      return sum + (line && line.price != null ? line.price * cart[k] : 0);
     }, 0);
   }
 
   function hasUnpriced() {
     return Object.keys(cart).some(function (k) {
       var line = lineById(k);
-      return !line || !line.price;
+      return !line || line.price == null;
     });
   }
 
@@ -554,15 +611,18 @@
         var line = lineById(id);
         if (!line) return '';
         return '<li class="cart-item' + (line.kind === 'set' ? ' cart-item--set' : '') + '">' +
-                 '<span class="cart-item__name">' + line.title +
-                   (line.kind === 'set' ? '<i>' + line.note + '</i>' : '') +
+                 '<span class="cart-item__name">' + экр(line.title) +
+                   // Объём показываем и у товара: раньше он был виден только
+                   // в тексте сообщения, и проверить свой выбор до отправки
+                   // было негде.
+                   (line.note ? '<i>' + экр(line.note) + '</i>' : '') +
                  '</span>' +
                  '<span class="cart-item__qty">' +
                    '<button type="button" data-dec="' + id + '" aria-label="Убрать одну штуку">−</button>' +
                    '<b>' + cart[id] + '</b>' +
                    '<button type="button" data-inc="' + id + '" aria-label="Добавить одну штуку">+</button>' +
                  '</span>' +
-                 '<span class="cart-item__sum">' + (line.price ? money(line.price * cart[id]) : 'по запросу') + '</span>' +
+                 '<span class="cart-item__sum">' + (line.price != null ? money(line.price * cart[id]) : 'по запросу') + '</span>' +
                '</li>';
       }).join('');
     }
@@ -630,7 +690,7 @@
       var note = line.note ? ' (' + line.note + (manyVolumes ? ', объём уточню' : '') + ')' : '';
 
       lines.push('— ' + line.title + note + ' × ' + cart[id] +
-                 ' = ' + (line.price ? money(line.price * cart[id]) : 'цену уточню'));
+                 ' = ' + (line.price != null ? money(line.price * cart[id]) : 'цену уточню'));
     });
 
     lines.push('');
@@ -642,7 +702,9 @@
   }
 
   function add(id, qty) {
-    cart[id] = (cart[id] || 0) + (qty || 1);
+    // Тот же потолок, что и при чтении из хранилища: иначе заказ на 120 штук
+    // после перезагрузки молча превращался в 99.
+    cart[id] = Math.min((cart[id] || 0) + (qty || 1), 99);
     if (cart[id] < 1) delete cart[id];
     saveCart();
     renderCart();
