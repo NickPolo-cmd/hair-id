@@ -74,11 +74,59 @@
     container.querySelectorAll(selector).forEach(function (b) {
       b.classList.remove('is-active');
       b.setAttribute('aria-checked', 'false');
+      // Внутри группы вариантов клавиша Tab должна заходить один раз,
+      // а не обходить каждую кнопку. Иначе, чтобы добраться от дней
+      // до поля «имя», человек с клавиатуры жмёт Tab двадцать два раза:
+      // четырнадцать дней и восемь окошек времени.
+      b.setAttribute('tabindex', '-1');
     });
     el.classList.add('is-active');
     el.setAttribute('aria-checked', 'true');
+    el.setAttribute('tabindex', '0');
     state[key] = el.getAttribute('data-' + key);
     render();
+  }
+
+  // Стрелки внутри группы вариантов.
+  //
+  // Раз Tab заходит в группу один раз, ходить по ней должны стрелки —
+  // так устроены все группы выбора в браузере, и человек, который
+  // пользуется клавиатурой, ждёт именно этого. Home и End — к первому
+  // и последнему дню.
+  function ходитьСтрелками(container, selector, key) {
+    if (!container) return;
+    container.addEventListener('keydown', function (e) {
+      var кнопки = Array.prototype.slice.call(container.querySelectorAll(selector));
+      if (!кнопки.length) return;
+      var текущая = document.activeElement;
+      var i = кнопки.indexOf(текущая);
+      if (i === -1) return;
+
+      var к = e.key;
+      var новый = null;
+      if (к === 'ArrowRight' || к === 'ArrowDown') новый = (i + 1) % кнопки.length;
+      else if (к === 'ArrowLeft' || к === 'ArrowUp') новый = (i - 1 + кнопки.length) % кнопки.length;
+      else if (к === 'Home') новый = 0;
+      else if (к === 'End') новый = кнопки.length - 1;
+      else return;
+
+      e.preventDefault();
+      // Перемещение сразу выбирает вариант — так работает обычная группа
+      // радио-кнопок: человек слышит название дня и понимает, что выбрал его.
+      pickOne(container, selector, кнопки[новый], key);
+      кнопки[новый].focus();
+    });
+  }
+
+  // Первая кнопка группы должна быть достижима клавишей Tab до того,
+  // как что-то выбрано, иначе в группу вообще не попасть.
+  function открытьГруппу(container, selector) {
+    if (!container) return;
+    var кнопки = container.querySelectorAll(selector);
+    if (!кнопки.length) return;
+    var выбранная = container.querySelector(selector + '.is-active');
+    Array.prototype.forEach.call(кнопки, function (b) { b.setAttribute('tabindex', '-1'); });
+    (выбранная || кнопки[0]).setAttribute('tabindex', '0');
   }
 
   function initChoice() {
@@ -95,6 +143,11 @@
         if (b) pickOne(slotsBox, '.booking-slot', b, 'slot');
       });
     }
+
+    ходитьСтрелками(daysBox, '.booking-day', 'day');
+    ходитьСтрелками(slotsBox, '.booking-slot', 'slot');
+    открытьГруппу(daysBox, '.booking-day');
+    открытьГруппу(slotsBox, '.booking-slot');
 
     form.addEventListener('input', readFields);
     form.addEventListener('change', readFields);
