@@ -216,27 +216,6 @@
      5. Морфинг логотипа
      ------------------------------------------------------------------------- */
 
-  [data-logo-hero] {
-    --logo-scale: 1;
-    --logo-progress: 0;
-    transform: scale(var(--logo-scale));
-    transform-origin: center top;
-    will-change: transform;
-  }
-
-  body.is-logo-docked [data-logo-hero] {
-    opacity: 0;
-    transition: opacity 0.25s var(--ease-out-soft);
-  }
-
-  .has-motion body.has-hero-logo [data-logo-header] {
-    opacity: 0;
-    transition: opacity 0.35s var(--ease-out-soft);
-  }
-
-  body.is-logo-docked [data-logo-header],
-  body.has-scrolled-full [data-logo-header] { opacity: 1; }
-
   /* -------------------------------------------------------------------------
      6. Подсказка «листайте»
      ------------------------------------------------------------------------- */
