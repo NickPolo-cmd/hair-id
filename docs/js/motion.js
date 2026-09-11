@@ -26,6 +26,31 @@
   // ---------------------------------------------------------------------------
 
   var CONFIG = {
+    // Самодельная инерционная прокрутка ВЫКЛЮЧЕНА. Не «пока», а по замерам.
+    //
+    // Как она работала: колесо перехватывалось, e.preventDefault() отменял
+    // нативную прокрутку, а страница двигалась вручную — window.scrollTo
+    // на каждом кадре с плавным подтягиванием к цели. Рядом стояла защита:
+    // если реальная позиция разошлась с ожидаемой больше чем на 2 px,
+    // движок резко приравнивал цель к реальной позиции.
+    //
+    // Пока кадры укладывались в 16 мс, это выглядело мягко. Но на главной
+    // при 15 фактурах и 9 слоях частиц кадр занимал 45–52 мс (замер
+    // профилировщиком, прокрутка колесом: худший кадр 167 мс). На таком
+    // темпе браузер успевает прокрутить страницу между кадрами, срабатывает
+    // защита, позиция скачком возвращается назад — и следующий кадр тянет
+    // её обратно вперёд. Владелец описал это дословно: «зависает и куда-то
+    // перепрыгивает вверх, потом вниз».
+    //
+    // Нативная прокрутка на macOS и так инерционная и живёт в отдельном
+    // потоке композитора: её невозможно затормозить джаваскриптом. Поэтому
+    // прокрутку отдаём браузеру. Разбор основателя (03-РАЗБОР-ОСНОВАТЕЛЯ.md)
+    // уже относил этот движок к переинвестированию и советовал не развивать.
+    //
+    // Вернуть можно одной строкой: плавнаяПрокрутка: true. Но сначала
+    // добейтесь кадра меньше 16 мс, иначе вернётся та же болезнь.
+    плавнаяПрокрутка: false,
+
     scrollEase: 0.11,          // инерция: меньше — тягучее
     wheelMultiplier: 1,        // чувствительность колеса
     smoothMinWidth: 1024,      // ниже — нативная прокрутка
@@ -101,7 +126,8 @@
   }
 
   function updateSmoothState() {
-    var should = !reduced && finePointer && window.innerWidth >= CONFIG.smoothMinWidth;
+    var should = CONFIG.плавнаяПрокрутка &&
+      !reduced && finePointer && window.innerWidth >= CONFIG.smoothMinWidth;
     if (should === smoothEnabled) return;
     smoothEnabled = should;
     body.classList.toggle('is-smooth-scroll', smoothEnabled);
@@ -258,12 +284,51 @@
     parallaxItems = [];
     if (reduced) return;
     document.querySelectorAll('[data-parallax]').forEach(function (el) {
+      // Переход на transform снимается принудительно.
+      //
+      // На этих картинках в CSS стоит transition на transform (0,45–1 с),
+      // а у части — вообще transition: all. Параллакс пишет transform
+      // на каждом кадре, и каждая запись запускала НОВЫЙ переход: браузер
+      // пересчитывал анимацию по шестьдесят раз в секунду поверх самой себя.
+      // Замер профилировщиком на главной: updateParallax съедала 596 мс
+      // из 2 495 мс прокрутки — почти четверть, при девяти элементах.
+      // Плюс движение выглядело вязким: сдвиг догонял цель с задержкой.
+      //
+      // Оставляем opacity — на нём держится плавное появление картинок
+      // (.is-loaded и data-reveal). Убираем только transform.
+      el.style.transitionProperty = 'opacity';
+
       parallaxItems.push({
         el: el,
         strength: num(el.getAttribute('data-parallax'), 0.12),
         axis: el.getAttribute('data-parallax-axis') === 'x' ? 'x' : 'y',
-        записано: ''   // последняя записанная строка transform, см. updateParallax
+        записано: '',  // последняя записанная строка transform, см. updateParallax
+        docTop: 0,     // место в документе, снимается measureParallax
+        height: 0
       });
+    });
+    measureParallax();
+  }
+
+  // Место каждого элемента в документе снимается ОДИН раз, а не на каждом кадре.
+  //
+  // Замер профилировщиком на главной студии (1440x900, 24 элемента с параллаксом):
+  // getBoundingClientRect съедал 624 мс из 2 491 мс — четверть всего времени
+  // прокрутки. Причина не в самом вызове, а в том, что страница большая:
+  // каждый запрос рамки заставляет браузер посчитать раскладку целиком,
+  // и таких запросов было двадцать четыре на кадр.
+  //
+  // Положение элемента относительно экрана считается из одного числа —
+  // window.scrollY, — а оно и так известно. Пересъёмка нужна только когда
+  // раскладка действительно поменялась: поворот экрана, изменение размера,
+  // догрузка шрифта или новая фактура (её добавляет texture.js и сам зовёт refresh).
+  function measureParallax() {
+    if (!parallaxItems.length) return;
+    var сдвиг = window.scrollY || window.pageYOffset || 0;
+    parallaxItems.forEach(function (item) {
+      var r = item.el.getBoundingClientRect();
+      item.docTop = r.top + сдвиг;
+      item.height = r.height;
     });
   }
 
@@ -277,16 +342,16 @@
   function updateParallax() {
     if (!parallaxItems.length) return;
     var vh = window.innerHeight;
+    var сдвиг = window.scrollY || window.pageYOffset || 0;
 
-    var рамки = parallaxItems.map(function (item) {
-      return item.el.getBoundingClientRect();
-    });
+    parallaxItems.forEach(function (item) {
+      // Ни одного обращения к раскладке: положение считается из запомненного
+      // места в документе и текущей прокрутки.
+      var top = item.docTop - сдвиг;
+      var bottom = top + item.height;
+      if (bottom < -200 || top > vh + 200) return;
 
-    parallaxItems.forEach(function (item, i) {
-      var rect = рамки[i];
-      if (rect.bottom < -200 || rect.top > vh + 200) return;
-
-      var progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+      var progress = (top + item.height / 2 - vh / 2) / vh;
       var shift = (progress * item.strength * 100).toFixed(2);
 
       var стиль = item.axis === 'x'
@@ -301,14 +366,6 @@
       }
     });
   }
-
-  // ---------------------------------------------------------------------------
-  // 6. Бегущая строка
-  //
-  // Дорожка дублируется ровно один раз, дубль помечается aria-hidden,
-  // иначе скринридер прочитает прейскурант дважды.
-  // Скорость = базовая + сглаженная скорость прокрутки, с потолком.
-  // ---------------------------------------------------------------------------
 
   function initMarquee() {
     marquees = [];
@@ -644,7 +701,12 @@
     // Шрифт меняет высоту первого экрана и ширину надписи в шапке,
     // поэтому места посадки снимаются ещё раз, когда шрифт уже применён.
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function () { measureLogoMorph(); });
+      document.fonts.ready.then(function () {
+        measureLogoMorph();
+        // Шрифт меняет высоту блоков, а значит и место каждого элемента
+        // в документе. Раз позиции теперь запоминаются, их надо пересчитать.
+        measureParallax();
+      });
     }
   }
 

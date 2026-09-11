@@ -25,6 +25,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url><loc>https://nickpolo-cmd.github.io/hair-id/diagnostika.html</loc><lastmod>2026-09-10</lastmod><priority>0.9</priority></url>
+  <url><loc>https://nickpolo-cmd.github.io/hair-id/keratin-toksovo.html</loc><lastmod>2026-09-10</lastmod><priority>0.7</priority></url>
+  <url><loc>https://nickpolo-cmd.github.io/hair-id/keratin-leskolovo.html</loc><lastmod>2026-09-10</lastmod><priority>0.7</priority></url>
+  <url><loc>https://nickpolo-cmd.github.io/hair-id/vosstanovlenie-oselki.html</loc><lastmod>2026-09-10</lastmod><priority>0.7</priority></url>
   <url><loc>https://nickpolo-cmd.github.io/hair-id/shop/</loc><lastmod>2026-09-07</lastmod><priority>1.0</priority></url>
   <url>
     <loc>https://nickpolo-cmd.github.io/hair-id/shop/katalog.html</loc>
