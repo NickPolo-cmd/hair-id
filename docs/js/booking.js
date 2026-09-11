@@ -229,6 +229,42 @@
   // человек не ищет нужный пункт в списке из тринадцати позиций.
   // ---------------------------------------------------------------------------
 
+  // Приход со страницы услуг.
+  //
+  // Кнопка «Записаться на эту процедуру» стоит у каждой из двенадцати услуг,
+  // но вела просто на форму — и человек, только что выбравший процедуру,
+  // должен был искать её заново в списке из тринадцати позиций. Теперь
+  // название приезжает в адресе, и форма подставляет его сама.
+  //
+  // Значение берётся из списка формы по точному совпадению: подставить
+  // в сообщение произвольный текст из адреса нельзя, иначе любой сможет
+  // прислать мастеру заказ с чужим содержимым по подсунутой ссылке.
+  function подставитьУслугуИзАдреса() {
+    var м = /[?&]usluga=([^&#]*)/.exec(window.location.search);
+    if (!м) return;
+    var имя;
+    try { имя = decodeURIComponent(м[1].replace(/\+/g, ' ')); } catch (e) { return; }
+
+    var select = document.getElementById('bf-service');
+    if (!select) return;
+
+    var нашлось = Array.prototype.some.call(select.options, function (o) {
+      if (o.value === имя) { select.value = o.value; return true; }
+      return false;
+    });
+    if (!нашлось) return;
+
+    readFields();
+
+    // Подсвечиваем форму — иначе подстановка незаметна: человек приехал
+    // на якорь и не понимает, изменилось что-то или нет.
+    var f = document.querySelector('.booking-form');
+    if (f) {
+      f.classList.add('is-highlighted');
+      window.setTimeout(function () { f.classList.remove('is-highlighted'); }, 1400);
+    }
+  }
+
   function initServiceButtons() {
     document.querySelectorAll('[data-book]').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -271,6 +307,7 @@
     initMax();
     initTelegram();
     initServiceButtons();
+    подставитьУслугуИзАдреса();
     readFields();
 
     // Высота страницы изменилась после отрисовки дней
