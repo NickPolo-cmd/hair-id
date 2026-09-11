@@ -130,7 +130,10 @@ td b{font-weight:600}
   td{overflow-wrap:anywhere}
 }
 @media (pointer: coarse){
-  p a, li a, td a, .card-link a{padding-block:13px}
+  /* 15 px, а не 13: у подписи в блоке порядка визита кегль мельче,
+     и 13 px давали 41 px вместо нормы 44. */
+  p a, li a, td a{padding-block:13px}
+  .card-link a{padding-block:15px}
 }
 
 @media print{
@@ -225,7 +228,6 @@ td b{font-weight:600}
   файла, поэтому разойтись не могут. Порядок разговора прежний: сначала то, что видно
   на волосах, потом одно-два средства. <b>Нечего рекомендовать — не рекомендуем ничего.</b></p>
   <!-- /СВЯЗКА-УХОД-ШПАРГАЛКА -->
-
   <h2>Календарь процедур — что после чего</h2>
 
   <table>

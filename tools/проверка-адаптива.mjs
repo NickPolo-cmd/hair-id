@@ -2,8 +2,17 @@
 // три ширины экрана (телефон, планшет, компьютер), все страницы.
 // Что смотрим: ошибки в консоли, горизонтальную прокрутку, битые картинки,
 // мелкие зоны нажатия, перелёт логотипа, налезание элементов друг на друга.
-import { chromium } from '/Users/nick/.local/node/lib/node_modules/playwright/index.mjs';
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Корень считаем от самого файла, как в остальных скриптах проекта:
+// раньше здесь были зашиты абсолютные пути, и переименование папки
+// ломало запись отчёта уже после того, как вся работа сделана.
+const КОРЕНЬ = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+const ПУТЬ_PLAYWRIGHT = process.env.PLAYWRIGHT_MODULE ||
+  '/Users/nick/.local/node/lib/node_modules/playwright/index.mjs';
+const { chromium } = await import(ПУТЬ_PLAYWRIGHT);
 
 const ЭКРАНЫ = [
   { имя: 'телефон',    ширина: 375,  высота: 812,  мобильный: true },
@@ -92,7 +101,10 @@ for (const экран of ЭКРАНЫ) {
           .map(и => и.getAttribute('src'))
           .slice(0, 10);
 
-        // 4. Зоны нажатия меньше 44×44 — палец не попадает
+        // 4. Зоны нажатия меньше нормы — палец не попадает.
+        // Порог одной константой: раньше в комментарии стояло 44,
+        // а в коде 40, и элементы 40–43 px проходили проверку молча.
+        const МИН_НАЖАТИЕ = 44;
         if (мобильный) {
           итог.мелкиеНажатия = [];
 
@@ -117,7 +129,7 @@ for (const экран of ЭКРАНЫ) {
             const р = зонаНажатия(э);
             if (р.width === 0 || р.height === 0) return;
             if (getComputedStyle(э).visibility === 'hidden') return;
-            if (р.width < 40 || р.height < 40) {
+                    if (р.width < МИН_НАЖАТИЕ || р.height < МИН_НАЖАТИЕ) {
               итог.мелкиеНажатия.push({
                 тег: э.tagName.toLowerCase(),
                 текст: (э.textContent || э.getAttribute('aria-label') || '').trim().slice(0, 32),
@@ -131,7 +143,12 @@ for (const экран of ЭКРАНЫ) {
         // 5. Якоря, ведущие в никуда
         итог.мёртвыеЯкоря = [...document.querySelectorAll('a[href^="#"]')]
           .map(a => a.getAttribute('href'))
-          .filter(h => h && h !== '#' && !document.querySelector(h))
+          .filter(h => {
+            if (!h || h === '#') return false;
+            // «#2024» или якорь с пробелом — некорректный селектор,
+            // querySelector бросает исключение и роняет весь замер страницы.
+            try { return !document.querySelector(h); } catch (e) { return true; }
+          })
           .slice(0, 10);
 
         // 6. Логотип в шапке: помещается ли и не налезает ли на соседа
@@ -208,7 +225,7 @@ for (const экран of ЭКРАНЫ) {
 
 await браузер.close();
 
-fs.writeFileSync('/Users/nick/Desktop/Волосы/tools/отчёт-адаптива.json', JSON.stringify(отчёт, null, 1), 'utf8');
+fs.writeFileSync(path.join(КОРЕНЬ, 'tools', 'отчёт-адаптива.json'), JSON.stringify(отчёт, null, 1), 'utf8');
 
 // Короткая сводка в консоль
 let бед = 0;
@@ -230,3 +247,7 @@ const главная = отчёт.filter(з => з.перелёт);
 console.log('\n=== ПЕРЕЛЁТ ЛОГОТИПА ===');
 for (const г of главная) console.log(г.экран, JSON.stringify({ промахЗнака: г.перелёт.промахЗнака, промахНадписи: г.перелёт.промахНадписи, сел: г.перелёт.кадры?.[2]?.сел }));
 console.log(`\nВсего замечаний: ${бед}. Полный отчёт: tools/отчёт-адаптива.json`);
+
+// Код возврата: без него проверку нельзя поставить в цепочку команд —
+// она завершалась нулём даже когда не открылась ни одна страница.
+process.exit(бед ? 1 : 0);
