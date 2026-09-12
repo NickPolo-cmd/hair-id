@@ -526,7 +526,9 @@
 .guarantee,
 .booking__urgency,
 .compare__note {
-  border-left: 0;
+  /* Была строка border-left: 0 перед общей рамкой — её же следующая строка
+     и перебивала. Осталась от времени, когда у блока была только левая
+     полоска; читающий код каждый раз гадал, зачем она. */
   border: 1px solid color-mix(in srgb, var(--c-accent) 32%, transparent);
   border-radius: var(--radius-lg);
 }
