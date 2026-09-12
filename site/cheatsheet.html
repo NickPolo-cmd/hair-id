@@ -145,6 +145,9 @@ td b{font-weight:600}
   font:inherit;padding:2.5mm 4mm;cursor:pointer;
   background:var(--cream);color:var(--green-700);
   border:.4mm solid var(--cream-3);border-radius:2mm;
+  /* Мастер открывает шпаргалку и с телефона. Кнопка в 39 px по высоте —
+     это меньше нормы для пальца (44 px), берём с запасом 46. */
+  min-height:46px;
 }
 .выбор-печати button[aria-pressed="true"]{
   background:var(--green-700);color:var(--cream);border-color:var(--green-700);
