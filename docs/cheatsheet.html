@@ -136,15 +136,49 @@ td b{font-weight:600}
   .card-link a{padding-block:15px}
 }
 
+/* Кнопка выбора версии печати. Сама на бумагу не попадает. */
+.выбор-печати{
+  max-width:210mm;margin:0 auto 4mm;display:flex;gap:3mm;align-items:center;
+  font-family:'Manrope',sans-serif;font-size:9pt;color:var(--green-500);
+}
+.выбор-печати button{
+  font:inherit;padding:2.5mm 4mm;cursor:pointer;
+  background:var(--cream);color:var(--green-700);
+  border:.4mm solid var(--cream-3);border-radius:2mm;
+}
+.выбор-печати button[aria-pressed="true"]{
+  background:var(--green-700);color:var(--cream);border-color:var(--green-700);
+}
+
+/* Чёрно-белая версия. Блок «чего никогда не делаем» на цветном принтере
+   выделен заливкой, а на обычном чёрно-белом та же заливка съедает картридж
+   и делает золотой текст серым. Здесь он остаётся заметным за счёт рамки. */
+body.чб .never{
+  background:#fff;color:#111;border:.7mm solid #111;
+}
+body.чб .never h3{color:#111}
+body.чб .never i{color:#111;font-weight:700}
+
 @media print{
   @page{size:A4;margin:0}
   body{background:#fff;padding:0}
   .page{box-shadow:none;margin:0;width:auto;min-height:auto}
   .hint{display:none}
+  .выбор-печати{display:none}
 }
 </style>
 </head>
 <body>
+
+<!-- Выбор версии перед печатью. Лист печатают редко, а принтеры у всех
+     разные: на цветном выделенный блок работает как задумано, на обычном
+     чёрно-белом та же заливка только мешает. Выбор запоминается в браузере,
+     чтобы не переключать каждый раз. -->
+<div class="выбор-печати">
+  <span>Версия для печати:</span>
+  <button type="button" id="версия-цвет" aria-pressed="true">Цветная</button>
+  <button type="button" id="версия-чб" aria-pressed="false">Чёрно-белая</button>
+</div>
 
 <div class="page">
 
@@ -294,5 +328,30 @@ td b{font-weight:600}
 
 </div>
 
+
+<script>
+(function () {
+  'use strict';
+  var цвет = document.getElementById('версия-цвет');
+  var чб = document.getElementById('версия-чб');
+  if (!цвет || !чб) return;
+
+  function поставить(включить, запомнить) {
+    document.body.classList.toggle('чб', включить);
+    цвет.setAttribute('aria-pressed', String(!включить));
+    чб.setAttribute('aria-pressed', String(включить));
+    // Хранилище может быть недоступно (режим инкогнито, запрет данных
+    // сайта) — тогда выбор просто не запомнится, но кнопки работают.
+    if (запомнить) { try { localStorage.setItem('hairid-печать-чб', включить ? '1' : '0'); } catch (e) {} }
+  }
+
+  var сохранено = null;
+  try { сохранено = localStorage.getItem('hairid-печать-чб'); } catch (e) {}
+  поставить(сохранено === '1', false);
+
+  цвет.addEventListener('click', function () { поставить(false, true); });
+  чб.addEventListener('click', function () { поставить(true, true); });
+})();
+</script>
 </body>
 </html>
